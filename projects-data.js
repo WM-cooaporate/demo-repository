@@ -3,7 +3,7 @@ const projects = [
     {
         id: "meta-ai",
 
-        title: "Meta AI Website",
+        title: "Meta Sense Website",
 
         type: "Web Development",
 
