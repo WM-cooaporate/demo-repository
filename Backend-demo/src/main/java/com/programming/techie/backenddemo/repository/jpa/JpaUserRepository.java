@@ -1,9 +1,11 @@
-package com.proj.login.repository.jpa;
+package com.programming.techie.backenddemo.repository.jpa;
 
-import com.proj.login.domain.Emails;
-import com.proj.login.domain.User;
-import com.proj.login.repository.UserRepository;
+
 import java.util.Optional;
+
+import com.programming.techie.backenddemo.domain.Emails;
+import com.programming.techie.backenddemo.domain.User;
+import com.programming.techie.backenddemo.repository.UserRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

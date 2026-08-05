@@ -1,4 +1,4 @@
-package com.proj.login.service;
+package com.programming.techie.backenddemo.service;
 
 /**
  * Base type for every way a login can legitimately fail. Each subclass maps to one

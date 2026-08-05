@@ -1,11 +1,12 @@
-package com.proj.login.service;
+package com.programming.techie.backenddemo.service;
 
-import com.proj.login.domain.Emails;
-import com.proj.login.domain.User;
-import com.proj.login.repository.UserRepository;
-import com.proj.login.security.JwtService;
 import java.time.Duration;
 import java.util.Optional;
+
+import com.programming.techie.backenddemo.domain.Emails;
+import com.programming.techie.backenddemo.domain.User;
+import com.programming.techie.backenddemo.repository.UserRepository;
+import com.programming.techie.backenddemo.security.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;

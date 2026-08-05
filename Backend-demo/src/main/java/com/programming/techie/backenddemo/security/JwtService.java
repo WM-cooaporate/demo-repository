@@ -1,7 +1,7 @@
-package com.proj.login.security;
+package com.programming.techie.backenddemo.security;
 
-import com.proj.login.config.AuthProperties;
-import com.proj.login.domain.User;
+import com.programming.techie.backenddemo.config.AuthProperties;
+import com.programming.techie.backenddemo.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

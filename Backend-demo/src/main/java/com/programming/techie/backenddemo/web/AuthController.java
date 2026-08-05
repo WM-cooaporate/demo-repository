@@ -1,14 +1,10 @@
-package com.proj.login.web;
+package com.programming.techie.backenddemo.web;
 
-import com.proj.login.domain.User;
-import com.proj.login.security.AuthenticatedUser;
-import com.proj.login.service.AuthService;
-import com.proj.login.service.PasswordResetService;
-import com.proj.login.web.dto.ForgotPasswordRequest;
-import com.proj.login.web.dto.LoginRequest;
-import com.proj.login.web.dto.LoginResponse;
-import com.proj.login.web.dto.MessageResponse;
-import com.proj.login.web.dto.UserResponse;
+import com.programming.techie.backenddemo.domain.User;
+import com.programming.techie.backenddemo.security.AuthenticatedUser;
+import com.programming.techie.backenddemo.service.AuthService;
+import com.programming.techie.backenddemo.service.PasswordResetService;
+import com.programming.techie.backenddemo.web.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

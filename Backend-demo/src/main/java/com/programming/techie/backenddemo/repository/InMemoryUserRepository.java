@@ -1,13 +1,14 @@
-package com.proj.login.repository;
+package com.programming.techie.backenddemo.repository;
 
-import com.proj.login.config.AuthProperties;
-import com.proj.login.domain.Emails;
-import com.proj.login.domain.User;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.programming.techie.backenddemo.config.AuthProperties;
+import com.programming.techie.backenddemo.domain.Emails;
+import com.programming.techie.backenddemo.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

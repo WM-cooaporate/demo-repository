@@ -1,6 +1,7 @@
-package com.proj.login.repository;
+package com.programming.techie.backenddemo.repository;
 
-import com.proj.login.domain.User;
+import com.programming.techie.backenddemo.domain.User;
+
 import java.util.Optional;
 
 /**

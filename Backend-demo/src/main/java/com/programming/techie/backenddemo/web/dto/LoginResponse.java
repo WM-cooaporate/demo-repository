@@ -1,4 +1,4 @@
-package com.proj.login.web.dto;
+package com.programming.techie.backenddemo.web.dto;
 
 /**
  * Body of a successful login. {@code expiresIn} is in seconds so the app can schedule a
