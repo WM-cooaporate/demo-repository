@@ -1,7 +1,7 @@
-package com.proj.login.security;
+package com.programming.techie.backenddemo.security;
 
-import com.proj.login.domain.User;
-import com.proj.login.repository.UserRepository;
+import com.programming.techie.backenddemo.domain.User;
+import com.programming.techie.backenddemo.repository.UserRepository;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,9 +1,11 @@
-package com.proj.login.web;
+package com.programming.techie.backenddemo.web;
 
-import com.proj.login.service.AuthenticationException;
-import com.proj.login.web.dto.ApiError;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import com.programming.techie.backenddemo.service.AuthenticationException;
+import com.programming.techie.backenddemo.web.dto.ApiError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

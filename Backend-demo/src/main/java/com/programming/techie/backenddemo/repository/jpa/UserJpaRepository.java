@@ -1,4 +1,4 @@
-package com.proj.login.repository.jpa;
+package com.programming.techie.backenddemo.repository.jpa;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

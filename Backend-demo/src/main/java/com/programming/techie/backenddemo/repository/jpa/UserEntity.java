@@ -1,6 +1,6 @@
-package com.proj.login.repository.jpa;
+package com.programming.techie.backenddemo.repository.jpa;
 
-import com.proj.login.domain.User;
+import com.programming.techie.backenddemo.domain.User;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;

@@ -1,9 +1,5 @@
-package com.proj.login.service;
+package com.programming.techie.backenddemo.service;
 
-import com.proj.login.config.AuthProperties;
-import com.proj.login.domain.Emails;
-import com.proj.login.domain.User;
-import com.proj.login.repository.UserRepository;
 import java.security.SecureRandom;
 import java.time.Clock;
 import java.time.Instant;
@@ -11,6 +7,11 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.programming.techie.backenddemo.config.AuthProperties;
+import com.programming.techie.backenddemo.domain.Emails;
+import com.programming.techie.backenddemo.domain.User;
+import com.programming.techie.backenddemo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,8 @@
-package com.proj.login.service;
+package com.programming.techie.backenddemo.service;
 
-import com.proj.login.domain.User;
 import java.time.Instant;
+
+import com.programming.techie.backenddemo.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

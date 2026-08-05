@@ -1,13 +1,14 @@
-package com.proj.login.service;
+package com.programming.techie.backenddemo.service;
 
-import com.proj.login.config.AuthProperties;
-import com.proj.login.domain.Emails;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.programming.techie.backenddemo.config.AuthProperties;
+import com.programming.techie.backenddemo.domain.Emails;
 import org.springframework.stereotype.Service;
 
 /**

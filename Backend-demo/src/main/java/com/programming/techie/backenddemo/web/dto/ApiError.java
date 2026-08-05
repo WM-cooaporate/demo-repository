@@ -1,4 +1,4 @@
-package com.proj.login.web.dto;
+package com.programming.techie.backenddemo.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.Instant;

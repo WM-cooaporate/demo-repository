@@ -1,10 +1,10 @@
-package com.proj.login.config;
+package com.programming.techie.backenddemo.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proj.login.security.JwtAuthenticationFilter;
-import com.proj.login.service.LoggingPasswordResetNotifier;
-import com.proj.login.service.PasswordResetNotifier;
-import com.proj.login.web.dto.ApiError;
+import com.programming.techie.backenddemo.security.JwtAuthenticationFilter;
+import com.programming.techie.backenddemo.service.LoggingPasswordResetNotifier;
+import com.programming.techie.backenddemo.service.PasswordResetNotifier;
+import com.programming.techie.backenddemo.web.dto.ApiError;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.Clock;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

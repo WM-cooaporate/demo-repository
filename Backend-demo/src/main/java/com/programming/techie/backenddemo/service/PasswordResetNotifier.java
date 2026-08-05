@@ -1,6 +1,7 @@
-package com.proj.login.service;
+package com.programming.techie.backenddemo.service;
 
-import com.proj.login.domain.User;
+import com.programming.techie.backenddemo.domain.User;
+
 import java.time.Instant;
 
 /**

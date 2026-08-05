@@ -1,4 +1,4 @@
-package com.proj.login.config;
+package com.programming.techie.backenddemo.config;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;

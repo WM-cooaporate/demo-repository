@@ -1,4 +1,4 @@
-package com.proj.login.security;
+package com.programming.techie.backenddemo.security;
 
 /**
  * Principal placed in the security context once a bearer token has been verified and the

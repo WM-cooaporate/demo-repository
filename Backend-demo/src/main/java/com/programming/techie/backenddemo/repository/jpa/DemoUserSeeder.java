@@ -1,9 +1,12 @@
-package com.proj.login.repository.jpa;
+package com.programming.techie.backenddemo.repository.jpa;
 
-import com.proj.login.config.AuthProperties;
-import com.proj.login.domain.Emails;
+
 import java.util.Set;
 import java.util.UUID;
+
+import com.programming.techie.backenddemo.config.AuthProperties;
+import com.programming.techie.backenddemo.domain.Emails;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationRunner;
@@ -11,7 +14,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Inserts the configured demo account into the database on first start, so a fresh environment

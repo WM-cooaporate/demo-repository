@@ -1,4 +1,4 @@
-package com.proj.login.domain;
+package com.programming.techie.backenddemo.domain;
 
 import java.util.Locale;
 

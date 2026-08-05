@@ -1,6 +1,7 @@
-package com.proj.login.web.dto;
+package com.programming.techie.backenddemo.web.dto;
 
-import com.proj.login.domain.User;
+
+import com.programming.techie.backenddemo.domain.User;
 
 /**
  * The subset of the account the app is allowed to see. Never carries the password hash.
