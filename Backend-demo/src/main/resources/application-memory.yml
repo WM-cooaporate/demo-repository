@@ -1,0 +1,14 @@
+# No-database mode: --spring.profiles.active=memory
+# Accounts live in memory and are lost on restart. Handy for running the Flutter login screen
+# against a backend before a database exists, and used by the fast test suite.
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+
+app:
+  auth:
+    store: memory
