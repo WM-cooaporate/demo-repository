@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wm-cooaporate.github.io/demo-repository/sitemap.xml
