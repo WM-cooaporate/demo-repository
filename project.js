@@ -311,22 +311,17 @@ if (!container) {
 
         <!-- Project Header -->
 
-        <header class="project-details-header">
+<div class="project-details-header">
 
-            <p class="project-type">
-                ${project.type}
-            </p>
+    <p class="project-type">
+        ${project.type}
+    </p>
 
-            <h1>
-                ${project.title}
-            </h1>
+    <h1>
+        ${project.title}
+    </h1>
 
-            <p class="project-description">
-                ${project.description}
-            </p>
-
-        </header>
-
+</div>
 
         <!-- Main Image -->
 
