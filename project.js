@@ -1,24 +1,15 @@
 // =========================
-// Project Details
+// Get Project
 // =========================
 
-const params =
-    new URLSearchParams(window.location.search);
+const params = new URLSearchParams(window.location.search);
+const projectId = params.get("id");
 
-const projectId =
-    params.get("id");
+const project = projects.find(function(item) {
+    return item.id === projectId;
+});
 
-const project =
-    projects.find(function(item) {
-
-        return item.id === projectId;
-
-    });
-
-const container =
-    document.getElementById(
-        "project-details-container"
-    );
+const container = document.getElementById("project-details-container");
 
 
 // =========================
@@ -31,10 +22,7 @@ function updateProjectSEO(project) {
         return;
     }
 
-
-    document.title =
-        project.seoTitle;
-
+    document.title = project.seoTitle;
 
     const canonicalUrl =
         `https://wm-cooaporate.github.io/demo-repository/project.html?id=${project.id}`;
@@ -43,27 +31,19 @@ function updateProjectSEO(project) {
     // Description
 
     let description =
-        document.querySelector(
-            'meta[name="description"]'
-        );
-
+        document.querySelector('meta[name="description"]');
 
     if (!description) {
 
-        description =
-            document.createElement("meta");
+        description = document.createElement("meta");
 
         description.setAttribute(
             "name",
             "description"
         );
 
-        document.head.appendChild(
-            description
-        );
-
+        document.head.appendChild(description);
     }
-
 
     description.setAttribute(
         "content",
@@ -74,27 +54,19 @@ function updateProjectSEO(project) {
     // Canonical
 
     let canonical =
-        document.querySelector(
-            'link[rel="canonical"]'
-        );
-
+        document.querySelector('link[rel="canonical"]');
 
     if (!canonical) {
 
-        canonical =
-            document.createElement("link");
+        canonical = document.createElement("link");
 
         canonical.setAttribute(
             "rel",
             "canonical"
         );
 
-        document.head.appendChild(
-            canonical
-        );
-
+        document.head.appendChild(canonical);
     }
-
 
     canonical.setAttribute(
         "href",
@@ -102,23 +74,17 @@ function updateProjectSEO(project) {
     );
 
 
-    // Open Graph Title
+    // Open Graph
 
     setMetaProperty(
         "og:title",
         project.seoTitle
     );
 
-
-    // Open Graph Description
-
     setMetaProperty(
         "og:description",
         project.seoDescription
     );
-
-
-    // Open Graph URL
 
     setMetaProperty(
         "og:url",
@@ -126,20 +92,16 @@ function updateProjectSEO(project) {
     );
 
 
-    // Open Graph Image
-
     const imageUrl =
         new URL(
             project.image,
             window.location.href
         ).href;
 
-
     setMetaProperty(
         "og:image",
         imageUrl
     );
-
 
     setMetaProperty(
         "og:image:alt",
@@ -154,18 +116,15 @@ function updateProjectSEO(project) {
         project.seoTitle
     );
 
-
     setMetaName(
         "twitter:description",
         project.seoDescription
     );
 
-
     setMetaName(
         "twitter:image",
         imageUrl
     );
-
 
     setMetaName(
         "twitter:image:alt",
@@ -173,14 +132,13 @@ function updateProjectSEO(project) {
     );
 
 
-    // JSON-LD
+    // Structured Data
 
     createProjectSchema(
         project,
         canonicalUrl,
         imageUrl
     );
-
 }
 
 
@@ -188,80 +146,60 @@ function updateProjectSEO(project) {
 // Meta Helpers
 // =========================
 
-function setMetaProperty(
-    property,
-    content
-) {
+function setMetaProperty(property, content) {
 
     let meta =
         document.querySelector(
             `meta[property="${property}"]`
         );
 
-
     if (!meta) {
 
-        meta =
-            document.createElement("meta");
+        meta = document.createElement("meta");
 
         meta.setAttribute(
             "property",
             property
         );
 
-        document.head.appendChild(
-            meta
-        );
-
+        document.head.appendChild(meta);
     }
-
 
     meta.setAttribute(
         "content",
         content
     );
-
 }
 
 
-function setMetaName(
-    name,
-    content
-) {
+function setMetaName(name, content) {
 
     let meta =
         document.querySelector(
             `meta[name="${name}"]`
         );
 
-
     if (!meta) {
 
-        meta =
-            document.createElement("meta");
+        meta = document.createElement("meta");
 
         meta.setAttribute(
             "name",
             name
         );
 
-        document.head.appendChild(
-            meta
-        );
-
+        document.head.appendChild(meta);
     }
-
 
     meta.setAttribute(
         "content",
         content
     );
-
 }
 
 
 // =========================
-// Project Structured Data
+// Structured Data
 // =========================
 
 function createProjectSchema(
@@ -275,27 +213,18 @@ function createProjectSchema(
             "project-schema"
         );
 
-
     if (oldSchema) {
-
         oldSchema.remove();
-
     }
 
-
     const schema =
-        document.createElement(
-            "script"
-        );
-
+        document.createElement("script");
 
     schema.id =
         "project-schema";
 
-
     schema.type =
         "application/ld+json";
-
 
     const schemaData = {
 
@@ -318,29 +247,22 @@ function createProjectSchema(
             "name": "WM Solutions",
 
             "url": "https://wm-cooaporate.github.io/demo-repository/"
-
         },
 
         "keywords": project.technologies.join(", "),
 
         "genre": project.type
-
     };
-
 
     schema.textContent =
         JSON.stringify(schemaData);
 
-
-    document.head.appendChild(
-        schema
-    );
-
+    document.head.appendChild(schema);
 }
 
 
 // =========================
-// Not Found
+// Render Project
 // =========================
 
 if (!container) {
@@ -354,7 +276,6 @@ if (!container) {
     document.title =
         "Project Not Found | WM Solutions";
 
-
     container.innerHTML = `
 
         <div class="project-not-found">
@@ -367,7 +288,7 @@ if (!container) {
                 Sorry, this project does not exist.
             </p>
 
-            <a href="./#projects">
+            <a href="index.html#projects">
                 Back to Projects
             </a>
 
@@ -377,12 +298,18 @@ if (!container) {
 
 } else {
 
-    // Update SEO BEFORE rendering
+    // SEO
 
     updateProjectSEO(project);
 
 
+    // =========================
+    // Main Project Content
+    // =========================
+
     container.innerHTML = `
+
+        <!-- Project Header -->
 
         <header class="project-details-header">
 
@@ -401,6 +328,8 @@ if (!container) {
         </header>
 
 
+        <!-- Main Image -->
+
         <div class="project-main-image">
 
             <img
@@ -414,7 +343,9 @@ if (!container) {
         </div>
 
 
-        <section class="project-section">
+        <!-- Technologies -->
+
+        <section class="project-section project-technologies">
 
             <h2>
                 Technologies Used
@@ -440,7 +371,9 @@ if (!container) {
         </section>
 
 
-        <section class="project-section">
+        <!-- Screenshots -->
+
+        <section class="project-section project-screenshots-section">
 
             <h2>
                 Project Screenshots
@@ -452,6 +385,7 @@ if (!container) {
                     .map(function (image, index) {
 
                         return `
+
                             <div
                                 class="gallery-item"
                                 data-index="${index}"
@@ -470,6 +404,7 @@ if (!container) {
                                 </div>
 
                             </div>
+
                         `;
 
                     })
@@ -481,9 +416,12 @@ if (!container) {
         </section>
 
 
+        <!-- Video -->
+
         ${
             project.video !== "#"
                 ? `
+
                     <section class="project-section">
 
                         <h2>
@@ -511,20 +449,25 @@ if (!container) {
                         </div>
 
                     </section>
+
                 `
                 : ""
         }
 
 
+        <!-- Actions -->
+
         ${
             project.demo !== "#" ||
             project.github !== "#"
                 ? `
+
                     <div class="project-actions">
 
                         ${
                             project.demo !== "#"
                                 ? `
+
                                     <a
                                         href="${project.demo}"
                                         target="_blank"
@@ -533,6 +476,7 @@ if (!container) {
                                     >
                                         Live Demo
                                     </a>
+
                                 `
                                 : ""
                         }
@@ -541,6 +485,7 @@ if (!container) {
                         ${
                             project.github !== "#"
                                 ? `
+
                                     <a
                                         href="${project.github}"
                                         target="_blank"
@@ -549,22 +494,23 @@ if (!container) {
                                     >
                                         GitHub
                                     </a>
+
                                 `
                                 : ""
                         }
 
                     </div>
+
                 `
                 : ""
         }
 
     `;
-
 }
 
 
 // =========================
-// Image Lightbox
+// Lightbox
 // =========================
 
 const galleryItems =
@@ -583,13 +529,15 @@ lightbox.innerHTML = `
 
     <button
         class="lightbox-close"
-        aria-label="Close image viewer">
+        aria-label="Close image viewer"
+    >
         ×
     </button>
 
     <button
         class="lightbox-prev"
-        aria-label="Previous image">
+        aria-label="Previous image"
+    >
         ‹
     </button>
 
@@ -601,7 +549,8 @@ lightbox.innerHTML = `
 
     <button
         class="lightbox-next"
-        aria-label="Next image">
+        aria-label="Next image"
+    >
         ›
     </button>
 
@@ -639,38 +588,40 @@ const nextButton =
 let currentImageIndex = 0;
 
 
+// =========================
+// Open Lightbox
+// =========================
+
 function openLightbox(index) {
 
     if (!project) {
         return;
     }
 
-
     currentImageIndex =
         index;
-
 
     lightboxImage.src =
         project.screenshots[
             currentImageIndex
         ];
 
-
     lightboxImage.alt =
         `${project.title} screenshot ${currentImageIndex + 1}`;
-
 
     lightbox.classList.add(
         "active"
     );
 
-
     document.body.classList.add(
         "lightbox-open"
     );
-
 }
 
+
+// =========================
+// Close Lightbox
+// =========================
 
 function closeLightbox() {
 
@@ -681,14 +632,16 @@ function closeLightbox() {
     document.body.classList.remove(
         "lightbox-open"
     );
-
 }
 
+
+// =========================
+// Previous Image
+// =========================
 
 function showPreviousImage() {
 
     currentImageIndex--;
-
 
     if (
         currentImageIndex < 0
@@ -696,26 +649,25 @@ function showPreviousImage() {
 
         currentImageIndex =
             project.screenshots.length - 1;
-
     }
-
 
     lightboxImage.src =
         project.screenshots[
             currentImageIndex
         ];
 
-
     lightboxImage.alt =
         `${project.title} screenshot ${currentImageIndex + 1}`;
-
 }
 
+
+// =========================
+// Next Image
+// =========================
 
 function showNextImage() {
 
     currentImageIndex++;
-
 
     if (
         currentImageIndex >=
@@ -723,21 +675,21 @@ function showNextImage() {
     ) {
 
         currentImageIndex = 0;
-
     }
-
 
     lightboxImage.src =
         project.screenshots[
             currentImageIndex
         ];
 
-
     lightboxImage.alt =
         `${project.title} screenshot ${currentImageIndex + 1}`;
-
 }
 
+
+// =========================
+// Gallery Events
+// =========================
 
 galleryItems.forEach(
     function (item) {
@@ -752,13 +704,15 @@ galleryItems.forEach(
                     );
 
                 openLightbox(index);
-
             }
         );
-
     }
 );
 
+
+// =========================
+// Lightbox Events
+// =========================
 
 closeButton.addEventListener(
     "click",
@@ -787,12 +741,14 @@ lightbox.addEventListener(
         ) {
 
             closeLightbox();
-
         }
-
     }
 );
 
+
+// =========================
+// Keyboard Controls
+// =========================
 
 document.addEventListener(
     "keydown",
@@ -803,37 +759,25 @@ document.addEventListener(
                 "active"
             )
         ) {
-
             return;
-
         }
-
 
         if (
             event.key === "Escape"
         ) {
-
             closeLightbox();
-
         }
-
 
         if (
             event.key === "ArrowLeft"
         ) {
-
             showPreviousImage();
-
         }
-
 
         if (
             event.key === "ArrowRight"
         ) {
-
             showNextImage();
-
         }
-
     }
 );
