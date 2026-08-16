@@ -3,13 +3,19 @@ const projects = [
     {
         id: "meta-ai",
 
-        title: "Meta Sense Website",
+        title: "Meta Sense AI Website",
+
+        seoTitle: "Meta Sense AI Website | Web Development Project | WM Solutions",
 
         type: "Web Development",
 
-        description: "A modern web project designed to provide users with an interactive and professional digital experience.",
+        description: "Meta Sense AI is a modern web platform designed to provide users with an interactive digital experience. The project was developed using HTML, CSS, JavaScript, and Java.",
+
+        seoDescription: "Explore the Meta Sense AI web development project by WM Solutions, built with HTML, CSS, JavaScript, and Java.",
 
         image: "images/metasense/web.png",
+
+        imageAlt: "Meta Sense AI website interface developed by WM Solutions",
 
         technologies: [
             "HTML",
@@ -24,7 +30,7 @@ const projects = [
             "images/metasense/history.png",
             "images/metasense/links.png",
             "images/metasense/process.png",
-            "images/metasense/plan.png",
+            "images/metasense/plan.png"
         ],
 
         video: "videos/meta-ai-demo.mp4",
@@ -38,13 +44,19 @@ const projects = [
     {
         id: "fitverse",
 
-        title: "Fitverse App",
+        title: "Fitverse Fitness App",
 
-        type: "Mobile Development",
+        seoTitle: "Fitverse Fitness App | Flutter Mobile App | WM Solutions",
 
-        description: "A fitness and wellness application that helps users track workouts, monitor their progress, and manage their fitness journey.",
+        type: "Mobile App Development",
+
+        description: "Fitverse is a fitness and wellness mobile application that helps users track workouts, monitor progress, and manage their fitness journey. The application was built using Flutter, PHP, and MySQL.",
+
+        seoDescription: "Explore the Fitverse fitness mobile app developed by WM Solutions using Flutter, PHP, and MySQL.",
 
         image: "images/fitverse/app.jpeg",
+
+        imageAlt: "Fitverse fitness mobile application developed by WM Solutions",
 
         technologies: [
             "Flutter",
@@ -57,7 +69,6 @@ const projects = [
             "images/fitverse/signup.jpeg",
             "images/fitverse/form.jpeg",
             "images/fitverse/gender.jpeg",
-            "images/fitverse/signup.jpeg",
             "images/fitverse/home.jpeg"
         ],
 
@@ -67,16 +78,24 @@ const projects = [
 
         demo: "#"
     },
+
+
     {
-        id: "Business-manager",
+        id: "business-manager",
 
-        title: "Business_Manager Desktop App",
+        title: "Business Manager Desktop App",
 
-        type: "Flutter Development",
+        seoTitle: "Business Manager Desktop App | Flutter Software | WM Solutions",
 
-        description: "A modern App project designed to provide users with an interactive and professional digital experience.",
+        type: "Flutter Desktop Development",
 
-        image: "images//businessmanager/Screenshot 2026-08-15 124839.png",
+        description: "Business Manager is a modern desktop application developed with Flutter to provide businesses with an interactive and professional software experience for managing business operations.",
+
+        seoDescription: "Explore the Business Manager desktop application developed with Flutter by WM Solutions for modern business management.",
+
+        image: "images/businessmanager/Screenshot 2026-08-15 124839.png",
+
+        imageAlt: "Business Manager desktop application developed with Flutter by WM Solutions",
 
         technologies: [
             "Flutter"
@@ -95,12 +114,7 @@ const projects = [
             "images/businessmanager/Screenshot 2026-08-15 125118.png",
             "images/businessmanager/Screenshot 2026-08-15 125949.png",
             "images/businessmanager/Screenshot 2026-08-15 125958.png",
-            "images/businessmanager/Screenshot 2026-08-15 130005.png",
-
-
-
-
-
+            "images/businessmanager/Screenshot 2026-08-15 130005.png"
         ],
 
         video: "#",
@@ -109,6 +123,5 @@ const projects = [
 
         demo: "#"
     }
-
 
 ];

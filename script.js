@@ -1,37 +1,63 @@
 document.documentElement.classList.add("js-enabled");
 
-
 // =========================
 // Mobile Menu
 // =========================
 
-const menuBtn = document.getElementById("menu-btn");
-const navLinks = document.getElementById("nav-links");
+const menuBtn =
+    document.getElementById("menu-btn");
+
+const navLinks =
+    document.getElementById("nav-links");
+
 
 if (menuBtn && navLinks) {
 
-    menuBtn.addEventListener("click", function() {
+    menuBtn.addEventListener(
+        "click",
+        function() {
 
-        navLinks.classList.toggle("active");
+            const isOpen =
+                navLinks.classList.toggle("active");
 
-    });
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+
+        }
+    );
 
 
-    const links = navLinks.querySelectorAll("a");
+    const links =
+        navLinks.querySelectorAll("a");
 
-    links.forEach(function(link) {
 
-        link.addEventListener("click", function() {
+    links.forEach(
+        function(link) {
 
-            navLinks.classList.remove("active");
+            link.addEventListener(
+                "click",
+                function() {
 
-        });
+                    navLinks.classList.remove(
+                        "active"
+                    );
 
-    });
+
+                    menuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        }
+    );
 
 }
-
-
 // =========================
 // Contact Form
 // =========================
