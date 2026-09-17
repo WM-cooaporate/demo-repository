@@ -168,6 +168,24 @@ const projects = [
             "images/Restaurant/menu.jpeg",
             "images/Restaurant/report.jpeg",
             "images/Restaurant/logout.jpeg",
+            "images/Restaurant/wm-cooaporate.github.io-Restaurant-Ordering-pages-Book-book.png",
+            "images/Restaurant/wm-cooaporate.github.io-Restaurant-Ordering.png",
+            "images/Restaurant/wm-cooaporate.github.io-Restaurant-Ordering-pages-Home-home.png",
+            "images/Restaurant/wm-cooaporate.github.io-Restaurant-Ordering-pages-Book-book2f.png",
+            "images/Restaurant/log.png",
+            "images/Restaurant/foo.png",
+            "images/Restaurant/for.png",
+            "images/Restaurant/sig.png",
+            "images/Restaurant/table.png",
+
+
+
+
+
+
+
+
+
 
 
 
