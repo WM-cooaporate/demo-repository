@@ -138,7 +138,7 @@ const projects = [
 
         seoDescription: "Explore the Restaurant web application developed with Flutter by WM Solutions for modern Restaurant management.",
 
-        image: "images/businessmanager/Screenshot 2026-08-15 124839.png",
+        image: "images/Restaurant/splash.jpeg",
 
         imageAlt: "Restaurant web application developed with Flutter,HTML,CSS and JS by WM Solutions",
 
