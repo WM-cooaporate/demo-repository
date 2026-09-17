@@ -167,6 +167,8 @@ const projects = [
             "images/Restaurant/profile.jpeg",
             "images/Restaurant/menu.jpeg",
             "images/Restaurant/report.jpeg",
+            "images/Restaurant/logout.jpeg",
+
 
 
 
