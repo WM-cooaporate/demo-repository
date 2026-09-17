@@ -157,7 +157,7 @@ const projects = [
             "images/Restaurant/forget.jpeg",
             "images/Restaurant/home.jpeg",
             "images/Restaurant/home2.jpeg",
-            "images/Restaurant/book.jpeg.",
+            "images/Restaurant/book.jpeg",
             "images/Restaurant/book table.jpeg",
             "images/Restaurant/book food.jpeg",
             "images/Restaurant/food.jpeg",
