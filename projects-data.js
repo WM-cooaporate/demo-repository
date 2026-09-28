@@ -128,7 +128,7 @@ const projects = [
     {
         id: "Restaurant",
 
-        title: "Restaurant(Website and Mobile app)",
+        title: "Restaurant (Website and Mobile App)",
 
         seoTitle: "Restaurant Website | App | Flutter Software | WM Solutions",
 
@@ -140,7 +140,7 @@ const projects = [
 
         image: "images/Restaurant/splash.jpeg",
 
-        imageAlt: "Restaurant web application developed with Flutter,HTML,CSS and JS by WM Solutions",
+        imageAlt: "Restaurant web application developed with Flutter, HTML, CSS and JS by WM Solutions",
 
         technologies: [
             "Flutter",
@@ -185,22 +185,26 @@ const projects = [
 
         demo: "#"
     },
+
+
     {
         id: "Art-Vision",
 
-        title: "Art-vision(Website)",
+        title: "Art-Vision (Website)",
 
         seoTitle: "Art-Vision Website | Web | WM Solutions",
 
-        type: "React with HTML CSS JS  Development",
+        type: "React with HTML CSS JS Development",
 
-        description: "Artvision is a modern web and application developed with React for manage products events and many activity.",
+        description: "Artvision is a modern web application developed with React to manage products, events, and many activities.",
 
-        seoDescription: "Explore the at web for modern experience with art.",
+        seoDescription: "Explore the Art-Vision web platform for a modern experience with art.",
 
         image: "images/artvision/WhatsApp Image 2026-09-22 at 5.43.36 AM.png",
 
-        imageAlt: "Visual web  developed with React,HTML,CSS and JS by WM Solutions",
+        imageAlt: "Art-Vision web platform developed with React, HTML, CSS and JS by WM Solutions",
+
+        isLogo: true,
 
         technologies: [
             "React",
@@ -216,11 +220,13 @@ const projects = [
             "images/artvision/footer.png",
             "images/artvision/product.png",
             "images/artvision/dashboard.png",
-            "images/artvision/crud.png",
+            "images/artvision/crud.png"
         ],
 
         video: "images/artvision/production.mp4",
 
+        github: "#",
 
+        demo: "#"
     }
 ];

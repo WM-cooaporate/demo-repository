@@ -304,6 +304,21 @@ if (!container) {
 
 
     // =========================
+    // Logo Detection
+    // =========================
+
+    const isLogoProject = project.isLogo === true;
+
+    const mainImageClass = isLogoProject ?
+        "project-main-image logo-image" :
+        "project-main-image";
+
+    const galleryItemClass = isLogoProject ?
+        "gallery-item logo-image" :
+        "gallery-item";
+
+
+    // =========================
     // Main Project Content
     // =========================
 
@@ -311,27 +326,26 @@ if (!container) {
 
         <!-- Project Header -->
 
-<div class="project-details-header">
+        <div class="project-details-header">
 
-    <p class="project-type">
-        ${project.type}
-    </p>
+            <p class="project-type">
+                ${project.type}
+            </p>
 
-    <h1>
-        ${project.title}
-    </h1>
+            <h1>
+                ${project.title}
+            </h1>
 
-</div>
+        </div>
+
 
         <!-- Main Image -->
 
-        <div class="project-main-image">
+        <div class="${mainImageClass}">
 
             <img
                 src="${project.image}"
                 alt="${project.imageAlt}"
-                width="1100"
-                height="500"
                 fetchpriority="high"
             >
 
@@ -382,7 +396,7 @@ if (!container) {
                         return `
 
                             <div
-                                class="gallery-item"
+                                class="${galleryItemClass}"
                                 data-index="${index}"
                             >
 
@@ -390,8 +404,6 @@ if (!container) {
                                     src="${image}"
                                     alt="${project.title} screenshot ${index + 1}"
                                     loading="lazy"
-                                    width="350"
-                                    height="220"
                                 >
 
                                 <div class="gallery-overlay">
@@ -414,7 +426,7 @@ if (!container) {
         <!-- Video -->
 
         ${
-            project.video !== "#"
+            project.video && project.video !== "#"
                 ? `
 
                     <section class="project-section">
@@ -453,14 +465,14 @@ if (!container) {
         <!-- Actions -->
 
         ${
-            project.demo !== "#" ||
-            project.github !== "#"
+            (project.demo && project.demo !== "#") ||
+            (project.github && project.github !== "#")
                 ? `
 
                     <div class="project-actions">
 
                         ${
-                            project.demo !== "#"
+                            project.demo && project.demo !== "#"
                                 ? `
 
                                     <a
@@ -478,7 +490,7 @@ if (!container) {
 
 
                         ${
-                            project.github !== "#"
+                            project.github && project.github !== "#"
                                 ? `
 
                                     <a
