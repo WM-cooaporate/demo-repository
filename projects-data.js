@@ -177,30 +177,6 @@ const projects = [
             "images/Restaurant/for.png",
             "images/Restaurant/sig.png",
             "images/Restaurant/table.png",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         ],
 
         video: "#",
