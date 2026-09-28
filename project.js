@@ -313,10 +313,6 @@ if (!container) {
         "project-main-image logo-image" :
         "project-main-image";
 
-    const galleryItemClass = isLogoProject ?
-        "gallery-item logo-image" :
-        "gallery-item";
-
 
     // =========================
     // Main Project Content
@@ -396,7 +392,7 @@ if (!container) {
                         return `
 
                             <div
-                                class="${galleryItemClass}"
+                                class="gallery-item"
                                 data-index="${index}"
                             >
 
