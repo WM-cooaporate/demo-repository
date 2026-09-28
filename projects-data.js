@@ -208,5 +208,43 @@ const projects = [
         github: "#",
 
         demo: "#"
+    },
+    {
+        id: "Restaurant",
+
+        title: "Restaurant(Website and Mobile app)",
+
+        seoTitle: "Restaurant Website | App | Flutter Software | WM Solutions",
+
+        type: "Flutter with HTML CSS JS Desktop Development",
+
+        description: "Restaurant is a modern web and application developed with Flutter to provide orders and reservation with an interactive and professional software experience for managing operations.",
+
+        seoDescription: "Explore the Restaurant web application developed with Flutter by WM Solutions for modern Restaurant management.",
+
+        image: "images/Restaurant/splash.jpeg",
+
+        imageAlt: "Restaurant web application developed with Flutter,HTML,CSS and JS by WM Solutions",
+
+        technologies: [
+            "Flutter",
+            "HTML",
+            "CSS",
+            "JS"
+        ],
+
+        screenshots: [
+            "images/artvision/intro.png",
+            "images/artvision/home.png",
+            "images/artvision/art.png",
+            "images/artvision/footer.png",
+            "images/artvision/product.png",
+            "images/artvision/dashboard.png",
+            "images/artvision/crud.png",
+        ],
+
+        video: "images/artvision/production.mp4",
+
+
     }
 ];
