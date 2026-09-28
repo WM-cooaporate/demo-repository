@@ -210,24 +210,24 @@ const projects = [
         demo: "#"
     },
     {
-        id: "Restaurant",
+        id: "Art-Vision",
 
-        title: "Restaurant(Website and Mobile app)",
+        title: "Art-vision(Website)",
 
-        seoTitle: "Restaurant Website | App | Flutter Software | WM Solutions",
+        seoTitle: "Art-Vision Website | Web | WM Solutions",
 
-        type: "Flutter with HTML CSS JS Desktop Development",
+        type: "React with HTML CSS JS  Development",
 
-        description: "Restaurant is a modern web and application developed with Flutter to provide orders and reservation with an interactive and professional software experience for managing operations.",
+        description: "Artvision is a modern web and application developed with React for manage products events and many activity.",
 
-        seoDescription: "Explore the Restaurant web application developed with Flutter by WM Solutions for modern Restaurant management.",
+        seoDescription: "Explore the at web for modern experience with art.",
 
-        image: "images/Restaurant/splash.jpeg",
+        image: "images/artvision/WhatsApp Image 2026-09-22 at 5.43.36 AM.png",
 
-        imageAlt: "Restaurant web application developed with Flutter,HTML,CSS and JS by WM Solutions",
+        imageAlt: "Visual web  developed with React,HTML,CSS and JS by WM Solutions",
 
         technologies: [
-            "Flutter",
+            "React",
             "HTML",
             "CSS",
             "JS"
