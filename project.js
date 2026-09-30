@@ -5,782 +5,368 @@
 const params = new URLSearchParams(window.location.search);
 const projectId = params.get("id");
 
-const project = projects.find(function(item) {
+// ✅ حماية: التأكد من تحميل projects-data.js
+const projectsList = (typeof projects !== "undefined") ? projects : [];
+
+const project = projectsList.find(function(item) {
     return item.id === projectId;
 });
 
 const container = document.getElementById("project-details-container");
 
+// =========================
+// Escape HTML (حماية من XSS)
+// =========================
+
+function escapeHtml(text) {
+    if (text === null || text === undefined) return "";
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 // =========================
 // Dynamic SEO
 // =========================
 
 function updateProjectSEO(project) {
+    if (!project) return;
 
-    if (!project) {
-        return;
-    }
-
-    document.title = project.seoTitle;
+    document.title = project.seoTitle || project.title;
 
     const canonicalUrl =
-        `https://wm-cooaporate.github.io/demo-repository/project.html?id=${project.id}`;
-
+        `https://wm-cooaporate.github.io/demo-repository/project.html?id=${encodeURIComponent(project.id)}`;
 
     // Description
-
-    let description =
-        document.querySelector('meta[name="description"]');
-
+    let description = document.querySelector('meta[name="description"]');
     if (!description) {
-
         description = document.createElement("meta");
-
-        description.setAttribute(
-            "name",
-            "description"
-        );
-
+        description.setAttribute("name", "description");
         document.head.appendChild(description);
     }
-
-    description.setAttribute(
-        "content",
-        project.seoDescription
-    );
-
+    description.setAttribute("content", project.seoDescription || project.description);
 
     // Canonical
-
-    let canonical =
-        document.querySelector('link[rel="canonical"]');
-
+    let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
-
         canonical = document.createElement("link");
-
-        canonical.setAttribute(
-            "rel",
-            "canonical"
-        );
-
+        canonical.setAttribute("rel", "canonical");
         document.head.appendChild(canonical);
     }
-
-    canonical.setAttribute(
-        "href",
-        canonicalUrl
-    );
-
+    canonical.setAttribute("href", canonicalUrl);
 
     // Open Graph
+    setMetaProperty("og:title", project.seoTitle || project.title);
+    setMetaProperty("og:description", project.seoDescription || project.description);
+    setMetaProperty("og:url", canonicalUrl);
 
-    setMetaProperty(
-        "og:title",
-        project.seoTitle
-    );
+    const imageUrl = new URL(project.image, window.location.href).href;
 
-    setMetaProperty(
-        "og:description",
-        project.seoDescription
-    );
-
-    setMetaProperty(
-        "og:url",
-        canonicalUrl
-    );
-
-
-    const imageUrl =
-        new URL(
-            project.image,
-            window.location.href
-        ).href;
-
-    setMetaProperty(
-        "og:image",
-        imageUrl
-    );
-
-    setMetaProperty(
-        "og:image:alt",
-        project.imageAlt
-    );
-
+    setMetaProperty("og:image", imageUrl);
+    setMetaProperty("og:image:alt", project.imageAlt || project.title);
 
     // Twitter
+    setMetaName("twitter:title", project.seoTitle || project.title);
+    setMetaName("twitter:description", project.seoDescription || project.description);
+    setMetaName("twitter:image", imageUrl);
+    setMetaName("twitter:image:alt", project.imageAlt || project.title);
 
-    setMetaName(
-        "twitter:title",
-        project.seoTitle
-    );
-
-    setMetaName(
-        "twitter:description",
-        project.seoDescription
-    );
-
-    setMetaName(
-        "twitter:image",
-        imageUrl
-    );
-
-    setMetaName(
-        "twitter:image:alt",
-        project.imageAlt
-    );
-
-
-    // Structured Data
-
-    createProjectSchema(
-        project,
-        canonicalUrl,
-        imageUrl
-    );
+    // Schema
+    createProjectSchema(project, canonicalUrl, imageUrl);
 }
-
 
 // =========================
 // Meta Helpers
 // =========================
 
 function setMetaProperty(property, content) {
+    if (!content) return;
 
-    let meta =
-        document.querySelector(
-            `meta[property="${property}"]`
-        );
-
+    let meta = document.querySelector(`meta[property="${property}"]`);
     if (!meta) {
-
         meta = document.createElement("meta");
-
-        meta.setAttribute(
-            "property",
-            property
-        );
-
+        meta.setAttribute("property", property);
         document.head.appendChild(meta);
     }
-
-    meta.setAttribute(
-        "content",
-        content
-    );
+    meta.setAttribute("content", content);
 }
-
 
 function setMetaName(name, content) {
+    if (!content) return;
 
-    let meta =
-        document.querySelector(
-            `meta[name="${name}"]`
-        );
-
+    let meta = document.querySelector(`meta[name="${name}"]`);
     if (!meta) {
-
         meta = document.createElement("meta");
-
-        meta.setAttribute(
-            "name",
-            name
-        );
-
+        meta.setAttribute("name", name);
         document.head.appendChild(meta);
     }
-
-    meta.setAttribute(
-        "content",
-        content
-    );
+    meta.setAttribute("content", content);
 }
-
 
 // =========================
 // Structured Data
 // =========================
 
-function createProjectSchema(
-    project,
-    canonicalUrl,
-    imageUrl
-) {
+function createProjectSchema(project, canonicalUrl, imageUrl) {
+    const oldSchema = document.getElementById("project-schema");
+    if (oldSchema) oldSchema.remove();
 
-    const oldSchema =
-        document.getElementById(
-            "project-schema"
-        );
-
-    if (oldSchema) {
-        oldSchema.remove();
-    }
-
-    const schema =
-        document.createElement("script");
-
-    schema.id =
-        "project-schema";
-
-    schema.type =
-        "application/ld+json";
+    const schema = document.createElement("script");
+    schema.id = "project-schema";
+    schema.type = "application/ld+json";
 
     const schemaData = {
-
         "@context": "https://schema.org",
-
         "@type": "CreativeWork",
-
         "name": project.title,
-
-        "description": project.seoDescription,
-
+        "description": project.seoDescription || project.description,
         "url": canonicalUrl,
-
         "image": imageUrl,
-
         "creator": {
-
             "@type": "Organization",
-
             "name": "WM Solutions",
-
             "url": "https://wm-cooaporate.github.io/demo-repository/"
         },
-
-        "keywords": project.technologies.join(", "),
-
+        "keywords": (project.technologies || []).join(", "),
         "genre": project.type
     };
 
-    schema.textContent =
-        JSON.stringify(schemaData);
-
+    schema.textContent = JSON.stringify(schemaData);
     document.head.appendChild(schema);
 }
-
 
 // =========================
 // Render Project
 // =========================
 
 if (!container) {
-
-    console.error(
-        "Project details container not found."
-    );
-
+    console.error("Project details container not found.");
 } else if (!project) {
-
-    document.title =
-        "Project Not Found | WM Solutions";
+    document.title = "Project Not Found | WM Solutions";
 
     container.innerHTML = `
-
         <div class="project-not-found">
-
-            <h1>
-                Project Not Found
-            </h1>
-
-            <p>
-                Sorry, this project does not exist.
-            </p>
-
-            <a href="index.html#projects">
-                Back to Projects
-            </a>
-
+            <h1>Project Not Found</h1>
+            <p>Sorry, this project does not exist.</p>
+            <a href="index.html#projects">← Back to Projects</a>
         </div>
-
     `;
-
 } else {
-
     // SEO
-
     updateProjectSEO(project);
 
-
-    // =========================
     // Logo Detection
-    // =========================
-
     const isLogoProject = project.isLogo === true;
-
     const mainImageClass = isLogoProject ?
         "project-main-image logo-image" :
         "project-main-image";
 
+    // Technologies
+    const technologiesHtml = (project.technologies || [])
+        .map(tech => `<span>${escapeHtml(tech)}</span>`)
+        .join("");
 
-    // =========================
-    // Main Project Content
-    // =========================
+    // Screenshots
+    const screenshotsHtml = (project.screenshots || [])
+        .map((image, index) => `
+            <div class="gallery-item" data-index="${index}">
+                <img
+                    src="${escapeHtml(image)}"
+                    alt="${escapeHtml(project.title)} screenshot ${index + 1}"
+                    loading="lazy"
+                >
+                <div class="gallery-overlay">Click to View</div>
+            </div>
+        `)
+        .join("");
+
+    // Video Section
+    let videoHtml = "";
+    if (project.video && project.video !== "#") {
+        videoHtml = `
+            <section class="project-section">
+                <h2>Project Demo</h2>
+                <div class="project-video">
+                    <video controls preload="metadata" playsinline>
+                        <source src="${escapeHtml(project.video)}" type="video/mp4">
+                        Your browser does not support video playback.
+                    </video>
+                </div>
+            </section>
+        `;
+    }
+
+    // Actions
+    let actionsHtml = "";
+    const hasDemo = project.demo && project.demo !== "#";
+    const hasGithub = project.github && project.github !== "#";
+
+    if (hasDemo || hasGithub) {
+        actionsHtml = `
+            <div class="project-actions">
+                ${hasDemo ? `
+                    <a href="${escapeHtml(project.demo)}" target="_blank"
+                       rel="noopener noreferrer" class="btn primary-btn">
+                        Live Demo
+                    </a>
+                ` : ""}
+                ${hasGithub ? `
+                    <a href="${escapeHtml(project.github)}" target="_blank"
+                       rel="noopener noreferrer" class="btn secondary-btn">
+                        GitHub
+                    </a>
+                ` : ""}
+            </div>
+        `;
+    }
 
     container.innerHTML = `
-
         <!-- Project Header -->
-
         <div class="project-details-header">
-
-            <p class="project-type">
-                ${project.type}
-            </p>
-
-            <h1>
-                ${project.title}
-            </h1>
-
+            <p class="project-type">${escapeHtml(project.type)}</p>
+            <h1>${escapeHtml(project.title)}</h1>
+            ${project.description ? `
+                <p class="project-description">${escapeHtml(project.description)}</p>
+            ` : ""}
         </div>
-
 
         <!-- Main Image -->
-
         <div class="${mainImageClass}">
-
             <img
-                src="${project.image}"
-                alt="${project.imageAlt}"
+                src="${escapeHtml(project.image)}"
+                alt="${escapeHtml(project.imageAlt || project.title)}"
                 fetchpriority="high"
             >
-
         </div>
 
-
         <!-- Technologies -->
-
         <section class="project-section project-technologies">
-
-            <h2>
-                Technologies Used
-            </h2>
-
-            <div class="project-tech">
-
-                ${project.technologies
-                    .map(function (technology) {
-
-                        return `
-                            <span>
-                                ${technology}
-                            </span>
-                        `;
-
-                    })
-                    .join("")
-                }
-
-            </div>
-
+            <h2>Technologies Used</h2>
+            <div class="project-tech">${technologiesHtml}</div>
         </section>
-
 
         <!-- Screenshots -->
-
         <section class="project-section project-screenshots-section">
-
-            <h2>
-                Project Screenshots
-            </h2>
-
-            <div class="project-gallery">
-
-                ${project.screenshots
-                    .map(function (image, index) {
-
-                        return `
-
-                            <div
-                                class="gallery-item"
-                                data-index="${index}"
-                            >
-
-                                <img
-                                    src="${image}"
-                                    alt="${project.title} screenshot ${index + 1}"
-                                    loading="lazy"
-                                >
-
-                                <div class="gallery-overlay">
-                                    Click to View
-                                </div>
-
-                            </div>
-
-                        `;
-
-                    })
-                    .join("")
-                }
-
-            </div>
-
+            <h2>Project Screenshots</h2>
+            <div class="project-gallery">${screenshotsHtml}</div>
         </section>
 
-
-        <!-- Video -->
-
-        ${
-            project.video && project.video !== "#"
-                ? `
-
-                    <section class="project-section">
-
-                        <h2>
-                            Project Demo
-                        </h2>
-
-                        <div class="project-video">
-
-                            <video
-                                controls
-                                preload="metadata"
-                                playsinline
-                            >
-
-                                <source
-                                    src="${project.video}"
-                                    type="video/mp4"
-                                >
-
-                                Your browser does not support
-                                video playback.
-
-                            </video>
-
-                        </div>
-
-                    </section>
-
-                `
-                : ""
-        }
-
-
-        <!-- Actions -->
-
-        ${
-            (project.demo && project.demo !== "#") ||
-            (project.github && project.github !== "#")
-                ? `
-
-                    <div class="project-actions">
-
-                        ${
-                            project.demo && project.demo !== "#"
-                                ? `
-
-                                    <a
-                                        href="${project.demo}"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="btn primary-btn"
-                                    >
-                                        Live Demo
-                                    </a>
-
-                                `
-                                : ""
-                        }
-
-
-                        ${
-                            project.github && project.github !== "#"
-                                ? `
-
-                                    <a
-                                        href="${project.github}"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="btn secondary-btn"
-                                    >
-                                        GitHub
-                                    </a>
-
-                                `
-                                : ""
-                        }
-
-                    </div>
-
-                `
-                : ""
-        }
-
+        ${videoHtml}
+        ${actionsHtml}
     `;
 }
-
 
 // =========================
 // Lightbox
 // =========================
 
-const galleryItems =
-    document.querySelectorAll(
-        ".gallery-item"
-    );
+// ✅ التأكد من وجود المشروع قبل بناء الـ lightbox
+if (project && project.screenshots && project.screenshots.length > 0) {
 
+    const galleryItems = document.querySelectorAll(".gallery-item");
 
-const lightbox =
-    document.createElement("div");
+    const lightbox = document.createElement("div");
+    lightbox.className = "lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Image viewer");
 
-lightbox.className =
-    "lightbox";
+    lightbox.innerHTML = `
+        <button class="lightbox-close" aria-label="Close image viewer">×</button>
+        <button class="lightbox-prev" aria-label="Previous image">‹</button>
+        <img class="lightbox-image" src="" alt="">
+        <button class="lightbox-next" aria-label="Next image">›</button>
+    `;
 
-lightbox.innerHTML = `
+    document.body.appendChild(lightbox);
 
-    <button
-        class="lightbox-close"
-        aria-label="Close image viewer"
-    >
-        ×
-    </button>
+    const lightboxImage = lightbox.querySelector(".lightbox-image");
+    const closeButton = lightbox.querySelector(".lightbox-close");
+    const prevButton = lightbox.querySelector(".lightbox-prev");
+    const nextButton = lightbox.querySelector(".lightbox-next");
 
-    <button
-        class="lightbox-prev"
-        aria-label="Previous image"
-    >
-        ‹
-    </button>
+    let currentImageIndex = 0;
+    let lastFocusedElement = null;
 
-    <img
-        class="lightbox-image"
-        src=""
-        alt=""
-    >
+    function openLightbox(index) {
+        currentImageIndex = index;
+        lastFocusedElement = document.activeElement;
 
-    <button
-        class="lightbox-next"
-        aria-label="Next image"
-    >
-        ›
-    </button>
+        lightboxImage.src = project.screenshots[currentImageIndex];
+        lightboxImage.alt = `${project.title} screenshot ${currentImageIndex + 1}`;
 
-`;
+        lightbox.classList.add("active");
+        document.body.classList.add("lightbox-open");
 
-document.body.appendChild(
-    lightbox
-);
-
-
-const lightboxImage =
-    lightbox.querySelector(
-        ".lightbox-image"
-    );
-
-
-const closeButton =
-    lightbox.querySelector(
-        ".lightbox-close"
-    );
-
-
-const prevButton =
-    lightbox.querySelector(
-        ".lightbox-prev"
-    );
-
-
-const nextButton =
-    lightbox.querySelector(
-        ".lightbox-next"
-    );
-
-
-let currentImageIndex = 0;
-
-
-// =========================
-// Open Lightbox
-// =========================
-
-function openLightbox(index) {
-
-    if (!project) {
-        return;
+        // ✅ focus على زر الإغلاق للـ accessibility
+        setTimeout(() => closeButton.focus(), 100);
     }
 
-    currentImageIndex =
-        index;
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+        document.body.classList.remove("lightbox-open");
 
-    lightboxImage.src =
-        project.screenshots[
-            currentImageIndex
-        ];
+        // ✅ إرجاع الـ focus
+        if (lastFocusedElement) lastFocusedElement.focus();
+    }
 
-    lightboxImage.alt =
-        `${project.title} screenshot ${currentImageIndex + 1}`;
+    function showPreviousImage() {
+        currentImageIndex--;
+        if (currentImageIndex < 0) {
+            currentImageIndex = project.screenshots.length - 1;
+        }
+        lightboxImage.src = project.screenshots[currentImageIndex];
+        lightboxImage.alt = `${project.title} screenshot ${currentImageIndex + 1}`;
+    }
 
-    lightbox.classList.add(
-        "active"
-    );
+    function showNextImage() {
+        currentImageIndex++;
+        if (currentImageIndex >= project.screenshots.length) {
+            currentImageIndex = 0;
+        }
+        lightboxImage.src = project.screenshots[currentImageIndex];
+        lightboxImage.alt = `${project.title} screenshot ${currentImageIndex + 1}`;
+    }
 
-    document.body.classList.add(
-        "lightbox-open"
-    );
+    galleryItems.forEach(function (item) {
+        item.addEventListener("click", function () {
+            const index = Number(item.dataset.index);
+            openLightbox(index);
+        });
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+    prevButton.addEventListener("click", showPreviousImage);
+    nextButton.addEventListener("click", showNextImage);
+
+    lightbox.addEventListener("click", function (event) {
+        if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (!lightbox.classList.contains("active")) return;
+
+        if (event.key === "Escape") closeLightbox();
+        if (event.key === "ArrowLeft") showPreviousImage();
+        if (event.key === "ArrowRight") showNextImage();
+    });
+
+    // ✅ Swipe support للموبايل
+    let touchStartX = 0;
+    lightbox.addEventListener("touchstart", function (e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener("touchend", function (e) {
+        const touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) showNextImage();
+            else showPreviousImage();
+        }
+    }, { passive: true });
 }
-
-
-// =========================
-// Close Lightbox
-// =========================
-
-function closeLightbox() {
-
-    lightbox.classList.remove(
-        "active"
-    );
-
-    document.body.classList.remove(
-        "lightbox-open"
-    );
-}
-
-
-// =========================
-// Previous Image
-// =========================
-
-function showPreviousImage() {
-
-    currentImageIndex--;
-
-    if (
-        currentImageIndex < 0
-    ) {
-
-        currentImageIndex =
-            project.screenshots.length - 1;
-    }
-
-    lightboxImage.src =
-        project.screenshots[
-            currentImageIndex
-        ];
-
-    lightboxImage.alt =
-        `${project.title} screenshot ${currentImageIndex + 1}`;
-}
-
-
-// =========================
-// Next Image
-// =========================
-
-function showNextImage() {
-
-    currentImageIndex++;
-
-    if (
-        currentImageIndex >=
-        project.screenshots.length
-    ) {
-
-        currentImageIndex = 0;
-    }
-
-    lightboxImage.src =
-        project.screenshots[
-            currentImageIndex
-        ];
-
-    lightboxImage.alt =
-        `${project.title} screenshot ${currentImageIndex + 1}`;
-}
-
-
-// =========================
-// Gallery Events
-// =========================
-
-galleryItems.forEach(
-    function (item) {
-
-        item.addEventListener(
-            "click",
-            function () {
-
-                const index =
-                    Number(
-                        item.dataset.index
-                    );
-
-                openLightbox(index);
-            }
-        );
-    }
-);
-
-
-// =========================
-// Lightbox Events
-// =========================
-
-closeButton.addEventListener(
-    "click",
-    closeLightbox
-);
-
-
-prevButton.addEventListener(
-    "click",
-    showPreviousImage
-);
-
-
-nextButton.addEventListener(
-    "click",
-    showNextImage
-);
-
-
-lightbox.addEventListener(
-    "click",
-    function (event) {
-
-        if (
-            event.target === lightbox
-        ) {
-
-            closeLightbox();
-        }
-    }
-);
-
-
-// =========================
-// Keyboard Controls
-// =========================
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (
-            !lightbox.classList.contains(
-                "active"
-            )
-        ) {
-            return;
-        }
-
-        if (
-            event.key === "Escape"
-        ) {
-            closeLightbox();
-        }
-
-        if (
-            event.key === "ArrowLeft"
-        ) {
-            showPreviousImage();
-        }
-
-        if (
-            event.key === "ArrowRight"
-        ) {
-            showNextImage();
-        }
-    }
-);

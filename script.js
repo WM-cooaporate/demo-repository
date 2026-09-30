@@ -1,376 +1,120 @@
-document.documentElement.classList.add("js-enabled");
-
 // =========================
 // Mobile Menu
 // =========================
 
-const menuBtn =
-    document.getElementById("menu-btn");
-
-const navLinks =
-    document.getElementById("nav-links");
-
+const menuBtn = document.getElementById("menu-btn");
+const navLinks = document.getElementById("nav-links");
 
 if (menuBtn && navLinks) {
+    menuBtn.addEventListener("click", function() {
+        const isOpen = navLinks.classList.toggle("active");
+        menuBtn.setAttribute("aria-expanded", isOpen);
+        menuBtn.textContent = isOpen ? "✕" : "☰";
+    });
 
-    menuBtn.addEventListener(
-        "click",
-        function() {
-
-            const isOpen =
-                navLinks.classList.toggle("active");
-
-
-            menuBtn.setAttribute(
-                "aria-expanded",
-                isOpen ? "true" : "false"
-            );
-
-        }
-    );
-
-
-    const links =
-        navLinks.querySelectorAll("a");
-
-
-    links.forEach(
-        function(link) {
-
-            link.addEventListener(
-                "click",
-                function() {
-
-                    navLinks.classList.remove(
-                        "active"
-                    );
-
-
-                    menuBtn.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                }
-            );
-
-        }
-    );
-
+    // إغلاق عند الضغط على رابط
+    navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("active");
+            menuBtn.setAttribute("aria-expanded", "false");
+            menuBtn.textContent = "☰";
+        });
+    });
 }
-// =========================
-// Contact Form
-// =========================
-
-const contactForm =
-    document.querySelector(".contact-form form");
-
-if (contactForm) {
-
-    contactForm.addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-
-        const name =
-            document.getElementById("name").value.trim();
-
-        const email =
-            document.getElementById("email").value.trim();
-
-        const message =
-            document.getElementById("message").value.trim();
-
-
-        if (name === "") {
-
-            alert("Please enter your name.");
-
-            return;
-
-        }
-
-
-        if (email === "") {
-
-            alert("Please enter your email.");
-
-            return;
-
-        }
-
-
-        if (!email.includes("@")) {
-
-            alert("Please enter a valid email.");
-
-            return;
-
-        }
-
-
-        if (message === "") {
-
-            alert("Please enter your message.");
-
-            return;
-
-        }
-
-
-        alert(
-            "Thank you! Your message is ready to be sent."
-        );
-
-
-        contactForm.reset();
-
-    });
-
-}
-
-
-// =========================
-// Projects
-// =========================
-
-const projectsContainer =
-    document.getElementById("projects-container");
-
-
-if (projectsContainer && typeof projects !== "undefined") {
-
-    projects.forEach(function(project) {
-
-                const projectCard =
-                    document.createElement("div");
-
-
-                projectCard.classList.add("project-card");
-
-
-                projectCard.innerHTML = `
-
-            <div class="project-image">
-
-                <img
-                    src="${project.image}"
-                    alt="${project.title}"
-                >
-
-            </div>
-
-
-            <div class="project-content">
-
-                <p class="project-type">
-                    ${project.type}
-                </p>
-
-
-                <h3>
-                    ${project.title}
-                </h3>
-
-
-                <p>
-                    ${project.description}
-                </p>
-
-
-                <div class="project-tech">
-
-                    ${project.technologies
-                        .map(function (technology) {
-
-                            return `
-                                <span>
-                                    ${technology}
-                                </span>
-                            `;
-
-                        })
-                        .join("")
-                    }
-
-                </div>
-
-
-                <div class="project-buttons">
-
-                    <a
-                        href="./project.html?id=${project.id}"
-                        class="project-link"
-                    >
-                        View Project →
-                    </a>
-
-
-                    <a
-                        href="${project.github}"
-                        class="project-link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        GitHub →
-                    </a>
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        projectsContainer.appendChild(projectCard);
-
-    });
-
-}
-
-
-// =========================
-// Scroll Animation
-// =========================
-
-const observer =
-    new IntersectionObserver(
-
-        function (entries) {
-
-            entries.forEach(function (entry) {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add("show");
-
-                }
-
-            });
-
-        },
-
-        {
-            threshold: 0.15
-        }
-
-    );
-
-
-function observeAnimatedElements() {
-
-    const animatedElements =
-        document.querySelectorAll(
-            ".service-card, .project-card, .team-card, .contact-form, .contact-info"
-        );
-
-
-    animatedElements.forEach(function (element) {
-
-        observer.observe(element);
-
-    });
-
-}
-
-
-observeAnimatedElements();
-
-
-// =========================
-// Active Navigation Link
-// =========================
-
-const sections =
-    document.querySelectorAll("section");
-
-
-const navItems =
-    document.querySelectorAll(".nav-links a");
-
-
-window.addEventListener("scroll", function () {
-
-    let currentSection = "";
-
-
-    sections.forEach(function (section) {
-
-        const sectionTop =
-            section.offsetTop - 150;
-
-
-        const sectionHeight =
-            section.offsetHeight;
-
-
-        if (
-            window.scrollY >= sectionTop &&
-            window.scrollY < sectionTop + sectionHeight
-        ) {
-
-            currentSection =
-                section.getAttribute("id");
-
-        }
-
-    });
-
-
-    navItems.forEach(function (link) {
-
-        link.classList.remove("active-link");
-
-
-        if (
-            link.getAttribute("href") ===
-            `#${currentSection}`
-        ) {
-
-            link.classList.add("active-link");
-
-        }
-
-    });
-
-});
-
 
 // =========================
 // Back To Top
 // =========================
 
-const backToTop =
-    document.getElementById("back-to-top");
-
+const backToTop = document.getElementById("back-to-top");
 
 if (backToTop) {
-
-    window.addEventListener("scroll", function () {
-
-        if (window.scrollY > 500) {
-
+    window.addEventListener("scroll", function() {
+        if (window.scrollY > 400) {
             backToTop.classList.add("show");
-
         } else {
-
             backToTop.classList.remove("show");
-
         }
+    }, { passive: true });
 
+    backToTop.addEventListener("click", function() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
     });
+}
 
+// =========================
+// Projects Rendering
+// =========================
 
-    backToTop.addEventListener("click", function () {
+const projectsContainer = document.getElementById("projects-container");
 
-        window.scrollTo({
+function escapeHtml(text) {
+    if (text === null || text === undefined) return "";
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
-            top: 0,
+if (projectsContainer && typeof projects !== "undefined") {
+    projectsContainer.innerHTML = projects.map(project => `
+        <article class="project-card">
+            <div class="project-image">
+                <img
+                    src="${escapeHtml(project.image)}"
+                    alt="${escapeHtml(project.imageAlt || project.title)}"
+                    loading="lazy"
+                >
+            </div>
+            <div class="project-content">
+                <p class="project-type">${escapeHtml(project.type)}</p>
+                <h3>${escapeHtml(project.title)}</h3>
+                <p>${escapeHtml(project.description)}</p>
+                <div class="project-tech">
+                    ${(project.technologies || [])
+                        .slice(0, 4)
+                        .map(t => `<span>${escapeHtml(t)}</span>`)
+                        .join("")}
+                </div>
+                <a
+                    href="project.html?id=${encodeURIComponent(project.id)}"
+                    class="project-link"
+                >
+                    View Project →
+                </a>
+            </div>
+        </article>
+    `).join("");
+}
 
-            behavior: "smooth"
+// =========================
+// Scroll Reveal Animation
+// =========================
+const revealElements = document.querySelectorAll(
+    ".service-card, .project-card, .team-card, .contact-info"
+);
 
+if (revealElements.length > 0 && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // تأخير بسيط لكل عنصر
+                setTimeout(() => {
+                    entry.target.classList.add("show");
+                }, index * 100);
+
+                observer.unobserve(entry.target);
+            }
         });
-
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
     });
 
+    revealElements.forEach(el => observer.observe(el));
+} else {
+    // Fallback: إظهار كل العناصر مباشرة
+    revealElements.forEach(el => el.classList.add("show"));
 }

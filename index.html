@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>WM Solutions | Web, Mobile & Software Development</title>
@@ -13,68 +12,30 @@
     <meta name="keywords" content="WM Solutions, software development, web development, mobile app development, Flutter development, backend development, Java, Spring Boot, PHP, MySQL, PostgreSQL, Egypt">
 
     <meta name="author" content="WM Solutions">
-
     <meta name="robots" content="index, follow">
-
     <meta name="googlebot" content="index, follow">
 
     <link rel="canonical" href="https://wm-cooaporate.github.io/demo-repository/">
 
-    <!-- =========================
-         Open Graph
-    ========================== -->
-
     <meta property="og:type" content="website">
-
     <meta property="og:title" content="WM Solutions | Web, Mobile & Software Development">
-
     <meta property="og:description" content="WM Solutions builds modern websites, Flutter mobile applications, backend systems, APIs, databases, and custom software solutions.">
-
     <meta property="og:url" content="https://wm-cooaporate.github.io/demo-repository/">
-
     <meta property="og:image" content="https://wm-cooaporate.github.io/demo-repository/images/logo.png">
-
     <meta property="og:image:alt" content="WM Solutions software development logo">
-
     <meta property="og:site_name" content="WM Solutions">
-
     <meta property="og:locale" content="en_US">
 
-
-    <!-- =========================
-         Twitter Card
-    ========================== -->
-
     <meta name="twitter:card" content="summary_large_image">
-
     <meta name="twitter:title" content="WM Solutions | Web, Mobile & Software Development">
-
     <meta name="twitter:description" content="Modern web development, Flutter mobile applications, backend APIs, databases, and custom software solutions by WM Solutions.">
-
     <meta name="twitter:image" content="https://wm-cooaporate.github.io/demo-repository/images/logo.png">
 
-    <meta name="twitter:image:alt" content="WM Solutions software development logo">
-
-
-    <!-- =========================
-         Favicon
-    ========================== -->
-
     <link rel="icon" type="image/png" href="images/logo.png">
-
     <link rel="apple-touch-icon" href="images/logo.png">
 
-
-    <!-- =========================
-         Styles
-    ========================== -->
-
     <link rel="stylesheet" href="style.css">
-
-
-    <!-- =========================
-         Organization Schema
-    ========================== -->
+    <link rel="stylesheet" href="animations.css">
 
     <script type="application/ld+json">
         {
@@ -92,11 +53,6 @@
         }
     </script>
 
-
-    <!-- =========================
-         Website Schema
-    ========================== -->
-
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -110,93 +66,78 @@
 
 
 <body>
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "WM Solutions | Web, Mobile & Software Development",
-            "url": "https://wm-cooaporate.github.io/demo-repository/",
-            "description": "WM Solutions is a software development team specializing in modern web development, Flutter mobile apps, backend APIs, databases, and custom software solutions.",
-            "isPartOf": {
-                "@type": "WebSite",
-                "name": "WM Solutions",
-                "url": "https://wm-cooaporate.github.io/demo-repository/"
-            },
-            "about": {
-                "@type": "Organization",
-                "name": "WM Solutions",
-                "url": "https://wm-cooaporate.github.io/demo-repository/"
-            }
-        }
-    </script>
+
+    <!-- =========================
+         Boot Screen
+    ========================== -->
+
+    <div class="boot-screen" id="boot-screen" aria-hidden="true">
+        <div class="boot-content">
+            <div class="boot-line">
+                <span class="boot-prompt">$</span> initializing WM_Solutions.exe
+            </div>
+            <div class="boot-line">
+                <span class="boot-prompt">$</span> loading modules...
+            </div>
+            <div class="boot-line">
+                <span class="boot-prompt">$</span> compiling assets ████████ 100%
+            </div>
+            <div class="boot-line">
+                <span class="boot-prompt">$</span> connecting to database...
+            </div>
+            <div class="boot-line" style="color: #22c55e;">
+                <span class="boot-prompt">✓</span> system ready. welcome to WM Solutions
+            </div>
+            <div class="boot-bar">
+                <div class="boot-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================
+         Scroll Progress
+    ========================== -->
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+
+    <!-- =========================
+         Matrix Canvas
+    ========================== -->
+
+    <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+
+
     <!-- =========================
          Back To Top
     ========================== -->
 
-    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-        ↑
-    </button>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
 
 
     <!-- =========================
-         Navigation
+         Header
     ========================== -->
 
     <header>
-
         <nav aria-label="Main navigation">
+            <a href="./" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a>
 
-            <a href="./" class="logo" aria-label="WM Solutions Home">
-                WM Solutions
-            </a>
-
-
-            <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">
-                ☰
-            </button>
-
+            <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
 
             <ul class="nav-links" id="nav-links">
-
-                <li>
-                    <a href="#home">
-                        Home
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#about">
-                        About
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#services">
-                        Services
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#projects">
-                        Projects
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#contact">
-                        Contact
-                    </a>
-                </li>
-
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
-
         </nav>
-
     </header>
 
 
     <main>
-
 
         <!-- =========================
              Hero
@@ -204,74 +145,76 @@
 
         <section id="home" aria-labelledby="home-title">
 
+            <div class="code-rain" id="code-rain" aria-hidden="true"></div>
+
+            <div class="floating-code float-1" aria-hidden="true">
+                <span class="code-pink">const</span> build = <span class="code-green">()</span> =&gt; 🚀
+            </div>
+            <div class="floating-code float-2" aria-hidden="true">
+                <span class="code-purple">npm</span> run <span class="code-green">deploy</span>
+            </div>
+            <div class="floating-code float-3" aria-hidden="true">
+                <span class="code-pink">while</span>(alive) { code(); }
+            </div>
+
             <div class="hero-content">
+                <p class="hero-small-title">&lt;!-- WE ARE WM SOLUTIONS --&gt;</p>
 
-                <p class="hero-small-title">
-                    WE ARE WM SOLUTIONS
-                </p>
-
-
-                <h1 id="home-title">
-                    Web, Mobile & Software Development Solutions
+                <h1 id="home-title" class="glitch-title" data-text="Web, Mobile & Software Development Solutions">
+                    Web, Mobile &amp; Software Development Solutions
                 </h1>
-
 
                 <p class="hero-description">
                     WM Solutions is a software development team specializing in modern websites, Flutter mobile applications, backend APIs, databases, and custom software solutions.
                 </p>
 
-
                 <div class="hero-buttons">
-
-                    <a href="#projects" class="btn primary-btn">
-                        Our Projects
-                    </a>
-
-
-                    <a href="#contact" class="btn secondary-btn">
-                        Contact Us
-                    </a>
-
+                    <a href="#projects" class="btn primary-btn">Our Projects</a>
+                    <a href="#contact" class="btn secondary-btn">Contact Us</a>
                 </div>
-
             </div>
 
-
             <div class="hero-visual" aria-hidden="true">
-
-                <div class="code-card">
-
-                    <div class="code-top">
-
-                        <span></span>
-                        <span></span>
-                        <span></span>
-
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                        <span class="terminal-title">wm-solutions ~ bash</span>
                     </div>
-
-
-                    <div class="code-content">
-
-                        <p>
-                            &lt;developer&gt;
-                        </p>
-
-                        <p>
-                            <span>const</span> team = "WM Solutions";
-                        </p>
-
-                        <p>
-                            <span>const</span> goal = "Build";
-                        </p>
-
-                        <p>
-                            &lt;/developer&gt;
-                        </p>
-
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-cmd">wm init --team</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-output">✓ Team initialized: Wasem, Michael</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-cmd">wm build --stack</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-output">
+                                <span class="terminal-keyword">const</span> stack = [
+                            <span class="terminal-string">"Flutter"</span>,
+                            <span class="terminal-string">"Java"</span>,
+                            <span class="terminal-string">"React"</span>];
+                            </span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-cmd">wm deploy --production</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-output terminal-success">✓ Build successful in 2.4s</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-cursor"></span>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
 
         </section>
@@ -282,88 +225,34 @@
         ========================== -->
 
         <section id="about" aria-labelledby="about-title">
-
             <div class="section-title">
-
-                <p>
-                    WHO WE ARE
-                </p>
-
-                <h2 id="about-title">
-                    Building Ideas Into Reality
-                </h2>
-
+                <p>WHO WE ARE</p>
+                <h2 id="about-title">Building Ideas Into Reality</h2>
             </div>
-
 
             <div class="about-content">
-
                 <div class="about-text">
-
-                    <h3>
-                        We are WM Solutions.
-                    </h3>
-
-
-                    <p>
-                        WM Solutions is a software development team focused on creating modern, scalable, and user-friendly digital solutions.
-                    </p>
-
-
-                    <p>
-                        We build websites, mobile applications, backend systems, REST APIs, and database-driven software for businesses, startups, and individuals.
-                    </p>
-
+                    <h3>We are WM Solutions.</h3>
+                    <p>WM Solutions is a software development team focused on creating modern, scalable, and user-friendly digital solutions.</p>
+                    <p>We build websites, mobile applications, backend systems, REST APIs, and database-driven software for businesses, startups, and individuals.</p>
                 </div>
-
 
                 <div class="team-container" aria-label="WM Solutions development team">
-
                     <article class="team-card">
-
-                        <div class="member-icon" aria-hidden="true">
-                            W
-                        </div>
-
-                        <h3>
-                            Wasem
-                        </h3>
-
-                        <p class="role">
-                            Front-End & Mobile Developer
-                        </p>
-
-                        <p>
-                            HTML, CSS, JavaScript, Flutter, PHP & MySQL
-                        </p>
-
+                        <div class="member-icon" aria-hidden="true">W</div>
+                        <h3>Wasem</h3>
+                        <p class="role">Front-End &amp; Mobile Developer</p>
+                        <p>HTML, CSS, JavaScript, Flutter, PHP &amp; MySQL</p>
                     </article>
 
-
                     <article class="team-card">
-
-                        <div class="member-icon" aria-hidden="true">
-                            M
-                        </div>
-
-                        <h3>
-                            Michael
-                        </h3>
-
-                        <p class="role">
-                            Backend Developer
-                        </p>
-
-                        <p>
-                            Java, Spring Boot, PostgreSQL & APIs
-                        </p>
-
+                        <div class="member-icon" aria-hidden="true">M</div>
+                        <h3>Michael</h3>
+                        <p class="role">Backend Developer</p>
+                        <p>Java, Spring Boot, PostgreSQL &amp; APIs</p>
                     </article>
-
                 </div>
-
             </div>
-
         </section>
 
 
@@ -372,109 +261,48 @@
         ========================== -->
 
         <section id="services" aria-labelledby="services-title">
-
             <div class="section-title">
-
-                <p>
-                    WHAT WE DO
-                </p>
-
-                <h2 id="services-title">
-                    Software Development Services
-                </h2>
-
+                <p>WHAT WE DO</p>
+                <h2 id="services-title">Software Development Services</h2>
             </div>
-
 
             <div class="services-container">
-
-
                 <article class="service-card">
-
-                    <div class="service-icon" aria-hidden="true">
-                        &lt;/&gt;
-                    </div>
-
-                    <h3>
-                        Web Development
-                    </h3>
-
-                    <p>
-                        We design and develop modern, responsive, and user-friendly websites for businesses, startups, and individuals using HTML, CSS, JavaScript, and modern web technologies.
-                    </p>
-
-                    <span>
-                        HTML • CSS • JavaScript
-                    </span>
-
+                    <div class="service-icon" aria-hidden="true">&lt;/&gt;</div>
+                    <h3>Web Development</h3>
+                    <p>We design and develop modern, responsive, and user-friendly websites for businesses, startups, and individuals using HTML, CSS, JavaScript, and modern web technologies.</p>
+                    <span>HTML • CSS • JavaScript</span>
                 </article>
 
-
                 <article class="service-card">
-
-                    <div class="service-icon" aria-hidden="true">
-                        📱
-                    </div>
-
-                    <h3>
-                        Mobile App Development
-                    </h3>
-
-                    <p>
-                        We build cross-platform mobile applications using Flutter and Dart, focusing on performance, usability, scalability, and modern user interfaces.
-                    </p>
-
-                    <span>
-                        Flutter • Dart
-                    </span>
-
+                    <div class="service-icon" aria-hidden="true">📱</div>
+                    <h3>Mobile App Development</h3>
+                    <p>We build cross-platform mobile applications using Flutter and Dart, focusing on performance, usability, scalability, and modern user interfaces.</p>
+                    <span>Flutter • Dart</span>
                 </article>
 
-
                 <article class="service-card">
-
-                    <div class="service-icon" aria-hidden="true">
-                        ⚙
-                    </div>
-
-                    <h3>
-                        Backend Development
-                    </h3>
-
-                    <p>
-                        We develop backend systems, REST APIs, and server-side applications using Java, Spring Boot, PHP, and modern backend technologies.
-                    </p>
-
-                    <span>
-                        Java • Spring Boot • PHP
-                    </span>
-
+                    <div class="service-icon" aria-hidden="true">⚙</div>
+                    <h3>Backend Development</h3>
+                    <p>We develop backend systems, REST APIs, and server-side applications using Java, Spring Boot, PHP, and modern backend technologies.</p>
+                    <span>Java • Spring Boot • PHP</span>
                 </article>
 
-
                 <article class="service-card">
-
-                    <div class="service-icon" aria-hidden="true">
-                        🗄
-                    </div>
-
-                    <h3>
-                        Database Solutions
-                    </h3>
-
-                    <p>
-                        We design reliable and scalable database solutions using MySQL and PostgreSQL for web applications, mobile apps, and custom software.
-                    </p>
-
-                    <span>
-                        MySQL • PostgreSQL
-                    </span>
-
+                    <div class="service-icon" aria-hidden="true">🗄</div>
+                    <h3>Database Solutions</h3>
+                    <p>We design reliable and scalable database solutions using MySQL and PostgreSQL for web applications, mobile apps, and custom software.</p>
+                    <span>MySQL • PostgreSQL</span>
                 </article>
-
             </div>
-
         </section>
+
+
+        <!-- =========================
+             Binary Divider
+        ========================== -->
+
+        <div class="binary-divider" aria-hidden="true"></div>
 
 
         <!-- =========================
@@ -482,24 +310,12 @@
         ========================== -->
 
         <section id="projects" aria-labelledby="projects-title">
-
             <div class="section-title">
-
-                <p>
-                    OUR WORK
-                </p>
-
-                <h2 id="projects-title">
-                    Software & App Development Projects
-                </h2>
-
+                <p>OUR WORK</p>
+                <h2 id="projects-title">Software &amp; App Development Projects</h2>
             </div>
 
-
-            <div class="projects-container" id="projects-container" aria-live="polite">
-
-            </div>
-
+            <div class="projects-container" id="projects-container" aria-live="polite"></div>
         </section>
 
 
@@ -508,118 +324,45 @@
         ========================== -->
 
         <section id="contact" aria-labelledby="contact-title">
-
             <div class="section-title">
-
-                <p>
-                    GET IN TOUCH
-                </p>
-
-                <h2 id="contact-title">
-                    Let's Work Together
-                </h2>
-
+                <p>GET IN TOUCH</p>
+                <h2 id="contact-title">Let's Work Together</h2>
             </div>
-
 
             <div class="contact-container">
-
                 <div class="contact-info">
-
-                    <h3>
-                        Have a software project in mind?
-                    </h3>
-
-
-                    <p>
-                        Tell us about your idea and let's turn it into a real digital solution.
-                    </p>
-
+                    <h3>Have a software project in mind?</h3>
+                    <p>Tell us about your idea and let's turn it into a real digital solution.</p>
 
                     <div class="contact-links">
-
                         <a href="https://wa.me/201278971067" class="contact-item" target="_blank" rel="noopener noreferrer">
-
-                            <span>
-                                WhatsApp
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>WhatsApp</span><span>→</span>
                         </a>
-
-
                         <a href="https://www.instagram.com/wm_olutions/" class="contact-item" target="_blank" rel="noopener noreferrer">
-
-                            <span>
-                                Instagram
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>Instagram</span><span>→</span>
                         </a>
-
-
                         <a href="https://www.facebook.com/profile.php?id=61592424088595" class="contact-item" target="_blank" rel="noopener noreferrer">
-
-                            <span>
-                                Facebook
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>Facebook</span><span>→</span>
                         </a>
-
-
                         <a href="https://www.linkedin.com/company/wm-solutions-eg/" class="contact-item" target="_blank" rel="noopener noreferrer">
-
-                            <span>
-                                LinkedIn
-                            </span>
-
-                            <span>
-                                →
-                            </span>
-
+                            <span>LinkedIn</span><span>→</span>
                         </a>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
     </main>
 
 
-    <!-- =========================
-         Footer
-    ========================== -->
-
     <footer>
-
-        <p>
-            © 2026 WM Solutions. All Rights Reserved.
-        </p>
-
+        <p>© 2026 WM Solutions. All Rights Reserved.</p>
     </footer>
 
 
-    <!-- =========================
-         JavaScript
-    ========================== -->
-
     <script src="projects-data.js"></script>
-
     <script src="script.js"></script>
+    <script src="animations.js"></script>
 
 </body>
 
