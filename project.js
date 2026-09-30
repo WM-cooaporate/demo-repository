@@ -457,3 +457,156 @@ if (project && project.screenshots && project.screenshots.length > 0) {
         }
     });
 })();
+// =========================
+// Smart Back Button
+// =========================
+
+(function initSmartBack() {
+    const backBtn = document.getElementById("back-to-projects");
+    if (!backBtn) return;
+
+    backBtn.addEventListener("click", function (e) {
+        if (document.referrer && document.referrer.includes(window.location.host)) {
+            e.preventDefault();
+            window.history.back();
+        }
+    });
+})();
+
+
+// =========================
+// Gallery Scroll Reveal (للمشاريع الكتير)
+// =========================
+
+(function initGalleryReveal() {
+    if (!("IntersectionObserver" in window)) return;
+
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    if (!galleryItems.length) return;
+
+    // لو عدد الصور كبير، فعّل الـ scroll reveal
+    if (galleryItems.length <= 9) return;
+
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    galleryItems.forEach(function (item, index) {
+        // إلغاء الأنيميشن التلقائي للصور اللي بعد الـ 9
+        if (index >= 9) {
+            item.style.animation = "none";
+            item.style.opacity = "0";
+            observer.observe(item);
+        }
+    });
+})();
+
+
+// =========================
+// Scroll Progress Bar (لصفحة المشروع)
+// =========================
+
+(function initScrollProgress() {
+    // لو مفيش عنصر، ننشئه
+    let bar = document.getElementById("project-scroll-progress");
+
+    if (!bar) {
+        bar = document.createElement("div");
+        bar.id = "project-scroll-progress";
+        bar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: linear-gradient(90deg, #38bdf8, #22c55e, #f472b6);
+            z-index: 10000;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+        `;
+        document.body.appendChild(bar);
+    }
+
+    window.addEventListener("scroll", function () {
+        const top = window.scrollY;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = height > 0 ? (top / height) * 100 : 0;
+        bar.style.width = percent + "%";
+    }, { passive: true });
+})();
+
+
+// =========================
+// Image Lazy Load with Fade In
+// =========================
+
+(function initImageFade() {
+    const images = document.querySelectorAll(".gallery-item img, .project-main-image img");
+
+    images.forEach(function (img) {
+        // لو الصورة اتحملت خلاص
+        if (img.complete) {
+            img.style.opacity = "1";
+            return;
+        }
+
+        img.style.opacity = "0";
+        img.style.transition = "opacity 0.5s ease";
+
+        img.addEventListener("load", function () {
+            img.style.opacity = "1";
+        });
+
+        img.addEventListener("error", function () {
+            img.style.opacity = "0.5";
+        });
+    });
+})();
+
+
+// =========================
+// Click Ripple Effect on Gallery
+// =========================
+
+(function initGalleryRipple() {
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    galleryItems.forEach(function (item) {
+        item.addEventListener("click", function (e) {
+            const ripple = document.createElement("span");
+
+            const rect = item.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                border-radius: 50%;
+                background: rgba(56, 189, 248, 0.4);
+                left: ${x}px;
+                top: ${y}px;
+                transform: scale(0);
+                animation: rippleExpand 0.6s ease-out;
+                pointer-events: none;
+                z-index: 10;
+            `;
+
+            item.appendChild(ripple);
+
+            setTimeout(function () {
+                ripple.remove();
+            }, 600);
+        });
+    });
+})();
