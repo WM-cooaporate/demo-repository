@@ -248,7 +248,7 @@ h2 {
     margin: auto;
     display: flex;
     align-items: center;
-    gap: 80px;
+    gap: 60px;
 }
 
 .about-text {
@@ -267,55 +267,115 @@ h2 {
     margin-bottom: 20px;
 }
 
+
+/* =========================
+   Team
+========================= */
+
 .team-container {
-    flex: 1;
+    flex: 1.3;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 18px;
 }
 
 .team-card {
     background-color: #0f172a;
     border: 1px solid #1e293b;
     border-radius: 15px;
-    padding: 30px;
+    padding: 25px 18px;
     text-align: center;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .team-card:hover {
     transform: translateY(-8px);
     border-color: #38bdf8;
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+}
+
+.team-card:hover::before {
+    opacity: 1;
 }
 
 .member-icon {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 20px;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     background-color: #38bdf8;
     color: #0f172a;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
+    font-family: "Courier New", monospace;
 }
 
+
+/* ألوان مختلفة لكل عضو */
+
+.member-icon.color-1 {
+    background-color: #38bdf8;
+}
+
+
+/* أزرق - Wasem */
+
+.member-icon.color-2 {
+    background-color: #22c55e;
+}
+
+
+/* أخضر - Michael */
+
+.member-icon.color-3 {
+    background-color: #f472b6;
+}
+
+
+/* وردي - Marvy */
+
+.member-icon.color-4 {
+    background-color: #fb923c;
+}
+
+
+/* برتقالي - Sawsan */
+
 .team-card h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 8px;
 }
 
 .team-card .role {
     color: #38bdf8;
     font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 13px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .team-card p:last-child {
     color: #94a3b8;
-    line-height: 1.6;
+    line-height: 1.5;
+    font-size: 13px;
 }
 
 
@@ -630,7 +690,7 @@ footer {
 
 
 /* =========================
-   Scroll Reveal (base)
+   Scroll Reveal
 ========================= */
 
 .service-card,
@@ -697,6 +757,7 @@ footer {
     }
     .team-container {
         width: 100%;
+        grid-template-columns: repeat(2, 1fr);
     }
     .contact-links {
         grid-template-columns: 1fr;
@@ -750,7 +811,27 @@ footer {
     .section-title h2 {
         font-size: 28px;
     }
-    .team-container,
+    .team-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .team-card {
+        padding: 20px 12px;
+    }
+    .team-card h3 {
+        font-size: 16px;
+    }
+    .team-card .role {
+        font-size: 11px;
+    }
+    .team-card p:last-child {
+        font-size: 11px;
+    }
+    .member-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
     .services-container,
     .projects-container {
         grid-template-columns: 1fr;

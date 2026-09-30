@@ -128,7 +128,7 @@
 
 
 // =========================
-// 5. Section Reveal (زي tag بيفتح)
+// 5. Section Reveal
 // =========================
 (function initSectionReveal() {
     if (!("IntersectionObserver" in window)) {
@@ -188,26 +188,7 @@
 
 
 // =========================
-// 7. Terminal Replay
-// =========================
-(function replayTerminal() {
-    const body = document.querySelector(".terminal-body");
-    if (!body) return;
-
-    const lines = body.querySelectorAll(".terminal-line");
-
-    setInterval(function() {
-        lines.forEach(function(line) {
-            line.style.animation = "none";
-            void line.offsetWidth;
-            line.style.animation = "";
-        });
-    }, 10000);
-})();
-
-
-// =========================
-// 8. Floating Code Rotation
+// 7. Floating Code Rotation
 // =========================
 (function rotateFloating() {
     const floaters = document.querySelectorAll(".floating-code");
@@ -233,5 +214,5 @@
             target.innerHTML = snippets[index];
             target.style.opacity = "1";
         }, 400);
-    }, 6000);
+    }, 7000);
 })();

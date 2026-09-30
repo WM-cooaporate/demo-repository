@@ -12,7 +12,6 @@ if (menuBtn && navLinks) {
         menuBtn.textContent = isOpen ? "✕" : "☰";
     });
 
-    // إغلاق عند الضغط على رابط
     navLinks.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
             navLinks.classList.remove("active");
@@ -92,6 +91,7 @@ if (projectsContainer && typeof projects !== "undefined") {
 // =========================
 // Scroll Reveal Animation
 // =========================
+
 const revealElements = document.querySelectorAll(
     ".service-card, .project-card, .team-card, .contact-info"
 );
@@ -100,7 +100,6 @@ if (revealElements.length > 0 && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver(function (entries) {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                // تأخير بسيط لكل عنصر
                 setTimeout(() => {
                     entry.target.classList.add("show");
                 }, index * 100);
@@ -115,6 +114,5 @@ if (revealElements.length > 0 && "IntersectionObserver" in window) {
 
     revealElements.forEach(el => observer.observe(el));
 } else {
-    // Fallback: إظهار كل العناصر مباشرة
     revealElements.forEach(el => el.classList.add("show"));
 }
