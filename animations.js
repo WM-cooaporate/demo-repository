@@ -1,13 +1,24 @@
 /* ============================================
    WM Solutions - Animations Engine
 ============================================ */
-
 // =========================
-// 1. Boot Screen - يختفي بعد 3 ثواني
+// 1. Boot Screen - يظهر مرة واحدة بس في السيشن
 // =========================
 (function initBootScreen() {
     const bootScreen = document.getElementById("boot-screen");
     if (!bootScreen) return;
+
+    // ✅ لو المستخدم دخل الموقع قبل كده في نفس التاب، نخفي الشاشة فوراً
+    const hasBooted = sessionStorage.getItem("wm_booted");
+
+    if (hasBooted) {
+        // اختفت فوراً من غير أنيميشن
+        bootScreen.style.display = "none";
+        return;
+    }
+
+    // ✅ أول زيارة - نعرض شاشة البوت
+    sessionStorage.setItem("wm_booted", "true");
 
     function hideBoot() {
         bootScreen.classList.add("hidden");
@@ -18,8 +29,6 @@
 
     setTimeout(hideBoot, 3000);
 })();
-
-
 // =========================
 // 2. Scroll Progress Bar
 // =========================

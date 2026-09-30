@@ -441,3 +441,19 @@ if (project && project.screenshots && project.screenshots.length > 0) {
         }
     }, { passive: true });
 }
+// =========================
+// Smart Back Button
+// =========================
+
+(function initSmartBack() {
+    const backBtn = document.getElementById("back-to-projects");
+    if (!backBtn) return;
+
+    backBtn.addEventListener("click", function (e) {
+        // لو المستخدم جاي من الموقع
+        if (document.referrer && document.referrer.includes(window.location.host)) {
+            e.preventDefault();
+            window.history.back();
+        }
+    });
+})();
