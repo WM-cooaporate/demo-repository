@@ -122,7 +122,9 @@
 
     <header>
         <nav aria-label="Main navigation">
-            <a href="#home" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a> <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
+            <a href="#home" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a>
+
+            <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
 
             <ul class="nav-links" id="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -130,6 +132,7 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="blog.html">Blog</a></li>
             </ul>
         </nav>
     </header>
@@ -216,8 +219,38 @@
             </div>
 
         </section>
+        <!-- =========================
+     Stats Counter
+========================== -->
 
+        <section id="stats" aria-label="Company statistics">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">&lt;/&gt;</div>
+                    <h3 class="stat-number" data-target="0" data-suffix="+" data-auto="projects">0</h3>
+                    <p>Projects Built</p>
+                </div>
 
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <h3 class="stat-number" data-target="4">0</h3>
+                    <p>Team Members</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <h3 class="stat-number" data-target="10" data-suffix="+">0</h3>
+                    <p>Technologies Used</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <h3 class="stat-number" data-target="24" data-suffix="/7">0</h3>
+                    <p>Support Available</p>
+                </div>
+
+            </div>
+        </section>
         <!-- =========================
              About
         ========================== -->
@@ -310,7 +343,56 @@
                 </article>
             </div>
         </section>
+        <!-- =========================
+     Why Choose Us
+========================== -->
 
+        <section id="why-us" aria-labelledby="why-us-title">
+            <div class="section-title">
+                <p>WHY CHOOSE US</p>
+                <h2 id="why-us-title">Why Partner With WM Solutions?</h2>
+            </div>
+
+            <div class="why-us-container">
+
+                <article class="why-card">
+                    <div class="why-icon">⚡</div>
+                    <h3>Fast Delivery</h3>
+                    <p>We deliver projects on time without compromising on quality. Your deadline is our priority.</p>
+                </article>
+
+                <article class="why-card">
+                    <div class="why-icon">💎</div>
+                    <h3>Clean &amp; Scalable Code</h3>
+                    <p>Well-documented, maintainable code that grows with your business.</p>
+                </article>
+
+                <article class="why-card">
+                    <div class="why-icon">🛡</div>
+                    <h3>Post-Launch Support</h3>
+                    <p>We stand by our work with dedicated support after project delivery.</p>
+                </article>
+
+                <article class="why-card">
+                    <div class="why-icon">💰</div>
+                    <h3>Competitive Pricing</h3>
+                    <p>High-quality software solutions at prices that fit your budget.</p>
+                </article>
+
+                <article class="why-card">
+                    <div class="why-icon">👨‍💻</div>
+                    <h3>Expert Team</h3>
+                    <p>A specialized team covering frontend, backend, mobile, and UI/UX.</p>
+                </article>
+
+                <article class="why-card">
+                    <div class="why-icon">✅</div>
+                    <h3>Quality Guaranteed</h3>
+                    <p>Rigorous testing and QA processes ensure everything works perfectly.</p>
+                </article>
+
+            </div>
+        </section>
 
         <!-- =========================
              Binary Divider
@@ -329,9 +411,101 @@
                 <h2 id="projects-title">Software &amp; App Development Projects</h2>
             </div>
 
+            <!-- Portfolio Filter -->
+            <div class="portfolio-filter" id="portfolio-filter" role="tablist">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+        All Projects
+    </button>
+                <button class="filter-btn" data-filter="Web Development" role="tab" aria-selected="false">
+        Web
+    </button>
+                <button class="filter-btn" data-filter="Mobile App Development" role="tab" aria-selected="false">
+        Mobile
+    </button>
+                <button class="filter-btn" data-filter="Flutter Desktop Development" role="tab" aria-selected="false">
+        Desktop
+    </button>
+                <button class="filter-btn" data-filter="React" role="tab" aria-selected="false">
+        React
+    </button>
+            </div>
+
             <div class="projects-container" id="projects-container" aria-live="polite"></div>
         </section>
+        <!-- =========================
+     FAQ
+========================== -->
 
+        <section id="faq" aria-labelledby="faq-title">
+            <div class="section-title">
+                <p>FREQUENTLY ASKED</p>
+                <h2 id="faq-title">Got Questions? We Have Answers</h2>
+            </div>
+
+            <div class="faq-container">
+
+                <details class="faq-item">
+                    <summary>
+                        <span>How long does it take to build a website?</span>
+                        <span class="faq-icon">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        <p>A typical business website takes 2-4 weeks depending on complexity. Larger projects with custom features (e-commerce, dashboards, APIs) can take 6-12 weeks. We always provide a detailed timeline before starting.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span>How much does a project cost?</span>
+                        <span class="faq-icon">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Pricing depends on scope, features, and complexity. We offer competitive rates for startups and businesses. Contact us for a free consultation and detailed quote tailored to your needs.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span>Do you provide support after delivery?</span>
+                        <span class="faq-icon">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Yes! All projects include 30 days of free bug-fix support after delivery. We also offer extended maintenance packages for ongoing updates and improvements.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span>What technologies do you work with?</span>
+                        <span class="faq-icon">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        <p>We specialize in HTML, CSS, JavaScript, React for web; Flutter &amp; Dart for mobile; Java, Spring Boot, PHP for backend; and MySQL &amp; PostgreSQL for databases. We always choose the best stack for your project.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span>Do you work with clients outside Egypt?</span>
+                        <span class="faq-icon">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Absolutely! We work remotely with clients worldwide. We communicate via WhatsApp, email, or video calls, and adjust to your timezone for meetings.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>
+                        <span>Can you take over an existing project?</span>
+                        <span class="faq-icon">+</span>
+                    </summary>
+                    <div class="faq-content">
+                        <p>Yes, we can review existing code, fix issues, add new features, or completely refactor it. Send us your project details and we'll provide a full assessment.</p>
+                    </div>
+                </details>
+
+            </div>
+        </section>
 
         <!-- =========================
              Contact

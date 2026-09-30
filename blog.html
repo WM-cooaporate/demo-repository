@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Blog | WM Solutions - Software Development Insights</title>
+
+    <meta name="description" content="Read the latest articles about web development, mobile app development, Flutter, Java, and software engineering tips from WM Solutions.">
+
+    <meta name="keywords" content="WM Solutions blog, software development blog, web development tips, Flutter tutorials, programming articles, Egypt tech blog">
+
+    <meta name="author" content="WM Solutions">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://wm-cooaporate.github.io/demo-repository/blog.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blog | WM Solutions">
+    <meta property="og:description" content="Software development insights and articles by WM Solutions.">
+    <meta property="og:url" content="https://wm-cooaporate.github.io/demo-repository/blog.html">
+    <meta property="og:image" content="https://wm-cooaporate.github.io/demo-repository/images/logo.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog | WM Solutions">
+    <meta name="twitter:description" content="Software development insights and articles by WM Solutions.">
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="blog-animations.css">
+
+
+    <!-- Blog Schema -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "WM Solutions Blog",
+            "url": "https://wm-cooaporate.github.io/demo-repository/blog.html",
+            "description": "Software development insights, tutorials, and articles by WM Solutions.",
+            "publisher": {
+                "@type": "Organization",
+                "name": "WM Solutions",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://wm-cooaporate.github.io/demo-repository/images/logo.png"
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Header -->
+    <header>
+        <nav aria-label="Blog navigation">
+            <a href="index.html" class="logo" aria-label="WM Solutions Home">
+                &lt;WM /&gt; Solutions
+            </a>
+
+            <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="blog-main">
+
+        <!-- Blog Hero -->
+        <section class="blog-hero">
+            <div class="blog-hero-content">
+                <p class="hero-small-title">&lt;!-- OUR BLOG --&gt;</p>
+                <h1>Insights &amp; <span>Tech Articles</span></h1>
+                <p class="blog-hero-description">
+                    Tips, tutorials, and insights about web development, mobile apps, and modern software engineering.
+                </p>
+            </div>
+        </section>
+
+        <!-- Blog Grid -->
+        <section class="blog-section">
+            <div class="blog-container" id="blog-container">
+                <!-- Blog posts loaded dynamically by blog.js -->
+            </div>
+
+            <!-- No results message -->
+            <div class="no-results" id="no-results" style="display: none;">
+                <h3>No articles found</h3>
+                <p>Try a different category.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 WM Solutions. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="blog-data.js"></script>
+    <script src="blog.js"></script>
+
+</body>
+
+</html>
