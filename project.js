@@ -31,7 +31,6 @@ function escapeHtml(text) {
 // =========================
 // Dynamic SEO
 // =========================
-
 function updateProjectSEO(project) {
     if (!project) return;
 
@@ -39,6 +38,8 @@ function updateProjectSEO(project) {
 
     const canonicalUrl =
         `https://wm-cooaporate.github.io/demo-repository/project.html?id=${encodeURIComponent(project.id)}`;
+
+    const baseUrl = "https://wm-cooaporate.github.io/demo-repository/";
 
     // Description
     let description = document.querySelector('meta[name="description"]');
@@ -49,6 +50,12 @@ function updateProjectSEO(project) {
     }
     description.setAttribute("content", project.seoDescription || project.description);
 
+    // Keywords
+    setMetaName(
+        "keywords",
+        `WM Solutions, ${project.title}, ${project.type}, ${(project.technologies || []).join(", ")}, software development, Egypt`
+    );
+
     // Canonical
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
@@ -58,26 +65,71 @@ function updateProjectSEO(project) {
     }
     canonical.setAttribute("href", canonicalUrl);
 
+    const imageUrl = new URL(project.image, window.location.href).href;
+
     // Open Graph
     setMetaProperty("og:title", project.seoTitle || project.title);
     setMetaProperty("og:description", project.seoDescription || project.description);
     setMetaProperty("og:url", canonicalUrl);
-
-    const imageUrl = new URL(project.image, window.location.href).href;
-
     setMetaProperty("og:image", imageUrl);
     setMetaProperty("og:image:alt", project.imageAlt || project.title);
+    setMetaProperty("og:type", "article");
+    setMetaProperty("og:site_name", "WM Solutions");
 
     // Twitter
     setMetaName("twitter:title", project.seoTitle || project.title);
     setMetaName("twitter:description", project.seoDescription || project.description);
     setMetaName("twitter:image", imageUrl);
     setMetaName("twitter:image:alt", project.imageAlt || project.title);
+    setMetaName("twitter:card", "summary_large_image");
 
-    // Schema
+    // Breadcrumb List
+    createBreadcrumbSchema(project, canonicalUrl);
+
+    // CreativeWork Schema
     createProjectSchema(project, canonicalUrl, imageUrl);
 }
 
+
+// =========================
+// Breadcrumb Schema
+// =========================
+
+function createBreadcrumbSchema(project, canonicalUrl) {
+    const oldSchema = document.getElementById("breadcrumb-schema");
+    if (oldSchema) oldSchema.remove();
+
+    const schema = document.createElement("script");
+    schema.id = "breadcrumb-schema";
+    schema.type = "application/ld+json";
+
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://wm-cooaporate.github.io/demo-repository/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Projects",
+                "item": "https://wm-cooaporate.github.io/demo-repository/#projects"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": project.title,
+                "item": canonicalUrl
+            }
+        ]
+    };
+
+    schema.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(schema);
+}
 // =========================
 // Meta Helpers
 // =========================
@@ -109,7 +161,6 @@ function setMetaName(name, content) {
 // =========================
 // Structured Data
 // =========================
-
 function createProjectSchema(project, canonicalUrl, imageUrl) {
     const oldSchema = document.getElementById("project-schema");
     if (oldSchema) oldSchema.remove();
@@ -121,23 +172,43 @@ function createProjectSchema(project, canonicalUrl, imageUrl) {
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
+        "@id": canonicalUrl,
         "name": project.title,
+        "headline": project.title,
         "description": project.seoDescription || project.description,
         "url": canonicalUrl,
-        "image": imageUrl,
+        "image": {
+            "@type": "ImageObject",
+            "url": imageUrl,
+            "width": 1200,
+            "height": 630
+        },
         "creator": {
             "@type": "Organization",
+            "@id": "https://wm-cooaporate.github.io/demo-repository/#organization",
             "name": "WM Solutions",
             "url": "https://wm-cooaporate.github.io/demo-repository/"
         },
+        "publisher": {
+            "@type": "Organization",
+            "@id": "https://wm-cooaporate.github.io/demo-repository/#organization",
+            "name": "WM Solutions",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://wm-cooaporate.github.io/demo-repository/images/logo.png"
+            }
+        },
         "keywords": (project.technologies || []).join(", "),
-        "genre": project.type
+        "genre": project.type,
+        "inLanguage": "en-US",
+        "isAccessibleForFree": true,
+        "datePublished": "2026-01-01",
+        "dateModified": new Date().toISOString().split("T")[0]
     };
 
     schema.textContent = JSON.stringify(schemaData);
     document.head.appendChild(schema);
 }
-
 // =========================
 // Render Project
 // =========================

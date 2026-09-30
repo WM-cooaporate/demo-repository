@@ -1,0 +1,24 @@
+{
+    "name": "WM Solutions - Software Development",
+    "short_name": "WM Solutions",
+    "description": "Professional software development team specializing in web, mobile, and custom software solutions.",
+    "start_url": "/demo-repository/",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#38bdf8",
+    "orientation": "portrait-primary",
+    "lang": "en-US",
+    "icons": [{
+            "src": "images/logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "images/logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

@@ -1,29 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
+    <!-- Homepage -->
     <url>
         <loc>https://wm-cooaporate.github.io/demo-repository/</loc>
+        <lastmod>2026-01-01</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://wm-cooaporate.github.io/demo-repository/images/logo.png</image:loc>
+            <image:title>WM Solutions - Software Development Company</image:title>
+        </image:image>
     </url>
 
+    <!-- About Section -->
+    <url>
+        <loc>https://wm-cooaporate.github.io/demo-repository/#about</loc>
+        <lastmod>2026-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Services Section -->
+    <url>
+        <loc>https://wm-cooaporate.github.io/demo-repository/#services</loc>
+        <lastmod>2026-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Projects Section -->
+    <url>
+        <loc>https://wm-cooaporate.github.io/demo-repository/#projects</loc>
+        <lastmod>2026-01-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Contact Section -->
+    <url>
+        <loc>https://wm-cooaporate.github.io/demo-repository/#contact</loc>
+        <lastmod>2026-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Project: Meta Sense AI -->
     <url>
         <loc>https://wm-cooaporate.github.io/demo-repository/project.html?id=meta-ai</loc>
+        <lastmod>2026-01-01</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.7</priority>
     </url>
 
+    <!-- Project: Fitverse -->
     <url>
         <loc>https://wm-cooaporate.github.io/demo-repository/project.html?id=fitverse</loc>
+        <lastmod>2026-01-01</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.7</priority>
     </url>
 
+    <!-- Project: Business Manager -->
     <url>
         <loc>https://wm-cooaporate.github.io/demo-repository/project.html?id=business-manager</loc>
+        <lastmod>2026-01-01</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Project: Restaurant -->
+    <url>
+        <loc>https://wm-cooaporate.github.io/demo-repository/project.html?id=Restaurant</loc>
+        <lastmod>2026-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Project: Art-Vision -->
+    <url>
+        <loc>https://wm-cooaporate.github.io/demo-repository/project.html?id=Art-Vision</loc>
+        <lastmod>2026-01-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 
 </urlset>

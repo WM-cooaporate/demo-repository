@@ -1,4 +1,29 @@
+# robots.txt for WM Solutions
+# https://wm-cooaporate.github.io/demo-repository/
+
+# Allow all search engines
 User-agent: *
 Allow: /
 
+# Disallow sensitive files
+Disallow: /*.json$
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /.gitignore
+Disallow: /README.md
+
+# Specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# Sitemap location
 Sitemap: https://wm-cooaporate.github.io/demo-repository/sitemap.xml
