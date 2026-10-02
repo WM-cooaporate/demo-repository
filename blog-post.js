@@ -236,8 +236,8 @@ if (!container) {
     indicator.className = "reading-indicator";
     indicator.innerHTML = `
         <svg width="44" height="44" viewBox="0 0 44 44">
-            <circle cx="22" cy="22" r="18" fill="none" stroke="#3d4d68" stroke-width="3"/>
-            <circle cx="22" cy="22" r="18" fill="none" stroke="#5cc8ff" stroke-width="3"
+            <circle cx="22" cy="22" r="18" fill="none" stroke="#d8dfe8" stroke-width="3"/>
+            <circle cx="22" cy="22" r="18" fill="none" stroke="#0284c7" stroke-width="3"
                     stroke-dasharray="113"
                     stroke-dashoffset="113"
                     transform="rotate(-90 22 22)"
@@ -269,7 +269,7 @@ if (!container) {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: #5cc8ff;
+        color: #0284c7;
         font-size: 10px;
         font-weight: bold;
         font-family: "Courier New", monospace;
@@ -311,7 +311,7 @@ if (!container) {
             navigator.clipboard.writeText(text).then(function() {
                 const original = code.textContent;
                 code.textContent = "✓ Copied!";
-                code.style.color = "#22c55e";
+                code.style.color = "#16a34a";
 
                 setTimeout(function() {
                     code.textContent = original;

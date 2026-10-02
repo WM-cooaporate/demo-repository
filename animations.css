@@ -10,7 +10,7 @@
 .boot-screen {
     position: fixed;
     inset: 0;
-    background: #1a2438;
+    background: #f5f7fa;
     z-index: 99999;
     display: flex;
     align-items: center;
@@ -29,7 +29,7 @@
 .boot-content {
     width: 100%;
     max-width: 560px;
-    color: #5cc8ff;
+    color: #0284c7;
     font-size: 15px;
     line-height: 2;
 }
@@ -68,7 +68,7 @@
 }
 
 .boot-prompt {
-    color: #22c55e;
+    color: #16a34a;
     margin-right: 8px;
     font-weight: bold;
 }
@@ -77,7 +77,7 @@
     margin-top: 25px;
     width: 100%;
     height: 3px;
-    background: #3d4d68;
+    background: #d8dfe8;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -85,9 +85,9 @@
 .boot-bar-fill {
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, #5cc8ff, #22c55e);
+    background: linear-gradient(90deg, #0284c7, #16a34a);
     animation: bootFill 2s ease 2.2s forwards;
-    box-shadow: 0 0 15px #5cc8ff;
+    box-shadow: 0 0 15px #0284c7;
 }
 
 @keyframes bootFill {
@@ -107,10 +107,10 @@
     left: 0;
     height: 3px;
     width: 0;
-    background: linear-gradient(90deg, #5cc8ff, #22c55e, #f472b6);
+    background: linear-gradient(90deg, #0284c7, #16a34a, #db2777);
     z-index: 10000;
     transition: width 0.1s linear;
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+    box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
 }
 
 
@@ -146,14 +146,14 @@
 .code-rain span {
     position: absolute;
     top: -60px;
-    color: #5cc8ff;
+    color: #0284c7;
     font-family: "Courier New", monospace;
     font-size: 13px;
     font-weight: bold;
     animation: codeFall linear infinite;
     white-space: nowrap;
     user-select: none;
-    text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+    text-shadow: 0 0 8px rgba(2, 132, 199, 0.4);
 }
 
 @keyframes codeFall {
@@ -196,14 +196,14 @@
 }
 
 .glitch-title::before {
-    color: #5cc8ff;
+    color: #0284c7;
     z-index: -1;
     animation: glitch-1 4s infinite linear alternate-reverse;
     opacity: 0.5;
 }
 
 .glitch-title::after {
-    color: #f472b6;
+    color: #db2777;
     z-index: -2;
     animation: glitch-2 4s infinite linear alternate-reverse;
     opacity: 0.35;
@@ -248,14 +248,14 @@
 .floating-code {
     position: absolute;
     padding: 8px 14px;
-    background: rgba(2, 6, 23, 0.85);
-    border: 1px solid #3d4d68;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #d8dfe8;
     border-radius: 8px;
     font-family: "Courier New", monospace;
     font-size: 12px;
-    color: #5cc8ff;
+    color: #0284c7;
     backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(26, 35, 50, 0.08);
     pointer-events: none;
     z-index: 1;
     opacity: 0;
@@ -264,7 +264,7 @@
 }
 
 .floating-code .code-pink {
-    color: #f472b6;
+    color: #db2777;
 }
 
 .floating-code .code-green {
@@ -326,13 +326,13 @@
 ============================================ */
 
 .terminal-window {
-    background: #0a0f1e;
-    border: 1px solid #3d4d68;
+    background: #ffffff;
+    border: 1px solid #d8dfe8;
     border-radius: 12px;
     overflow: hidden;
     width: 100%;
     max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(56, 189, 248, 0.08), 0 0 60px rgba(56, 189, 248, 0.06);
+    box-shadow: 0 20px 60px rgba(26, 35, 50, 0.1), 0 0 0 1px rgba(2, 132, 199, 0.08), 0 0 60px rgba(2, 132, 199, 0.06);
     font-family: "Courier New", "Consolas", monospace;
     position: relative;
 }
@@ -342,8 +342,8 @@
     align-items: center;
     gap: 8px;
     padding: 12px 16px;
-    background: #232f42;
-    border-bottom: 1px solid #3d4d68;
+    background: #eef1f6;
+    border-bottom: 1px solid #d8dfe8;
 }
 
 .terminal-header .dot {
@@ -363,7 +363,7 @@
 }
 
 .dot-green {
-    background: #22c55e;
+    background: #16a34a;
 }
 
 .terminal-title {
@@ -379,8 +379,8 @@
     min-height: 280px;
     font-size: 14px;
     line-height: 2;
-    color: #cbd5e1;
-    background: #1a2438;
+    color: #4a5669;
+    background: #f5f7fa;
 }
 
 .terminal-line {
@@ -433,13 +433,13 @@
 }
 
 .terminal-prompt {
-    color: #22c55e;
+    color: #16a34a;
     font-weight: bold;
     flex-shrink: 0;
 }
 
 .terminal-cmd {
-    color: #5cc8ff;
+    color: #0284c7;
 }
 
 .terminal-keyword {
@@ -451,19 +451,19 @@
 }
 
 .terminal-output {
-    color: #94a3b8;
+    color: #64748b;
     padding-left: 0;
 }
 
 .terminal-success {
-    color: #22c55e;
+    color: #16a34a;
 }
 
 .terminal-cursor {
     display: inline-block;
     width: 8px;
     height: 16px;
-    background: #5cc8ff;
+    background: #0284c7;
     margin-left: 4px;
     vertical-align: middle;
     animation: blink 1s step-end infinite;
@@ -510,10 +510,10 @@
 .binary-divider {
     width: 100%;
     overflow: hidden;
-    background: #1a2438;
+    background: #f5f7fa;
     padding: 30px 0;
-    border-top: 1px solid #3d4d68;
-    border-bottom: 1px solid #3d4d68;
+    border-top: 1px solid #d8dfe8;
+    border-bottom: 1px solid #d8dfe8;
     white-space: nowrap;
     user-select: none;
 }
@@ -522,7 +522,7 @@
     display: inline-block;
     font-family: "Courier New", monospace;
     font-size: 13px;
-    color: #3d4d63;
+    color: #cbd5e1;
     letter-spacing: 4px;
     animation: scrollBinary 40s linear infinite;
 }
@@ -561,12 +561,12 @@
     align-items: center;
     gap: 8px;
     padding: 6px 14px;
-    background: rgba(2, 6, 23, 0.9);
-    border: 1px solid #3d4d68;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #d8dfe8;
     border-radius: 6px;
     font-family: "Courier New", monospace;
     font-size: 12px;
-    color: #5cc8ff;
+    color: #0284c7;
     opacity: 0;
     transform: translateX(-20px);
     transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
@@ -577,9 +577,9 @@
     content: "";
     width: 6px;
     height: 6px;
-    background: #22c55e;
+    background: #16a34a;
     border-radius: 50%;
-    box-shadow: 0 0 8px #22c55e;
+    box-shadow: 0 0 8px #16a34a;
     animation: tagPulse 2s ease-in-out infinite;
 }
 
@@ -607,7 +607,7 @@
 
 .section-title p::before {
     content: "// ";
-    color: #22c55e;
+    color: #16a34a;
     font-family: "Courier New", monospace;
     margin-right: 4px;
     font-weight: bold;
@@ -615,7 +615,7 @@
 
 .section-title h2::before {
     content: "< ";
-    color: #5cc8ff;
+    color: #0284c7;
     font-family: "Courier New", monospace;
     font-weight: normal;
     opacity: 0.7;
@@ -623,7 +623,7 @@
 
 .section-title h2::after {
     content: " />";
-    color: #5cc8ff;
+    color: #0284c7;
     font-family: "Courier New", monospace;
     font-weight: normal;
     opacity: 0.7;
@@ -646,7 +646,7 @@
     left: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #5cc8ff, transparent);
+    background: linear-gradient(90deg, transparent, #0284c7, transparent);
     transition: left 0.6s ease;
 }
 
@@ -660,7 +660,7 @@
     top: 12px;
     right: 15px;
     font-family: "Courier New", monospace;
-    color: #3d4d68;
+    color: #d8dfe8;
     font-size: 20px;
     font-weight: bold;
     transition: color 0.3s ease;
@@ -668,7 +668,7 @@
 }
 
 .service-card:hover::after {
-    color: #5cc8ff;
+    color: #0284c7;
 }
 
 
@@ -687,10 +687,10 @@
     right: 15px;
     z-index: 3;
     padding: 4px 10px;
-    background: rgba(2, 6, 23, 0.9);
-    border: 1px solid #5cc8ff;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #0284c7;
     border-radius: 6px;
-    color: #5cc8ff;
+    color: #0284c7;
     font-family: "Courier New", monospace;
     font-size: 11px;
     font-weight: bold;
@@ -716,7 +716,7 @@
 
 .team-card:hover .member-icon {
     transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 30px rgba(2, 132, 199, 0.5);
 }
 
 
@@ -736,7 +736,7 @@
     left: 50%;
     width: 0;
     height: 0;
-    background: rgba(56, 189, 248, 0.25);
+    background: rgba(2, 132, 199, 0.25);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.6s ease, height 0.6s ease;

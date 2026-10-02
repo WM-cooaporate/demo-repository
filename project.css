@@ -5,7 +5,7 @@
 .project-details {
     min-height: 100vh;
     padding: 150px 40px 100px;
-    background-color: #1a2438;
+    background-color: #f5f7fa;
 }
 
 .project-details-container {
@@ -30,7 +30,7 @@
 }
 
 .project-type {
-    color: #5cc8ff;
+    color: #0284c7;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -42,7 +42,7 @@
 /* ✅ إضافة الوصف المفقود */
 
 .project-description {
-    color: #94a3b8;
+    color: #64748b;
     font-size: 18px;
     line-height: 1.8;
     max-width: 800px;
@@ -59,9 +59,9 @@
     max-height: 600px;
     overflow: hidden;
     border-radius: 20px;
-    border: 1px solid #3d4d68;
+    border: 1px solid #d8dfe8;
     margin-bottom: 55px;
-    background-color: #232f42;
+    background-color: #eef1f6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,7 +81,7 @@
 /* Logo Variant - إصلاح القص */
 
 .project-main-image.logo-image {
-    background-color: #f8fafc;
+    background-color: #ffffff;
     padding: 30px;
     height: 500px;
     max-height: 500px;
@@ -131,19 +131,19 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #3d4d68;
-    color: #cbd5e1;
+    background-color: #d8dfe8;
+    color: #4a5669;
     padding: 9px 15px;
     border-radius: 7px;
     font-size: 14px;
     font-weight: 600;
-    border: 1px solid #3d4d63;
+    border: 1px solid #cbd5e1;
     transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .project-tech span:hover {
-    color: #5cc8ff;
-    border-color: #5cc8ff;
+    color: #0284c7;
+    border-color: #0284c7;
     transform: translateY(-2px);
 }
 
@@ -172,8 +172,8 @@
     height: 220px;
     overflow: hidden;
     border-radius: 12px;
-    border: 1px solid #3d4d68;
-    background-color: #232f42;
+    border: 1px solid #d8dfe8;
+    background-color: #eef1f6;
     cursor: pointer;
 }
 
@@ -195,7 +195,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(2, 6, 23, 0.65);
+    background: rgba(2, 132, 199, 0.85);
     color: white;
     font-size: 16px;
     font-weight: 600;
@@ -237,7 +237,7 @@
     height: auto;
     object-fit: contain;
     border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 60px rgba(26, 35, 50, 0.1);
     animation: zoomIn 0.3s ease;
 }
 
@@ -317,7 +317,7 @@ body.lightbox-open {
     width: 100%;
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid #3d4d68;
+    border: 1px solid #d8dfe8;
     background-color: #000;
 }
 
@@ -341,14 +341,14 @@ body.lightbox-open {
 /* Back Link */
 
 .back-link {
-    color: #94a3b8;
+    color: #64748b;
     text-decoration: none;
     transition: color 0.3s ease;
     font-weight: 600;
 }
 
 .back-link:hover {
-    color: #5cc8ff;
+    color: #0284c7;
 }
 
 
@@ -365,12 +365,12 @@ body.lightbox-open {
 }
 
 .project-not-found p {
-    color: #94a3b8;
+    color: #64748b;
     margin-bottom: 25px;
 }
 
 .project-not-found a {
-    color: #5cc8ff;
+    color: #0284c7;
     text-decoration: none;
 }
 
