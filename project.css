@@ -5,7 +5,7 @@
 .project-details {
     min-height: 100vh;
     padding: 150px 40px 100px;
-    background-color: #020617;
+    background-color: #131c2b;
 }
 
 .project-details-container {
@@ -30,7 +30,7 @@
 }
 
 .project-type {
-    color: #38bdf8;
+    color: #4cc2ff;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -59,9 +59,9 @@
     max-height: 600px;
     overflow: hidden;
     border-radius: 20px;
-    border: 1px solid #1e293b;
+    border: 1px solid #2d3b4f;
     margin-bottom: 55px;
-    background-color: #0f172a;
+    background-color: #1a2332;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,19 +131,19 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #1e293b;
+    background-color: #2d3b4f;
     color: #cbd5e1;
     padding: 9px 15px;
     border-radius: 7px;
     font-size: 14px;
     font-weight: 600;
-    border: 1px solid #334155;
+    border: 1px solid #3d4d63;
     transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .project-tech span:hover {
-    color: #38bdf8;
-    border-color: #38bdf8;
+    color: #4cc2ff;
+    border-color: #4cc2ff;
     transform: translateY(-2px);
 }
 
@@ -172,8 +172,8 @@
     height: 220px;
     overflow: hidden;
     border-radius: 12px;
-    border: 1px solid #1e293b;
-    background-color: #0f172a;
+    border: 1px solid #2d3b4f;
+    background-color: #1a2332;
     cursor: pointer;
 }
 
@@ -317,7 +317,7 @@ body.lightbox-open {
     width: 100%;
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid #1e293b;
+    border: 1px solid #2d3b4f;
     background-color: #000;
 }
 
@@ -348,7 +348,7 @@ body.lightbox-open {
 }
 
 .back-link:hover {
-    color: #38bdf8;
+    color: #4cc2ff;
 }
 
 
@@ -370,7 +370,7 @@ body.lightbox-open {
 }
 
 .project-not-found a {
-    color: #38bdf8;
+    color: #4cc2ff;
     text-decoration: none;
 }
 

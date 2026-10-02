@@ -62,7 +62,7 @@
         span.style.animationDuration = (Math.random() * 8 + 10) + "s";
         span.style.animationDelay = (Math.random() * 12) + "s";
         span.style.fontSize = (Math.random() * 6 + 11) + "px";
-        span.style.color = Math.random() > 0.5 ? "#38bdf8" : "#22c55e";
+        span.style.color = Math.random() > 0.5 ? "#4cc2ff" : "#22c55e";
         container.appendChild(span);
     }
 })();
@@ -95,7 +95,7 @@
     function draw() {
         ctx.fillStyle = "rgba(2, 6, 23, 0.1)";
         ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = "#38bdf8";
+        ctx.fillStyle = "#4cc2ff";
         ctx.font = fontSize + "px monospace";
 
         for (let i = 0; i < drops.length; i++) {

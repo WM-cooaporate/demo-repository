@@ -236,8 +236,8 @@ if (!container) {
     indicator.className = "reading-indicator";
     indicator.innerHTML = `
         <svg width="44" height="44" viewBox="0 0 44 44">
-            <circle cx="22" cy="22" r="18" fill="none" stroke="#1e293b" stroke-width="3"/>
-            <circle cx="22" cy="22" r="18" fill="none" stroke="#38bdf8" stroke-width="3"
+            <circle cx="22" cy="22" r="18" fill="none" stroke="#2d3b4f" stroke-width="3"/>
+            <circle cx="22" cy="22" r="18" fill="none" stroke="#4cc2ff" stroke-width="3"
                     stroke-dasharray="113"
                     stroke-dashoffset="113"
                     transform="rotate(-90 22 22)"
@@ -269,7 +269,7 @@ if (!container) {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: #38bdf8;
+        color: #4cc2ff;
         font-size: 10px;
         font-weight: bold;
         font-family: "Courier New", monospace;

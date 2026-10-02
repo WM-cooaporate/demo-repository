@@ -527,7 +527,7 @@ if (project && project.screenshots && project.screenshots.length > 0) {
             left: 0;
             height: 3px;
             width: 0;
-            background: linear-gradient(90deg, #38bdf8, #22c55e, #f472b6);
+            background: linear-gradient(90deg, #4cc2ff, #22c55e, #f472b6);
             z-index: 10000;
             transition: width 0.1s linear;
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
