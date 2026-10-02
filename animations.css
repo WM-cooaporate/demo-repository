@@ -10,7 +10,7 @@
 .boot-screen {
     position: fixed;
     inset: 0;
-    background: #131c2b;
+    background: #1a2438;
     z-index: 99999;
     display: flex;
     align-items: center;
@@ -29,7 +29,7 @@
 .boot-content {
     width: 100%;
     max-width: 560px;
-    color: #4cc2ff;
+    color: #5cc8ff;
     font-size: 15px;
     line-height: 2;
 }
@@ -77,7 +77,7 @@
     margin-top: 25px;
     width: 100%;
     height: 3px;
-    background: #2d3b4f;
+    background: #3d4d68;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -85,9 +85,9 @@
 .boot-bar-fill {
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, #4cc2ff, #22c55e);
+    background: linear-gradient(90deg, #5cc8ff, #22c55e);
     animation: bootFill 2s ease 2.2s forwards;
-    box-shadow: 0 0 15px #4cc2ff;
+    box-shadow: 0 0 15px #5cc8ff;
 }
 
 @keyframes bootFill {
@@ -107,7 +107,7 @@
     left: 0;
     height: 3px;
     width: 0;
-    background: linear-gradient(90deg, #4cc2ff, #22c55e, #f472b6);
+    background: linear-gradient(90deg, #5cc8ff, #22c55e, #f472b6);
     z-index: 10000;
     transition: width 0.1s linear;
     box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
@@ -146,7 +146,7 @@
 .code-rain span {
     position: absolute;
     top: -60px;
-    color: #4cc2ff;
+    color: #5cc8ff;
     font-family: "Courier New", monospace;
     font-size: 13px;
     font-weight: bold;
@@ -196,7 +196,7 @@
 }
 
 .glitch-title::before {
-    color: #4cc2ff;
+    color: #5cc8ff;
     z-index: -1;
     animation: glitch-1 4s infinite linear alternate-reverse;
     opacity: 0.5;
@@ -249,11 +249,11 @@
     position: absolute;
     padding: 8px 14px;
     background: rgba(2, 6, 23, 0.85);
-    border: 1px solid #2d3b4f;
+    border: 1px solid #3d4d68;
     border-radius: 8px;
     font-family: "Courier New", monospace;
     font-size: 12px;
-    color: #4cc2ff;
+    color: #5cc8ff;
     backdrop-filter: blur(8px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     pointer-events: none;
@@ -327,7 +327,7 @@
 
 .terminal-window {
     background: #0a0f1e;
-    border: 1px solid #2d3b4f;
+    border: 1px solid #3d4d68;
     border-radius: 12px;
     overflow: hidden;
     width: 100%;
@@ -342,8 +342,8 @@
     align-items: center;
     gap: 8px;
     padding: 12px 16px;
-    background: #1a2332;
-    border-bottom: 1px solid #2d3b4f;
+    background: #232f42;
+    border-bottom: 1px solid #3d4d68;
 }
 
 .terminal-header .dot {
@@ -380,7 +380,7 @@
     font-size: 14px;
     line-height: 2;
     color: #cbd5e1;
-    background: #131c2b;
+    background: #1a2438;
 }
 
 .terminal-line {
@@ -439,7 +439,7 @@
 }
 
 .terminal-cmd {
-    color: #4cc2ff;
+    color: #5cc8ff;
 }
 
 .terminal-keyword {
@@ -463,7 +463,7 @@
     display: inline-block;
     width: 8px;
     height: 16px;
-    background: #4cc2ff;
+    background: #5cc8ff;
     margin-left: 4px;
     vertical-align: middle;
     animation: blink 1s step-end infinite;
@@ -510,10 +510,10 @@
 .binary-divider {
     width: 100%;
     overflow: hidden;
-    background: #131c2b;
+    background: #1a2438;
     padding: 30px 0;
-    border-top: 1px solid #2d3b4f;
-    border-bottom: 1px solid #2d3b4f;
+    border-top: 1px solid #3d4d68;
+    border-bottom: 1px solid #3d4d68;
     white-space: nowrap;
     user-select: none;
 }
@@ -562,11 +562,11 @@
     gap: 8px;
     padding: 6px 14px;
     background: rgba(2, 6, 23, 0.9);
-    border: 1px solid #2d3b4f;
+    border: 1px solid #3d4d68;
     border-radius: 6px;
     font-family: "Courier New", monospace;
     font-size: 12px;
-    color: #4cc2ff;
+    color: #5cc8ff;
     opacity: 0;
     transform: translateX(-20px);
     transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
@@ -615,7 +615,7 @@
 
 .section-title h2::before {
     content: "< ";
-    color: #4cc2ff;
+    color: #5cc8ff;
     font-family: "Courier New", monospace;
     font-weight: normal;
     opacity: 0.7;
@@ -623,7 +623,7 @@
 
 .section-title h2::after {
     content: " />";
-    color: #4cc2ff;
+    color: #5cc8ff;
     font-family: "Courier New", monospace;
     font-weight: normal;
     opacity: 0.7;
@@ -646,7 +646,7 @@
     left: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #4cc2ff, transparent);
+    background: linear-gradient(90deg, transparent, #5cc8ff, transparent);
     transition: left 0.6s ease;
 }
 
@@ -660,7 +660,7 @@
     top: 12px;
     right: 15px;
     font-family: "Courier New", monospace;
-    color: #2d3b4f;
+    color: #3d4d68;
     font-size: 20px;
     font-weight: bold;
     transition: color 0.3s ease;
@@ -668,7 +668,7 @@
 }
 
 .service-card:hover::after {
-    color: #4cc2ff;
+    color: #5cc8ff;
 }
 
 
@@ -688,9 +688,9 @@
     z-index: 3;
     padding: 4px 10px;
     background: rgba(2, 6, 23, 0.9);
-    border: 1px solid #4cc2ff;
+    border: 1px solid #5cc8ff;
     border-radius: 6px;
-    color: #4cc2ff;
+    color: #5cc8ff;
     font-family: "Courier New", monospace;
     font-size: 11px;
     font-weight: bold;

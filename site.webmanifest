@@ -4,8 +4,8 @@
     "description": "Professional software development team specializing in web, mobile, and custom software solutions.",
     "start_url": "/demo-repository/",
     "display": "standalone",
-    "background_color": "#1a2332",
-    "theme_color": "#4cc2ff",
+    "background_color": "#232f42",
+    "theme_color": "#5cc8ff",
     "orientation": "portrait-primary",
     "lang": "en-US",
     "icons": [{

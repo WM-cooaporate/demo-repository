@@ -5,7 +5,7 @@
 .project-details {
     min-height: 100vh;
     padding: 150px 40px 100px;
-    background-color: #131c2b;
+    background-color: #1a2438;
 }
 
 .project-details-container {
@@ -30,7 +30,7 @@
 }
 
 .project-type {
-    color: #4cc2ff;
+    color: #5cc8ff;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -59,9 +59,9 @@
     max-height: 600px;
     overflow: hidden;
     border-radius: 20px;
-    border: 1px solid #2d3b4f;
+    border: 1px solid #3d4d68;
     margin-bottom: 55px;
-    background-color: #1a2332;
+    background-color: #232f42;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,7 +131,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #2d3b4f;
+    background-color: #3d4d68;
     color: #cbd5e1;
     padding: 9px 15px;
     border-radius: 7px;
@@ -142,8 +142,8 @@
 }
 
 .project-tech span:hover {
-    color: #4cc2ff;
-    border-color: #4cc2ff;
+    color: #5cc8ff;
+    border-color: #5cc8ff;
     transform: translateY(-2px);
 }
 
@@ -172,8 +172,8 @@
     height: 220px;
     overflow: hidden;
     border-radius: 12px;
-    border: 1px solid #2d3b4f;
-    background-color: #1a2332;
+    border: 1px solid #3d4d68;
+    background-color: #232f42;
     cursor: pointer;
 }
 
@@ -317,7 +317,7 @@ body.lightbox-open {
     width: 100%;
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid #2d3b4f;
+    border: 1px solid #3d4d68;
     background-color: #000;
 }
 
@@ -348,7 +348,7 @@ body.lightbox-open {
 }
 
 .back-link:hover {
-    color: #4cc2ff;
+    color: #5cc8ff;
 }
 
 
@@ -370,7 +370,7 @@ body.lightbox-open {
 }
 
 .project-not-found a {
-    color: #4cc2ff;
+    color: #5cc8ff;
     text-decoration: none;
 }
 
