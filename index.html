@@ -36,6 +36,7 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="theme-toggle.css">
 
     <script type="application/ld+json">
         {
@@ -61,68 +62,31 @@
             "url": "https://wm-cooaporate.github.io/demo-repository/"
         }
     </script>
-
 </head>
-
 
 <body>
 
-    <!-- =========================
-         Boot Screen
-    ========================== -->
-
+    <!-- Boot Screen -->
     <div class="boot-screen" id="boot-screen" aria-hidden="true">
         <div class="boot-content">
-            <div class="boot-line">
-                <span class="boot-prompt">$</span> initializing WM_Solutions.exe
-            </div>
-            <div class="boot-line">
-                <span class="boot-prompt">$</span> loading modules...
-            </div>
-            <div class="boot-line">
-                <span class="boot-prompt">$</span> compiling assets ████████ 100%
-            </div>
-            <div class="boot-line">
-                <span class="boot-prompt">$</span> connecting to database...
-            </div>
-            <div class="boot-line" style="color: #16a34a;">
-                <span class="boot-prompt">✓</span> system ready. welcome to WM Solutions
-            </div>
+            <div class="boot-line"><span class="boot-prompt">$</span> initializing WM_Solutions.exe</div>
+            <div class="boot-line"><span class="boot-prompt">$</span> loading modules...</div>
+            <div class="boot-line"><span class="boot-prompt">$</span> compiling assets ████████ 100%</div>
+            <div class="boot-line"><span class="boot-prompt">$</span> connecting to database...</div>
+            <div class="boot-line" style="color: #22c55e;"><span class="boot-prompt">✓</span> system ready. welcome to WM Solutions</div>
             <div class="boot-bar">
                 <div class="boot-bar-fill"></div>
             </div>
         </div>
     </div>
 
-
-    <!-- =========================
-         Scroll Progress
-    ========================== -->
-
     <div class="scroll-progress" id="scroll-progress"></div>
-
-
-    <!-- =========================
-         Matrix Canvas
-    ========================== -->
-
     <canvas id="matrix-canvas" aria-hidden="true"></canvas>
-
-
-    <!-- =========================
-         Back To Top
-    ========================== -->
-
     <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
-
-
-    <!-- =========================
-         Header
-    ========================== -->
 
     <header>
         <nav aria-label="Main navigation">
-            <a href="#home" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a>
+            <a href="./" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a>
 
             <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
 
@@ -131,21 +95,22 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
                 <li><a href="blog.html">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle Dark/Light Mode">
+                <span class="theme-toggle-inner">
+                    <span class="theme-icon theme-icon-dark" aria-hidden="true">&lt;/&gt;</span>
+                    <span class="theme-icon theme-icon-light" aria-hidden="true">☀</span>
+                </span>
+            </button>
         </nav>
     </header>
 
-
     <main>
-
-        <!-- =========================
-             Hero
-        ========================== -->
-
+        <!-- Hero -->
         <section id="home" aria-labelledby="home-title">
-
             <div class="code-rain" id="code-rain" aria-hidden="true"></div>
 
             <div class="floating-code float-1" aria-hidden="true">
@@ -160,15 +125,12 @@
 
             <div class="hero-content">
                 <p class="hero-small-title">&lt;!-- WE ARE WM SOLUTIONS --&gt;</p>
-
                 <h1 id="home-title" class="glitch-title" data-text="Web, Mobile & Software Development Solutions">
                     Web, Mobile &amp; Software Development Solutions
                 </h1>
-
                 <p class="hero-description">
                     WM Solutions is a software development team specializing in modern websites, Flutter mobile applications, backend APIs, databases, and custom software solutions.
                 </p>
-
                 <div class="hero-buttons">
                     <a href="#projects" class="btn primary-btn">Our Projects</a>
                     <a href="#contact" class="btn secondary-btn">Contact Us</a>
@@ -189,7 +151,7 @@
                             <span class="terminal-cmd">wm init --team</span>
                         </div>
                         <div class="terminal-line">
-                            <span class="terminal-output">✓ Team initialized: Wasem,Michael,Marvy,Sosana</span>
+                            <span class="terminal-output">✓ Team initialized: Wasem, Michael</span>
                         </div>
                         <div class="terminal-line">
                             <span class="terminal-prompt">$</span>
@@ -217,12 +179,9 @@
                     </div>
                 </div>
             </div>
-
         </section>
-        <!-- =========================
-     Stats Counter
-========================== -->
 
+        <!-- Stats -->
         <section id="stats" aria-label="Company statistics">
             <div class="stats-container">
                 <div class="stat-card">
@@ -230,31 +189,25 @@
                     <h3 class="stat-number" data-target="0" data-suffix="+" data-auto="projects">0</h3>
                     <p>Projects Built</p>
                 </div>
-
                 <div class="stat-card">
                     <div class="stat-icon">👥</div>
                     <h3 class="stat-number" data-target="4">0</h3>
                     <p>Team Members</p>
                 </div>
-
                 <div class="stat-card">
                     <div class="stat-icon">⚡</div>
                     <h3 class="stat-number" data-target="10" data-suffix="+">0</h3>
                     <p>Technologies Used</p>
                 </div>
-
                 <div class="stat-card">
                     <div class="stat-icon">💬</div>
                     <h3 class="stat-number" data-target="24" data-suffix="/7">0</h3>
                     <p>Support Available</p>
                 </div>
-
             </div>
         </section>
-        <!-- =========================
-             About
-        ========================== -->
 
+        <!-- About -->
         <section id="about" aria-labelledby="about-title">
             <div class="section-title">
                 <p>WHO WE ARE</p>
@@ -269,44 +222,35 @@
                 </div>
 
                 <div class="team-container" aria-label="WM Solutions development team">
-
                     <article class="team-card">
                         <div class="member-icon color-1" aria-hidden="true">W</div>
                         <h3>Wasem</h3>
                         <p class="role">Front-End &amp; Mobile Developer</p>
                         <p>HTML, CSS, JavaScript, Flutter, PHP &amp; MySQL</p>
                     </article>
-
                     <article class="team-card">
                         <div class="member-icon color-2" aria-hidden="true">M</div>
                         <h3>Michael</h3>
                         <p class="role">Backend Developer</p>
                         <p>Java, Spring Boot, PostgreSQL &amp; APIs</p>
                     </article>
-
                     <article class="team-card">
                         <div class="member-icon color-3" aria-hidden="true">M</div>
                         <h3>Marvy</h3>
                         <p class="role">Mobile App &amp; UI/UX</p>
                         <p>Flutter, Dart, Figma &amp; User Experience Design</p>
                     </article>
-
                     <article class="team-card">
                         <div class="member-icon color-4" aria-hidden="true">S</div>
-                        <h3>Sosana</h3>
+                        <h3>Sawsan</h3>
                         <p class="role">Mobile App &amp; UI/UX</p>
                         <p>Flutter, Dart, Figma &amp; User Experience Design</p>
                     </article>
-
                 </div>
             </div>
         </section>
 
-
-        <!-- =========================
-             Services
-        ========================== -->
-
+        <!-- Services -->
         <section id="services" aria-labelledby="services-title">
             <div class="section-title">
                 <p>WHAT WE DO</p>
@@ -320,21 +264,18 @@
                     <p>We design and develop modern, responsive, and user-friendly websites for businesses, startups, and individuals using HTML, CSS, JavaScript, and modern web technologies.</p>
                     <span>HTML • CSS • JavaScript</span>
                 </article>
-
                 <article class="service-card">
                     <div class="service-icon" aria-hidden="true">📱</div>
                     <h3>Mobile App Development</h3>
                     <p>We build cross-platform mobile applications using Flutter and Dart, focusing on performance, usability, scalability, and modern user interfaces.</p>
                     <span>Flutter • Dart</span>
                 </article>
-
                 <article class="service-card">
                     <div class="service-icon" aria-hidden="true">⚙</div>
                     <h3>Backend Development</h3>
                     <p>We develop backend systems, REST APIs, and server-side applications using Java, Spring Boot, PHP, and modern backend technologies.</p>
                     <span>Java • Spring Boot • PHP</span>
                 </article>
-
                 <article class="service-card">
                     <div class="service-icon" aria-hidden="true">🗄</div>
                     <h3>Database Solutions</h3>
@@ -343,10 +284,8 @@
                 </article>
             </div>
         </section>
-        <!-- =========================
-     Why Choose Us
-========================== -->
 
+        <!-- Why Choose Us -->
         <section id="why-us" aria-labelledby="why-us-title">
             <div class="section-title">
                 <p>WHY CHOOSE US</p>
@@ -354,88 +293,61 @@
             </div>
 
             <div class="why-us-container">
-
                 <article class="why-card">
                     <div class="why-icon">⚡</div>
                     <h3>Fast Delivery</h3>
                     <p>We deliver projects on time without compromising on quality. Your deadline is our priority.</p>
                 </article>
-
                 <article class="why-card">
                     <div class="why-icon">💎</div>
                     <h3>Clean &amp; Scalable Code</h3>
                     <p>Well-documented, maintainable code that grows with your business.</p>
                 </article>
-
                 <article class="why-card">
                     <div class="why-icon">🛡</div>
                     <h3>Post-Launch Support</h3>
                     <p>We stand by our work with dedicated support after project delivery.</p>
                 </article>
-
                 <article class="why-card">
                     <div class="why-icon">💰</div>
                     <h3>Competitive Pricing</h3>
                     <p>High-quality software solutions at prices that fit your budget.</p>
                 </article>
-
                 <article class="why-card">
                     <div class="why-icon">👨‍💻</div>
                     <h3>Expert Team</h3>
                     <p>A specialized team covering frontend, backend, mobile, and UI/UX.</p>
                 </article>
-
                 <article class="why-card">
                     <div class="why-icon">✅</div>
                     <h3>Quality Guaranteed</h3>
                     <p>Rigorous testing and QA processes ensure everything works perfectly.</p>
                 </article>
-
             </div>
         </section>
 
-        <!-- =========================
-             Binary Divider
-        ========================== -->
-
+        <!-- Binary Divider -->
         <div class="binary-divider" aria-hidden="true"></div>
 
-
-        <!-- =========================
-             Projects
-        ========================== -->
-
+        <!-- Projects -->
         <section id="projects" aria-labelledby="projects-title">
             <div class="section-title">
                 <p>OUR WORK</p>
                 <h2 id="projects-title">Software &amp; App Development Projects</h2>
             </div>
 
-            <!-- Portfolio Filter -->
             <div class="portfolio-filter" id="portfolio-filter" role="tablist">
-                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
-        All Projects
-    </button>
-                <button class="filter-btn" data-filter="Web Development" role="tab" aria-selected="false">
-        Web
-    </button>
-                <button class="filter-btn" data-filter="Mobile App Development" role="tab" aria-selected="false">
-        Mobile
-    </button>
-                <button class="filter-btn" data-filter="Flutter Desktop Development" role="tab" aria-selected="false">
-        Desktop
-    </button>
-                <button class="filter-btn" data-filter="React" role="tab" aria-selected="false">
-        React
-    </button>
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Projects</button>
+                <button class="filter-btn" data-filter="Web Development" role="tab" aria-selected="false">Web</button>
+                <button class="filter-btn" data-filter="Mobile App Development" role="tab" aria-selected="false">Mobile</button>
+                <button class="filter-btn" data-filter="Flutter Desktop Development" role="tab" aria-selected="false">Desktop</button>
+                <button class="filter-btn" data-filter="React" role="tab" aria-selected="false">React</button>
             </div>
 
             <div class="projects-container" id="projects-container" aria-live="polite"></div>
         </section>
-        <!-- =========================
-     FAQ
-========================== -->
 
+        <!-- FAQ -->
         <section id="faq" aria-labelledby="faq-title">
             <div class="section-title">
                 <p>FREQUENTLY ASKED</p>
@@ -443,7 +355,6 @@
             </div>
 
             <div class="faq-container">
-
                 <details class="faq-item">
                     <summary>
                         <span>How long does it take to build a website?</span>
@@ -453,7 +364,6 @@
                         <p>A typical business website takes 2-4 weeks depending on complexity. Larger projects with custom features (e-commerce, dashboards, APIs) can take 6-12 weeks. We always provide a detailed timeline before starting.</p>
                     </div>
                 </details>
-
                 <details class="faq-item">
                     <summary>
                         <span>How much does a project cost?</span>
@@ -463,7 +373,6 @@
                         <p>Pricing depends on scope, features, and complexity. We offer competitive rates for startups and businesses. Contact us for a free consultation and detailed quote tailored to your needs.</p>
                     </div>
                 </details>
-
                 <details class="faq-item">
                     <summary>
                         <span>Do you provide support after delivery?</span>
@@ -473,17 +382,15 @@
                         <p>Yes! All projects include 30 days of free bug-fix support after delivery. We also offer extended maintenance packages for ongoing updates and improvements.</p>
                     </div>
                 </details>
-
                 <details class="faq-item">
                     <summary>
                         <span>What technologies do you work with?</span>
                         <span class="faq-icon">+</span>
                     </summary>
                     <div class="faq-content">
-                        <p>We specialize in HTML, CSS, JavaScript, React for web; Flutter &amp; Dart for mobile; Java, Spring Boot, PHP for backend; and MySQL &amp; PostgreSQL for databases. We always choose the best stack for your project.</p>
+                        <p>We specialize in HTML, CSS, JavaScript, React for web; Flutter &amp; Dart for mobile; Java, Spring Boot, PHP for backend; and MySQL &amp; PostgreSQL for databases.</p>
                     </div>
                 </details>
-
                 <details class="faq-item">
                     <summary>
                         <span>Do you work with clients outside Egypt?</span>
@@ -493,7 +400,6 @@
                         <p>Absolutely! We work remotely with clients worldwide. We communicate via WhatsApp, email, or video calls, and adjust to your timezone for meetings.</p>
                     </div>
                 </details>
-
                 <details class="faq-item">
                     <summary>
                         <span>Can you take over an existing project?</span>
@@ -503,14 +409,10 @@
                         <p>Yes, we can review existing code, fix issues, add new features, or completely refactor it. Send us your project details and we'll provide a full assessment.</p>
                     </div>
                 </details>
-
             </div>
         </section>
 
-        <!-- =========================
-             Contact
-        ========================== -->
-
+        <!-- Contact -->
         <section id="contact" aria-labelledby="contact-title">
             <div class="section-title">
                 <p>GET IN TOUCH</p>
@@ -539,18 +441,16 @@
                 </div>
             </div>
         </section>
-
     </main>
-
 
     <footer>
         <p>© 2026 WM Solutions. All Rights Reserved.</p>
     </footer>
 
-
     <script src="projects-data.js"></script>
     <script src="script.js"></script>
     <script src="animations.js"></script>
+    <script src="theme-toggle.js"></script>
 
 </body>
 

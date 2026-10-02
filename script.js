@@ -117,37 +117,6 @@ if (revealElements.length > 0 && "IntersectionObserver" in window) {
     revealElements.forEach(el => el.classList.add("show"));
 }
 // =========================
-// Theme Toggle (Dark/Light)
-// =========================
-
-(function initThemeToggle() {
-    const toggleBtn = document.getElementById("theme-toggle");
-    if (!toggleBtn) return;
-
-    const icon = toggleBtn.querySelector(".theme-icon");
-    const savedTheme = localStorage.getItem("wm_theme");
-
-    // طبّق الثيم المحفوظ
-    if (savedTheme === "light") {
-        document.body.classList.add("light-mode");
-        icon.textContent = "☀️";
-    }
-
-    toggleBtn.addEventListener("click", function () {
-        const isLight = document.body.classList.toggle("light-mode");
-        icon.textContent = isLight ? "☀️" : "🌙";
-        localStorage.setItem("wm_theme", isLight ? "light" : "dark");
-
-        // animation دائرية عند التبديل
-        toggleBtn.style.transform = "rotate(360deg)";
-        setTimeout(() => {
-            toggleBtn.style.transform = "";
-        }, 400);
-    });
-})();
-
-
-// =========================
 // Stats Counter
 // =========================
 

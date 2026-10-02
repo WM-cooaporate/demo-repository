@@ -28,16 +28,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="blog.css">
     <link rel="stylesheet" href="blog-animations.css">
-
-
+    <link rel="stylesheet" href="theme-toggle.css">
 </head>
 
 <body>
 
-    <!-- Scroll Progress -->
     <div class="scroll-progress" id="scroll-progress"></div>
 
-    <!-- Header -->
     <header>
         <nav aria-label="Blog post navigation">
             <a href="index.html" class="logo" aria-label="WM Solutions Home">
@@ -54,23 +51,27 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
+
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle Dark/Light Mode">
+                <span class="theme-toggle-inner">
+                    <span class="theme-icon theme-icon-dark" aria-hidden="true">&lt;/&gt;</span>
+                    <span class="theme-icon theme-icon-light" aria-hidden="true">☀</span>
+                </span>
+            </button>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="blog-post-main" id="blog-post-main">
-        <div id="blog-post-container" class="blog-post-container">
-            <!-- Loaded dynamically by blog-post.js -->
-        </div>
+        <div id="blog-post-container" class="blog-post-container"></div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>© 2026 WM Solutions. All Rights Reserved.</p>
     </footer>
 
     <script src="blog-data.js"></script>
     <script src="blog-post.js"></script>
+    <script src="theme-toggle.js"></script>
 
 </body>
 

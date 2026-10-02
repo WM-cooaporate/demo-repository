@@ -2,123 +2,97 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- =========================
-         SEO
-    ========================== -->
-
-    <title>Project | WM Solutions</title>
+    <title>Project | WM Solutions - Software Development Portfolio</title>
 
     <meta name="description" content="Explore software development projects built by WM Solutions, including web applications, Flutter mobile apps, desktop applications, and custom software solutions.">
 
-    <meta name="robots" content="index, follow">
+    <meta name="keywords" content="WM Solutions projects, software development portfolio, Flutter apps, web development, mobile apps, custom software, Egypt software company">
 
-    <meta name="googlebot" content="index, follow">
+    <meta name="author" content="WM Solutions">
+    <meta name="robots" content="index, follow">
 
     <link rel="canonical" href="https://wm-cooaporate.github.io/demo-repository/project.html">
 
-
-    <!-- =========================
-         Open Graph
-    ========================== -->
-
-    <meta property="og:type" content="website">
-
-    <meta property="og:title" content="WM Solutions Project">
-
-    <meta property="og:description" content="Explore a software development project created by WM Solutions.">
-
-    <meta property="og:url" content="https://wm-cooaporate.github.io/demo-repository/project.html">
-
+    <meta property="og:type" content="article">
     <meta property="og:site_name" content="WM Solutions">
-
-
-    <!-- =========================
-         Twitter
-    ========================== -->
+    <meta property="og:title" content="WM Solutions Project | Software Development Portfolio">
+    <meta property="og:description" content="Explore a software development project created by WM Solutions.">
+    <meta property="og:url" content="https://wm-cooaporate.github.io/demo-repository/project.html">
+    <meta property="og:image" content="https://wm-cooaporate.github.io/demo-repository/images/logo.png">
 
     <meta name="twitter:card" content="summary_large_image">
-
-    <meta name="twitter:title" content="WM Solutions Project">
-
+    <meta name="twitter:title" content="WM Solutions Project | Software Development Portfolio">
     <meta name="twitter:description" content="Explore a software development project created by WM Solutions.">
-
-
-    <!-- =========================
-         Favicon
-    ========================== -->
+    <meta name="twitter:image" content="https://wm-cooaporate.github.io/demo-repository/images/logo.png">
 
     <link rel="icon" type="image/png" href="images/logo.png">
-
-
-    <!-- =========================
-         CSS
-    ========================== -->
-    <link rel="stylesheet" href="project-animations.css">
+    <link rel="apple-touch-icon" href="images/logo.png">
 
     <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="project-animations.css">
+    <link rel="stylesheet" href="theme-toggle.css">
 
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://wm-cooaporate.github.io/demo-repository/"
+            }, {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Projects",
+                "item": "https://wm-cooaporate.github.io/demo-repository/#projects"
+            }, {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Project Details",
+                "item": "https://wm-cooaporate.github.io/demo-repository/project.html"
+            }]
+        }
+    </script>
 </head>
-
 
 <body>
 
-    <!-- =========================
-         Header
-    ========================== -->
-
     <header>
-
         <nav aria-label="Project navigation">
-
-            <!-- IMPORTANT:
-                 Use index.html instead of ./ 
-                 to prevent local folder listing
-            -->
-
             <a href="index.html" class="logo" aria-label="WM Solutions Home">
-                WM Solutions
+                &lt;WM /&gt; Solutions
             </a>
-            <a href="index.html#projects" class="back-link" id="back-to-projects">
-    ← Back to Projects
-</a>
 
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle Dark/Light Mode">
+                <span class="theme-toggle-inner">
+                    <span class="theme-icon theme-icon-dark" aria-hidden="true">&lt;/&gt;</span>
+                    <span class="theme-icon theme-icon-light" aria-hidden="true">☀</span>
+                </span>
+            </button>
         </nav>
-
     </header>
 
-
-    <!-- =========================
-         Main
-    ========================== -->
-
     <main class="project-details" id="main-content">
-
-        <div id="project-details-container" class="project-details-container">
-
-            <!--
-                Project content is generated dynamically
-                by project.js
-            -->
-
-        </div>
-
+        <div id="project-details-container" class="project-details-container"></div>
     </main>
 
-
-    <!-- =========================
-         JavaScript
-    ========================== -->
-
     <script src="projects-data.js"></script>
-
     <script src="project.js"></script>
+    <script src="theme-toggle.js"></script>
 
 </body>
 

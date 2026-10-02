@@ -2,6 +2,7 @@
    WM Solutions - Blog Engine
 ============================================ */
 
+
 // =========================
 // Escape HTML
 // =========================
@@ -16,6 +17,7 @@ function escapeHtml(text) {
         .replace(/'/g, "&#039;");
 }
 
+
 // =========================
 // Format Date
 // =========================
@@ -26,21 +28,34 @@ function formatDate(dateStr) {
     return date.toLocaleDateString("en-US", options);
 }
 
+
 // =========================
 // Render Blog Posts
 // =========================
 
 (function renderBlog() {
     const container = document.getElementById("blog-container");
-    if (!container || typeof blogPosts === "undefined") return;
+    const noResults = document.getElementById("no-results");
 
-    if (blogPosts.length === 0) {
-        document.getElementById("no-results").style.display = "block";
+    if (!container) {
+        console.error("❌ #blog-container not found");
         return;
     }
 
-    container.innerHTML = blogPosts.map(function(post) {
-        return `
+    if (typeof blogPosts === "undefined" || !Array.isArray(blogPosts)) {
+        console.error("❌ blogPosts is not defined");
+        if (noResults) noResults.style.display = "block";
+        return;
+    }
+
+    if (blogPosts.length === 0) {
+        if (noResults) noResults.style.display = "block";
+        return;
+    }
+
+    let html = "";
+    blogPosts.forEach(function(post) {
+        html += `
             <a href="${escapeHtml(post.url)}" class="blog-card" data-category="${escapeHtml(post.category)}">
                 <div class="blog-card-image">
                     <span class="blog-category">${escapeHtml(post.category)}</span>
@@ -60,7 +75,11 @@ function formatDate(dateStr) {
                 </div>
             </a>
         `;
-    }).join("");
+    });
+
+    container.innerHTML = html;
+
+    console.log("✅ Blog loaded:", blogPosts.length, "articles");
 })();
 
 
@@ -78,6 +97,14 @@ function formatDate(dateStr) {
         const isOpen = navLinks.classList.toggle("active");
         menuBtn.setAttribute("aria-expanded", isOpen);
         menuBtn.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(function(link) {
+        link.addEventListener("click", function() {
+            navLinks.classList.remove("active");
+            menuBtn.setAttribute("aria-expanded", "false");
+            menuBtn.textContent = "☰";
+        });
     });
 })();
 
@@ -100,42 +127,19 @@ function formatDate(dateStr) {
 
 
 // =========================
-// Theme Toggle
-// =========================
-
-(function initThemeToggle() {
-    const savedTheme = localStorage.getItem("wm_theme");
-
-    if (savedTheme === "light") {
-        document.body.classList.add("light-mode");
-    }
-})();
-// =========================
-// Blog Cards Scroll Reveal
-// =========================
-
-(function initBlogCardReveal() {
-    // الأنيميشن موجود في CSS، ده بس للتأكد إنه بيشتغل صح
-    // مفيش حاجة إضافية مطلوبة
-})();
-
-
-// =========================
-// Blog Filter by Category (Optional)
+// Blog Filter (Automatic)
 // =========================
 
 (function initBlogCategories() {
         const cards = document.querySelectorAll(".blog-card");
-        if (!cards.length) return;
+        if (cards.length < 2) return;
 
-        // اجمع كل الـ categories
         const categories = new Set();
         cards.forEach(function(card) {
             const cat = card.dataset.category;
             if (cat) categories.add(cat);
         });
 
-        // لو عدد الـ categories أكثر من 2، أضف أزرار فلترة
         if (categories.size < 2) return;
 
         const blogSection = document.querySelector(".blog-section");
@@ -143,17 +147,9 @@ function formatDate(dateStr) {
 
         if (!blogSection || !container) return;
 
-        // أنشئ حاوية الأزرار
         const filterBar = document.createElement("div");
         filterBar.className = "blog-filter-bar";
-        filterBar.innerHTML = `
-        <button class="filter-btn active" data-filter="all">All Articles</button>
-        ${Array.from(categories).map(function (cat) {
-            return `<button class="filter-btn" data-filter="${cat}">${cat}</button>`;
-        }).join("")}
-    `;
-
-    filterBar.style.cssText = `
+        filterBar.style.cssText = `
         max-width: 1200px;
         margin: 0 auto 40px;
         display: flex;
@@ -161,11 +157,15 @@ function formatDate(dateStr) {
         gap: 12px;
         flex-wrap: wrap;
     `;
+        filterBar.innerHTML = `
+        <button class="filter-btn active" data-filter="all">All Articles</button>
+        ${Array.from(categories).map(function (cat) {
+            return `<button class="filter-btn" data-filter="${cat}">${cat}</button>`;
+        }).join("")}
+    `;
 
-    // ضع الأزرار قبل الـ container
     blogSection.insertBefore(filterBar, container);
 
-    // Events
     const filterBtns = filterBar.querySelectorAll(".filter-btn");
 
     filterBtns.forEach(function (btn) {
