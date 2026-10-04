@@ -71,7 +71,6 @@
         const seeded = await WM_DB.isSeeded();
         if (seeded) return;
 
-        // لو projects-data.js موجود
         if (typeof projects !== "undefined" && Array.isArray(projects) && projects.length > 0) {
             await WM_DB.open();
 
@@ -90,7 +89,6 @@
 
     async function loadProjects() {
         allProjects = await WM_DB.getAllProjects();
-        // Sort by createdAt (newest first)
         allProjects.sort(function(a, b) {
             return (b.createdAt || 0) - (a.createdAt || 0);
         });
@@ -268,7 +266,6 @@
         $("#field-seo-description").value = p.seoDescription || "";
         $("#field-image").value = p.image || "";
         $("#field-video").value = p.video || "";
-        $("#field-demo").value = p.demo || "";
         $("#field-github").value = p.github || "";
         $("#field-is-logo").checked = !!p.isLogo;
 
@@ -306,7 +303,7 @@
     }
 
     // =========================
-    // Save (with optional fields)
+    // Save
     // =========================
 
     formEl.addEventListener("submit", async function(e) {
@@ -339,6 +336,7 @@
                 return;
             }
         }
+
         // ═══════════════════════════════════
         // Optional Fields (with defaults)
         // ═══════════════════════════════════
@@ -349,7 +347,6 @@
         const seoDescription = $("#field-seo-description").value.trim() || description;
         const image = $("#field-image").value.trim() || "images/logo.png";
         const video = $("#field-video").value.trim() || "#";
-        const demo = $("#field-demo").value.trim() || "#";
         const github = $("#field-github").value.trim() || "#";
         const isLogo = $("#field-is-logo").checked;
 
@@ -363,7 +360,6 @@
             image: image,
             imageAlt: title + " by WM Solutions",
             video: video,
-            demo: demo,
             github: github,
             isLogo: isLogo,
             technologies: currentTech.slice(),
@@ -676,13 +672,10 @@
                     return;
                 }
 
-                // Sort by createdAt
                 allProjects.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
 
-                // Generate projects-data.js content
                 const jsContent = generateProjectsDataFile(allProjects);
 
-                // Download the file
                 const blob = new Blob([jsContent], { type: "text/javascript" });
                 const url = URL.createObjectURL(blob);
 
@@ -692,7 +685,6 @@
                 a.click();
                 URL.revokeObjectURL(url);
 
-                // Show success modal
                 showPublishModal(allProjects.length);
 
             } catch (err) {

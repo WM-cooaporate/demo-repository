@@ -10,7 +10,6 @@
 const params = new URLSearchParams(window.location.search);
 const projectId = params.get("id");
 
-// Defer rendering until DB loaded
 let project = null;
 let projectsList = [];
 
@@ -18,7 +17,7 @@ const container = document.getElementById("project-details-container");
 
 
 // =========================
-// Escape HTML (حماية من XSS)
+// Escape HTML
 // =========================
 
 function escapeHtml(text) {
@@ -44,7 +43,6 @@ function updateProjectSEO(project) {
     const canonicalUrl =
         `https://wm-cooaporate.github.io/demo-repository/project.html?id=${encodeURIComponent(project.id)}`;
 
-    // Description
     let description = document.querySelector('meta[name="description"]');
     if (!description) {
         description = document.createElement("meta");
@@ -53,13 +51,11 @@ function updateProjectSEO(project) {
     }
     description.setAttribute("content", project.seoDescription || project.description);
 
-    // Keywords
     setMetaName(
         "keywords",
         `WM Solutions, ${project.title}, ${project.type}, ${(project.technologies || []).join(", ")}, software development, Egypt`
     );
 
-    // Canonical
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
         canonical = document.createElement("link");
@@ -68,13 +64,11 @@ function updateProjectSEO(project) {
     }
     canonical.setAttribute("href", canonicalUrl);
 
-    // Image URL — handle base64 and URLs
     let imageUrl = project.image || "";
     if (imageUrl && !imageUrl.startsWith("data:") && !imageUrl.startsWith("http")) {
         imageUrl = new URL(imageUrl, window.location.href).href;
     }
 
-    // Open Graph
     setMetaProperty("og:title", project.seoTitle || project.title);
     setMetaProperty("og:description", project.seoDescription || project.description);
     setMetaProperty("og:url", canonicalUrl);
@@ -83,24 +77,16 @@ function updateProjectSEO(project) {
     setMetaProperty("og:type", "article");
     setMetaProperty("og:site_name", "WM Solutions");
 
-    // Twitter
     setMetaName("twitter:title", project.seoTitle || project.title);
     setMetaName("twitter:description", project.seoDescription || project.description);
     setMetaName("twitter:image", imageUrl);
     setMetaName("twitter:image:alt", project.imageAlt || project.title);
     setMetaName("twitter:card", "summary_large_image");
 
-    // Breadcrumb List
     createBreadcrumbSchema(project, canonicalUrl);
-
-    // CreativeWork Schema
     createProjectSchema(project, canonicalUrl, imageUrl);
 }
 
-
-// =========================
-// Breadcrumb Schema
-// =========================
 
 function createBreadcrumbSchema(project, canonicalUrl) {
     const oldSchema = document.getElementById("breadcrumb-schema");
@@ -139,10 +125,6 @@ function createBreadcrumbSchema(project, canonicalUrl) {
 }
 
 
-// =========================
-// Meta Helpers
-// =========================
-
 function setMetaProperty(property, content) {
     if (!content) return;
 
@@ -167,10 +149,6 @@ function setMetaName(name, content) {
     meta.setAttribute("content", content);
 }
 
-
-// =========================
-// Structured Data
-// =========================
 
 function createProjectSchema(project, canonicalUrl, imageUrl) {
     const oldSchema = document.getElementById("project-schema");
@@ -223,7 +201,7 @@ function createProjectSchema(project, canonicalUrl, imageUrl) {
 
 
 // =========================
-// Render Project (Not Found)
+// Render Not Found
 // =========================
 
 function renderNotFound() {
@@ -240,25 +218,21 @@ function renderNotFound() {
 
 
 // =========================
-// Render Project (Full)
+// Render Project
 // =========================
 
 function renderProject(project) {
-    // SEO
     updateProjectSEO(project);
 
-    // Logo Detection
     const isLogoProject = project.isLogo === true;
     const mainImageClass = isLogoProject ?
         "project-main-image logo-image" :
         "project-main-image";
 
-    // Technologies
     const technologiesHtml = (project.technologies || [])
         .map(tech => `<span>${escapeHtml(tech)}</span>`)
         .join("");
 
-    // Screenshots
     const screenshotsHtml = (project.screenshots || [])
         .map((image, index) => `
             <div class="gallery-item" data-index="${index}">
@@ -288,32 +262,22 @@ function renderProject(project) {
         `;
     }
 
-    // Actions
+    // Actions — GitHub only (Live Demo removed)
     let actionsHtml = "";
-    const hasDemo = project.demo && project.demo !== "#";
     const hasGithub = project.github && project.github !== "#";
 
-    if (hasDemo || hasGithub) {
+    if (hasGithub) {
         actionsHtml = `
             <div class="project-actions">
-                ${hasDemo ? `
-                    <a href="${escapeHtml(project.demo)}" target="_blank"
-                       rel="noopener noreferrer" class="btn primary-btn">
-                        Live Demo
-                    </a>
-                ` : ""}
-                ${hasGithub ? `
-                    <a href="${escapeHtml(project.github)}" target="_blank"
-                       rel="noopener noreferrer" class="btn secondary-btn">
-                        GitHub
-                    </a>
-                ` : ""}
+                <a href="${escapeHtml(project.github)}" target="_blank"
+                   rel="noopener noreferrer" class="btn primary-btn">
+                    GitHub
+                </a>
             </div>
         `;
     }
 
     container.innerHTML = `
-        <!-- Project Header -->
         <div class="project-details-header">
             <p class="project-type">${escapeHtml(project.type)}</p>
             <h1>${escapeHtml(project.title)}</h1>
@@ -322,7 +286,6 @@ function renderProject(project) {
             ` : ""}
         </div>
 
-        <!-- Main Image -->
         <div class="${mainImageClass}">
             <img
                 src="${escapeHtml(project.image)}"
@@ -331,13 +294,11 @@ function renderProject(project) {
             >
         </div>
 
-        <!-- Technologies -->
         <section class="project-section project-technologies">
             <h2>Technologies Used</h2>
             <div class="project-tech">${technologiesHtml}</div>
         </section>
 
-        <!-- Screenshots -->
         <section class="project-section project-screenshots-section">
             <h2>Project Screenshots</h2>
             <div class="project-gallery">${screenshotsHtml}</div>
@@ -347,7 +308,6 @@ function renderProject(project) {
         ${actionsHtml}
     `;
 
-    // Init Lightbox + Animations after render
     initLightbox(project);
     initGalleryReveal();
     initImageFade();
@@ -426,8 +386,8 @@ function initLightbox(project) {
         lightboxImage.alt = `${project.title} screenshot ${currentImageIndex + 1}`;
     }
 
-    galleryItems.forEach(function (item) {
-        item.addEventListener("click", function () {
+    galleryItems.forEach(function(item) {
+        item.addEventListener("click", function() {
             const index = Number(item.dataset.index);
             openLightbox(index);
         });
@@ -437,11 +397,11 @@ function initLightbox(project) {
     prevButton.addEventListener("click", showPreviousImage);
     nextButton.addEventListener("click", showNextImage);
 
-    lightbox.addEventListener("click", function (event) {
+    lightbox.addEventListener("click", function(event) {
         if (event.target === lightbox) closeLightbox();
     });
 
-    document.addEventListener("keydown", function (event) {
+    document.addEventListener("keydown", function(event) {
         if (!lightbox.classList.contains("active")) return;
 
         if (event.key === "Escape") closeLightbox();
@@ -449,13 +409,12 @@ function initLightbox(project) {
         if (event.key === "ArrowRight") showNextImage();
     });
 
-    // Swipe support
     let touchStartX = 0;
-    lightbox.addEventListener("touchstart", function (e) {
+    lightbox.addEventListener("touchstart", function(e) {
         touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
 
-    lightbox.addEventListener("touchend", function (e) {
+    lightbox.addEventListener("touchend", function(e) {
         const touchEndX = e.changedTouches[0].screenX;
         const diff = touchStartX - touchEndX;
 
@@ -468,7 +427,7 @@ function initLightbox(project) {
 
 
 // =========================
-// Gallery Scroll Reveal (للمشاريع الكتير)
+// Gallery Reveal
 // =========================
 
 function initGalleryReveal() {
@@ -479,8 +438,8 @@ function initGalleryReveal() {
 
     if (galleryItems.length <= 9) return;
 
-    const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 entry.target.classList.add("revealed");
                 observer.unobserve(entry.target);
@@ -491,7 +450,7 @@ function initGalleryReveal() {
         rootMargin: "0px 0px -50px 0px"
     });
 
-    galleryItems.forEach(function (item, index) {
+    galleryItems.forEach(function(item, index) {
         if (index >= 9) {
             item.style.animation = "none";
             item.style.opacity = "0";
@@ -502,13 +461,13 @@ function initGalleryReveal() {
 
 
 // =========================
-// Image Lazy Load with Fade In
+// Image Fade
 // =========================
 
 function initImageFade() {
     const images = document.querySelectorAll(".gallery-item img, .project-main-image img");
 
-    images.forEach(function (img) {
+    images.forEach(function(img) {
         if (img.complete) {
             img.style.opacity = "1";
             return;
@@ -517,11 +476,11 @@ function initImageFade() {
         img.style.opacity = "0";
         img.style.transition = "opacity 0.5s ease";
 
-        img.addEventListener("load", function () {
+        img.addEventListener("load", function() {
             img.style.opacity = "1";
         });
 
-        img.addEventListener("error", function () {
+        img.addEventListener("error", function() {
             img.style.opacity = "0.5";
         });
     });
@@ -529,14 +488,14 @@ function initImageFade() {
 
 
 // =========================
-// Click Ripple Effect on Gallery
+// Gallery Ripple
 // =========================
 
 function initGalleryRipple() {
     const galleryItems = document.querySelectorAll(".gallery-item");
 
-    galleryItems.forEach(function (item) {
-        item.addEventListener("click", function (e) {
+    galleryItems.forEach(function(item) {
+        item.addEventListener("click", function(e) {
             const ripple = document.createElement("span");
 
             const rect = item.getBoundingClientRect();
@@ -560,7 +519,7 @@ function initGalleryRipple() {
 
             item.appendChild(ripple);
 
-            setTimeout(function () {
+            setTimeout(function() {
                 ripple.remove();
             }, 600);
         });
@@ -569,7 +528,7 @@ function initGalleryRipple() {
 
 
 // =========================
-// Scroll Progress Bar
+// Scroll Progress
 // =========================
 
 function initScrollProgress() {
@@ -595,7 +554,7 @@ function initScrollProgress() {
     if (bar.dataset.bound) return;
     bar.dataset.bound = "1";
 
-    window.addEventListener("scroll", function () {
+    window.addEventListener("scroll", function() {
         const top = window.scrollY;
         const height = document.documentElement.scrollHeight - window.innerHeight;
         const percent = height > 0 ? (top / height) * 100 : 0;
@@ -612,7 +571,7 @@ function initScrollProgress() {
     const backBtn = document.getElementById("back-to-projects");
     if (!backBtn) return;
 
-    backBtn.addEventListener("click", function (e) {
+    backBtn.addEventListener("click", function(e) {
         if (document.referrer && document.referrer.includes(window.location.host)) {
             e.preventDefault();
             window.history.back();
@@ -622,7 +581,7 @@ function initScrollProgress() {
 
 
 // =========================
-// Load Project (IndexedDB first, fallback to data file)
+// Load Project
 // =========================
 
 (async function initProjectPage() {
@@ -632,11 +591,9 @@ function initScrollProgress() {
     }
 
     try {
-        // 1. Try IndexedDB
         if (typeof WM_DB !== "undefined") {
             await WM_DB.open();
 
-            // Seed if needed (first visit)
             const seeded = await WM_DB.isSeeded();
             if (!seeded && typeof projects !== "undefined" && Array.isArray(projects)) {
                 for (const p of projects) {
@@ -648,17 +605,14 @@ function initScrollProgress() {
             projectsList = await WM_DB.getAllProjects();
         }
 
-        // 2. Fallback: data file
         if ((!projectsList || projectsList.length === 0) && typeof projects !== "undefined") {
             projectsList = projects;
         }
 
-        // 3. Find project
-        project = projectsList.find(function (item) {
+        project = projectsList.find(function(item) {
             return item.id === projectId;
         });
 
-        // 4. Render
         if (!project) {
             renderNotFound();
         } else {
@@ -668,9 +622,8 @@ function initScrollProgress() {
     } catch (err) {
         console.error("Error loading project:", err);
 
-        // Fallback render
         if (typeof projects !== "undefined") {
-            const fallback = projects.find(function (item) {
+            const fallback = projects.find(function(item) {
                 return item.id === projectId;
             });
 
