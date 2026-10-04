@@ -1153,28 +1153,6 @@ footer {
 
 
 /* ============================================================
-   20. SCROLL REVEAL
-   ============================================================ */
-
-.service-card,
-.project-card,
-.team-card,
-.contact-info {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.service-card.show,
-.project-card.show,
-.team-card.show,
-.contact-info.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* ============================================================
    21. RESPONSIVE
    ============================================================ */
 

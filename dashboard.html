@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | WM Solutions</title>
+    <script>
+        // ============================================
+        // Protect Dashboard - Check Login
+        // ============================================
+        (function checkAuth() {
+            const session = localStorage.getItem("wm_dashboard_session");
+
+            if (!session) {
+                window.location.replace("login.html");
+                return;
+            }
+
+            try {
+                const data = JSON.parse(session);
+                if (data.expires < Date.now()) {
+                    localStorage.removeItem("wm_dashboard_session");
+                    window.location.replace("login.html");
+                }
+            } catch (e) {
+                localStorage.removeItem("wm_dashboard_session");
+                window.location.replace("login.html");
+            }
+        })();
+    </script>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body class="dashboard-body">
+
+    <!-- =========================
+         Header
+    ========================== -->
+    <header class="dashboard-header">
+        <div class="dashboard-container">
+            <a href="index.html" class="logo" target="_blank">
+                &lt;WM /&gt; Dashboard
+            </a>
+            <div class="dash-user-info">
+                <span class="dash-user-badge" id="user-badge">👤 admin</span>
+            </div>
+
+            <button id="btn-publish" class="dash-btn dash-btn-primary" title="Publish to site">
+    🚀 Publish
+</button>
+
+            <button id="btn-logout" class="dash-btn dash-btn-secondary" title="Logout">
+    🚪 Logout
+</button>
+            <div class="dashboard-header-actions">
+                <button id="btn-export" class="dash-btn dash-btn-secondary" title="Export projects as JSON">
+                    ⬇ Export
+                </button>
+
+                <button id="btn-import" class="dash-btn dash-btn-secondary" title="Import projects from JSON">
+                    ⬆ Import
+                </button>
+
+                <input type="file" id="import-file" accept=".json" hidden>
+
+                <a href="index.html" class="dash-btn dash-btn-secondary" target="_blank">
+                    👁 View Site
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========================
+         Main
+    ========================== -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+
+            <!-- Stats Bar -->
+            <div class="dash-stats">
+                <div class="dash-stat">
+                    <span class="dash-stat-value" id="stat-total">0</span>
+                    <span class="dash-stat-label">Total Projects</span>
+                </div>
+                <div class="dash-stat">
+                    <span class="dash-stat-value" id="stat-web">0</span>
+                    <span class="dash-stat-label">Web</span>
+                </div>
+                <div class="dash-stat">
+                    <span class="dash-stat-value" id="stat-mobile">0</span>
+                    <span class="dash-stat-label">Mobile</span>
+                </div>
+                <div class="dash-stat">
+                    <span class="dash-stat-value" id="stat-desktop">0</span>
+                    <span class="dash-stat-label">Desktop</span>
+                </div>
+            </div>
+
+            <!-- Toolbar -->
+            <div class="dash-toolbar">
+                <h2 class="dash-title">📁 Projects</h2>
+
+                <div class="dash-toolbar-actions">
+                    <input type="text" id="search-input" class="dash-input" placeholder="🔍 Search projects...">
+
+                    <button id="btn-add-new" class="dash-btn dash-btn-primary">
+                        + Add New Project
+                    </button>
+                </div>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects-grid" class="dash-grid">
+                <!-- Loaded by JS -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="dash-empty" style="display: none;">
+                <div class="dash-empty-icon">&lt;/&gt;</div>
+                <h3>No projects yet</h3>
+                <p>Start by adding your first project.</p>
+                <button class="dash-btn dash-btn-primary" onclick="document.getElementById('btn-add-new').click()">
+                    + Add New Project
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- =========================
+         Editor Modal
+    ========================== -->
+    <div id="editor-modal" class="dash-modal" role="dialog" aria-modal="true" style="display: none;">
+        <div class="dash-modal-backdrop"></div>
+
+        <div class="dash-modal-content">
+
+            <div class="dash-modal-header">
+                <h2 id="modal-title">Add New Project</h2>
+
+                <button id="btn-modal-close" class="dash-modal-close" aria-label="Close">
+                    ×
+                </button>
+            </div>
+
+            <form id="project-form" class="dash-form">
+
+                <!-- =========================
+                     Basic Info
+                ========================== -->
+                <div class="dash-form-section">
+                    <h3 class="dash-form-section-title">
+                        <span>📝</span> Basic Information
+                    </h3>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            Project ID (unique, English only)
+                            <input
+                                type="text"
+                                name="id"
+                                id="field-id"
+                                class="dash-input"
+                                placeholder="e.g. meta-ai"
+                                pattern="[a-z0-9\-]+"
+                                required
+                            >
+                            <span class="dash-hint">Use lowercase letters, numbers, and dashes only.</span>
+                        </label>
+                    </div>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            Project Title
+                            <input
+                                type="text"
+                                name="title"
+                                id="field-title"
+                                class="dash-input"
+                                placeholder="e.g. Meta Sense AI Website"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            Category / Type
+                            <select name="type" id="field-type" class="dash-input" required>
+                                <option value="">— Select type —</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Mobile App Development">Mobile App Development</option>
+                                <option value="Flutter Desktop Development">Flutter Desktop Development</option>
+                                <option value="React Development">React Development</option>
+                                <option value="Backend Development">Backend Development</option>
+                                <option value="UI/UX Design">UI/UX Design</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            Short Description
+                            <textarea
+                                name="description"
+                                id="field-description"
+                                class="dash-input"
+                                rows="3"
+                                placeholder="Brief description for the project card..."
+                                required
+                            ></textarea>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- =========================
+                     SEO
+                ========================== -->
+                <div class="dash-form-section">
+                    <h3 class="dash-form-section-title">
+                        <span>🔍</span> SEO (Optional)
+                    </h3>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            SEO Title
+                            <input
+                                type="text"
+                                name="seoTitle"
+                                id="field-seo-title"
+                                class="dash-input"
+                                placeholder="Meta Sense AI | WM Solutions"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            SEO Description
+                            <textarea
+                                name="seoDescription"
+                                id="field-seo-description"
+                                class="dash-input"
+                                rows="2"
+                                placeholder="SEO description..."
+                            ></textarea>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- =========================
+                     Images
+                ========================== -->
+                <div class="dash-form-section">
+                    <h3 class="dash-form-section-title">
+                        <span>🖼️</span> Main Image
+                    </h3>
+
+                    <div class="dash-upload-zone" id="upload-main">
+                        <input type="file" id="file-main" accept="image/*" hidden>
+                        <div class="dash-upload-inner">
+                            <div class="dash-upload-icon">📸</div>
+                            <p class="dash-upload-text">Click or drag main image here</p>
+                            <p class="dash-upload-hint">PNG, JPG, WEBP — max 3MB</p>
+                        </div>
+                    </div>
+
+                    <input type="text" name="image" id="field-image" class="dash-input" placeholder="Or paste image URL">
+
+                    <div id="preview-main" class="dash-preview"></div>
+
+                    <label class="dash-checkbox-label">
+                        <input type="checkbox" id="field-is-logo">
+                        This is a logo (rounded display)
+                    </label>
+                </div>
+
+                <!-- =========================
+                     Screenshots
+                ========================== -->
+                <div class="dash-form-section">
+                    <h3 class="dash-form-section-title">
+                        <span>📸</span> Screenshots
+                    </h3>
+
+                    <div class="dash-upload-zone" id="upload-gallery">
+                        <input type="file" id="file-gallery" accept="image/*" multiple hidden>
+                        <div class="dash-upload-inner">
+                            <div class="dash-upload-icon">🖼️</div>
+                            <p class="dash-upload-text">Click or drop multiple images</p>
+                            <p class="dash-upload-hint">Add as many screenshots as needed</p>
+                        </div>
+                    </div>
+
+                    <div id="preview-gallery" class="dash-gallery-preview"></div>
+                </div>
+
+                <!-- =========================
+                     Video
+                ========================== -->
+                <div class="dash-form-section">
+                    <h3 class="dash-form-section-title">
+                        <span>🎬</span> Demo Video (Optional)
+                    </h3>
+
+                    <div class="dash-upload-zone" id="upload-video">
+                        <input type="file" id="file-video" accept="video/*" hidden>
+                        <div class="dash-upload-inner">
+                            <div class="dash-upload-icon">🎥</div>
+                            <p class="dash-upload-text">Click or drag video here</p>
+                            <p class="dash-upload-hint">MP4, WEBM — max 20MB</p>
+                        </div>
+                    </div>
+
+                    <input type="text" name="video" id="field-video" class="dash-input" placeholder="Or paste video URL (YouTube, MP4, etc.)">
+
+                    <div id="preview-video" class="dash-preview"></div>
+                </div>
+
+                <!-- =========================
+                     Technologies
+                ========================== -->
+                <div class="dash-form-section">
+                    <h3 class="dash-form-section-title">
+                        <span>⚙️</span> Technologies Used
+                    </h3>
+
+                    <div class="dash-tags-input" id="tech-input-wrap">
+                        <input type="text" id="field-tech-input" class="dash-tag-input" placeholder="Type a technology and press Enter...">
+                    </div>
+
+                    <div id="tech-tags" class="dash-tags"></div>
+                </div>
+
+                <!-- =========================
+                     Links
+                ========================== -->
+                <div class="dash-form-section">
+                    <h3 class="dash-form-section-title">
+                        <span>🔗</span> Links (Optional)
+                    </h3>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            Live Demo URL
+                            <input
+                                type="url"
+                                name="demo"
+                                id="field-demo"
+                                class="dash-input"
+                                placeholder="https://..."
+                            >
+                        </label>
+                    </div>
+
+                    <div class="dash-form-row">
+                        <label class="dash-label">
+                            GitHub URL
+                            <input
+                                type="url"
+                                name="github"
+                                id="field-github"
+                                class="dash-input"
+                                placeholder="https://github.com/..."
+                            >
+                        </label>
+                    </div>
+                </div>
+
+                <!-- =========================
+                     Form Actions
+                ========================== -->
+                <div class="dash-form-actions">
+                    <button type="button" id="btn-cancel" class="dash-btn dash-btn-secondary">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="dash-btn dash-btn-primary">
+                        💾 Save Project
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- =========================
+         Confirm Delete Modal
+    ========================== -->
+    <div id="confirm-modal" class="dash-modal" style="display: none;">
+        <div class="dash-modal-backdrop"></div>
+
+        <div class="dash-modal-content dash-modal-small">
+            <div class="dash-modal-header">
+                <h2>⚠️ Confirm Delete</h2>
+            </div>
+
+            <div class="dash-modal-body">
+                <p>Are you sure you want to delete <strong id="confirm-project-title">this project</strong>?</p>
+                <p class="dash-hint">This action cannot be undone.</p>
+            </div>
+
+            <div class="dash-form-actions">
+                <button type="button" id="btn-cancel-delete" class="dash-btn dash-btn-secondary">
+                    Cancel
+                </button>
+
+                <button type="button" id="btn-confirm-delete" class="dash-btn dash-btn-danger">
+                    🗑 Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+         Toast
+    ========================== -->
+    <div id="toast" class="dash-toast"></div>
+
+    <!-- =========================
+         Scripts
+    ========================== -->
+    <script src="db.js"></script>
+    <script src="projects-data.js"></script>
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>

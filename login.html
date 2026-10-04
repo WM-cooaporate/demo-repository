@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | WM Solutions Dashboard</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-container">
+
+        <div class="login-box">
+
+            <div class="login-header">
+                <div class="login-icon">&lt;/&gt;</div>
+                <h1>Admin Access</h1>
+                <p>Enter your credentials to continue</p>
+            </div>
+
+            <form id="login-form" class="login-form">
+
+                <div class="login-field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" autocomplete="username" required>
+                </div>
+
+                <div class="login-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                </div>
+
+                <div id="login-error" class="login-error" style="display: none;"></div>
+
+                <button type="submit" class="login-btn">
+                    🔓 Login
+                </button>
+
+            </form>
+
+            <a href="index.html" class="login-back">← Back to Site</a>
+
+        </div>
+
+    </div>
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>

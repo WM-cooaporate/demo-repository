@@ -1,18 +1,21 @@
+/* ============================================
+   WM Solutions - Project Details Page
+   Reads from IndexedDB (with fallback to projects-data.js)
+============================================ */
+
 // =========================
-// Get Project
+// Get Project ID
 // =========================
 
 const params = new URLSearchParams(window.location.search);
 const projectId = params.get("id");
 
-// ✅ حماية: التأكد من تحميل projects-data.js
-const projectsList = (typeof projects !== "undefined") ? projects : [];
-
-const project = projectsList.find(function(item) {
-    return item.id === projectId;
-});
+// Defer rendering until DB loaded
+let project = null;
+let projectsList = [];
 
 const container = document.getElementById("project-details-container");
+
 
 // =========================
 // Escape HTML (حماية من XSS)
@@ -28,9 +31,11 @@ function escapeHtml(text) {
         .replace(/'/g, "&#039;");
 }
 
+
 // =========================
 // Dynamic SEO
 // =========================
+
 function updateProjectSEO(project) {
     if (!project) return;
 
@@ -38,8 +43,6 @@ function updateProjectSEO(project) {
 
     const canonicalUrl =
         `https://wm-cooaporate.github.io/demo-repository/project.html?id=${encodeURIComponent(project.id)}`;
-
-    const baseUrl = "https://wm-cooaporate.github.io/demo-repository/";
 
     // Description
     let description = document.querySelector('meta[name="description"]');
@@ -65,7 +68,11 @@ function updateProjectSEO(project) {
     }
     canonical.setAttribute("href", canonicalUrl);
 
-    const imageUrl = new URL(project.image, window.location.href).href;
+    // Image URL — handle base64 and URLs
+    let imageUrl = project.image || "";
+    if (imageUrl && !imageUrl.startsWith("data:") && !imageUrl.startsWith("http")) {
+        imageUrl = new URL(imageUrl, window.location.href).href;
+    }
 
     // Open Graph
     setMetaProperty("og:title", project.seoTitle || project.title);
@@ -130,6 +137,8 @@ function createBreadcrumbSchema(project, canonicalUrl) {
     schema.textContent = JSON.stringify(schemaData);
     document.head.appendChild(schema);
 }
+
+
 // =========================
 // Meta Helpers
 // =========================
@@ -158,9 +167,11 @@ function setMetaName(name, content) {
     meta.setAttribute("content", content);
 }
 
+
 // =========================
 // Structured Data
 // =========================
+
 function createProjectSchema(project, canonicalUrl, imageUrl) {
     const oldSchema = document.getElementById("project-schema");
     if (oldSchema) oldSchema.remove();
@@ -209,13 +220,13 @@ function createProjectSchema(project, canonicalUrl, imageUrl) {
     schema.textContent = JSON.stringify(schemaData);
     document.head.appendChild(schema);
 }
+
+
 // =========================
-// Render Project
+// Render Project (Not Found)
 // =========================
 
-if (!container) {
-    console.error("Project details container not found.");
-} else if (!project) {
+function renderNotFound() {
     document.title = "Project Not Found | WM Solutions";
 
     container.innerHTML = `
@@ -225,7 +236,14 @@ if (!container) {
             <a href="index.html#projects">← Back to Projects</a>
         </div>
     `;
-} else {
+}
+
+
+// =========================
+// Render Project (Full)
+// =========================
+
+function renderProject(project) {
     // SEO
     updateProjectSEO(project);
 
@@ -328,16 +346,25 @@ if (!container) {
         ${videoHtml}
         ${actionsHtml}
     `;
+
+    // Init Lightbox + Animations after render
+    initLightbox(project);
+    initGalleryReveal();
+    initImageFade();
+    initGalleryRipple();
+    initScrollProgress();
 }
+
 
 // =========================
 // Lightbox
 // =========================
 
-// ✅ التأكد من وجود المشروع قبل بناء الـ lightbox
-if (project && project.screenshots && project.screenshots.length > 0) {
+function initLightbox(project) {
+    if (!project || !project.screenshots || project.screenshots.length === 0) return;
 
     const galleryItems = document.querySelectorAll(".gallery-item");
+    if (!galleryItems.length) return;
 
     const lightbox = document.createElement("div");
     lightbox.className = "lightbox";
@@ -372,15 +399,12 @@ if (project && project.screenshots && project.screenshots.length > 0) {
         lightbox.classList.add("active");
         document.body.classList.add("lightbox-open");
 
-        // ✅ focus على زر الإغلاق للـ accessibility
         setTimeout(() => closeButton.focus(), 100);
     }
 
     function closeLightbox() {
         lightbox.classList.remove("active");
         document.body.classList.remove("lightbox-open");
-
-        // ✅ إرجاع الـ focus
         if (lastFocusedElement) lastFocusedElement.focus();
     }
 
@@ -425,7 +449,7 @@ if (project && project.screenshots && project.screenshots.length > 0) {
         if (event.key === "ArrowRight") showNextImage();
     });
 
-    // ✅ Swipe support للموبايل
+    // Swipe support
     let touchStartX = 0;
     lightbox.addEventListener("touchstart", function (e) {
         touchStartX = e.changedTouches[0].screenX;
@@ -441,50 +465,18 @@ if (project && project.screenshots && project.screenshots.length > 0) {
         }
     }, { passive: true });
 }
-// =========================
-// Smart Back Button
-// =========================
-
-(function initSmartBack() {
-    const backBtn = document.getElementById("back-to-projects");
-    if (!backBtn) return;
-
-    backBtn.addEventListener("click", function (e) {
-        // لو المستخدم جاي من الموقع
-        if (document.referrer && document.referrer.includes(window.location.host)) {
-            e.preventDefault();
-            window.history.back();
-        }
-    });
-})();
-// =========================
-// Smart Back Button
-// =========================
-
-(function initSmartBack() {
-    const backBtn = document.getElementById("back-to-projects");
-    if (!backBtn) return;
-
-    backBtn.addEventListener("click", function (e) {
-        if (document.referrer && document.referrer.includes(window.location.host)) {
-            e.preventDefault();
-            window.history.back();
-        }
-    });
-})();
 
 
 // =========================
 // Gallery Scroll Reveal (للمشاريع الكتير)
 // =========================
 
-(function initGalleryReveal() {
+function initGalleryReveal() {
     if (!("IntersectionObserver" in window)) return;
 
     const galleryItems = document.querySelectorAll(".gallery-item");
     if (!galleryItems.length) return;
 
-    // لو عدد الصور كبير، فعّل الـ scroll reveal
     if (galleryItems.length <= 9) return;
 
     const observer = new IntersectionObserver(function (entries) {
@@ -500,59 +492,23 @@ if (project && project.screenshots && project.screenshots.length > 0) {
     });
 
     galleryItems.forEach(function (item, index) {
-        // إلغاء الأنيميشن التلقائي للصور اللي بعد الـ 9
         if (index >= 9) {
             item.style.animation = "none";
             item.style.opacity = "0";
             observer.observe(item);
         }
     });
-})();
-
-
-// =========================
-// Scroll Progress Bar (لصفحة المشروع)
-// =========================
-
-(function initScrollProgress() {
-    // لو مفيش عنصر، ننشئه
-    let bar = document.getElementById("project-scroll-progress");
-
-    if (!bar) {
-        bar = document.createElement("div");
-        bar.id = "project-scroll-progress";
-        bar.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            width: 0;
-            background: linear-gradient(90deg, #0284c7, #16a34a, #db2777);
-            z-index: 10000;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
-        `;
-        document.body.appendChild(bar);
-    }
-
-    window.addEventListener("scroll", function () {
-        const top = window.scrollY;
-        const height = document.documentElement.scrollHeight - window.innerHeight;
-        const percent = height > 0 ? (top / height) * 100 : 0;
-        bar.style.width = percent + "%";
-    }, { passive: true });
-})();
+}
 
 
 // =========================
 // Image Lazy Load with Fade In
 // =========================
 
-(function initImageFade() {
+function initImageFade() {
     const images = document.querySelectorAll(".gallery-item img, .project-main-image img");
 
     images.forEach(function (img) {
-        // لو الصورة اتحملت خلاص
         if (img.complete) {
             img.style.opacity = "1";
             return;
@@ -569,14 +525,14 @@ if (project && project.screenshots && project.screenshots.length > 0) {
             img.style.opacity = "0.5";
         });
     });
-})();
+}
 
 
 // =========================
 // Click Ripple Effect on Gallery
 // =========================
 
-(function initGalleryRipple() {
+function initGalleryRipple() {
     const galleryItems = document.querySelectorAll(".gallery-item");
 
     galleryItems.forEach(function (item) {
@@ -609,4 +565,122 @@ if (project && project.screenshots && project.screenshots.length > 0) {
             }, 600);
         });
     });
+}
+
+
+// =========================
+// Scroll Progress Bar
+// =========================
+
+function initScrollProgress() {
+    let bar = document.getElementById("project-scroll-progress");
+
+    if (!bar) {
+        bar = document.createElement("div");
+        bar.id = "project-scroll-progress";
+        bar.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: linear-gradient(90deg, #0284c7, #16a34a, #db2777);
+            z-index: 10000;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
+        `;
+        document.body.appendChild(bar);
+    }
+
+    if (bar.dataset.bound) return;
+    bar.dataset.bound = "1";
+
+    window.addEventListener("scroll", function () {
+        const top = window.scrollY;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = height > 0 ? (top / height) * 100 : 0;
+        bar.style.width = percent + "%";
+    }, { passive: true });
+}
+
+
+// =========================
+// Smart Back Button
+// =========================
+
+(function initSmartBack() {
+    const backBtn = document.getElementById("back-to-projects");
+    if (!backBtn) return;
+
+    backBtn.addEventListener("click", function (e) {
+        if (document.referrer && document.referrer.includes(window.location.host)) {
+            e.preventDefault();
+            window.history.back();
+        }
+    });
+})();
+
+
+// =========================
+// Load Project (IndexedDB first, fallback to data file)
+// =========================
+
+(async function initProjectPage() {
+    if (!container) {
+        console.error("Project details container not found.");
+        return;
+    }
+
+    try {
+        // 1. Try IndexedDB
+        if (typeof WM_DB !== "undefined") {
+            await WM_DB.open();
+
+            // Seed if needed (first visit)
+            const seeded = await WM_DB.isSeeded();
+            if (!seeded && typeof projects !== "undefined" && Array.isArray(projects)) {
+                for (const p of projects) {
+                    await WM_DB.addProject(p);
+                }
+                await WM_DB.markSeeded();
+            }
+
+            projectsList = await WM_DB.getAllProjects();
+        }
+
+        // 2. Fallback: data file
+        if ((!projectsList || projectsList.length === 0) && typeof projects !== "undefined") {
+            projectsList = projects;
+        }
+
+        // 3. Find project
+        project = projectsList.find(function (item) {
+            return item.id === projectId;
+        });
+
+        // 4. Render
+        if (!project) {
+            renderNotFound();
+        } else {
+            renderProject(project);
+        }
+
+    } catch (err) {
+        console.error("Error loading project:", err);
+
+        // Fallback render
+        if (typeof projects !== "undefined") {
+            const fallback = projects.find(function (item) {
+                return item.id === projectId;
+            });
+
+            if (fallback) {
+                renderProject(fallback);
+            } else {
+                renderNotFound();
+            }
+        } else {
+            renderNotFound();
+        }
+    }
 })();
