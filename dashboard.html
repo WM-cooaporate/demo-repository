@@ -47,17 +47,19 @@
             <a href="index.html" class="logo" target="_blank">
                 &lt;WM /&gt; Dashboard
             </a>
+
             <div class="dash-user-info">
                 <span class="dash-user-badge" id="user-badge">👤 admin</span>
             </div>
 
             <button id="btn-publish" class="dash-btn dash-btn-primary" title="Publish to site">
-    🚀 Publish
-</button>
+                🚀 Publish
+            </button>
 
             <button id="btn-logout" class="dash-btn dash-btn-secondary" title="Logout">
-    🚪 Logout
-</button>
+                🚪 Logout
+            </button>
+
             <div class="dashboard-header-actions">
                 <button id="btn-export" class="dash-btn dash-btn-secondary" title="Export projects as JSON">
                     ⬇ Export
@@ -116,9 +118,7 @@
             </div>
 
             <!-- Projects Grid -->
-            <div id="projects-grid" class="dash-grid">
-                <!-- Loaded by JS -->
-            </div>
+            <div id="projects-grid" class="dash-grid"></div>
 
             <!-- Empty State -->
             <div id="empty-state" class="dash-empty" style="display: none;">
@@ -161,7 +161,7 @@
 
                     <div class="dash-form-row">
                         <label class="dash-label">
-                            Project ID (unique, English only)
+                            Project ID (unique, English only) *
                             <input
                                 type="text"
                                 name="id"
@@ -177,7 +177,7 @@
 
                     <div class="dash-form-row">
                         <label class="dash-label">
-                            Project Title
+                            Project Title *
                             <input
                                 type="text"
                                 name="title"
@@ -192,8 +192,8 @@
                     <div class="dash-form-row">
                         <label class="dash-label">
                             Category / Type
-                            <select name="type" id="field-type" class="dash-input" required>
-                                <option value="">— Select type —</option>
+                            <select name="type" id="field-type" class="dash-input">
+                                <option value="">— Select type (optional) —</option>
                                 <option value="Web Development">Web Development</option>
                                 <option value="Mobile App Development">Mobile App Development</option>
                                 <option value="Flutter Desktop Development">Flutter Desktop Development</option>
@@ -213,8 +213,7 @@
                                 id="field-description"
                                 class="dash-input"
                                 rows="3"
-                                placeholder="Brief description for the project card..."
-                                required
+                                placeholder="Brief description for the project card... (optional)"
                             ></textarea>
                         </label>
                     </div>
@@ -236,7 +235,7 @@
                                 name="seoTitle"
                                 id="field-seo-title"
                                 class="dash-input"
-                                placeholder="Meta Sense AI | WM Solutions"
+                                placeholder="Auto-generated from title if empty"
                             >
                         </label>
                     </div>
@@ -249,7 +248,7 @@
                                 id="field-seo-description"
                                 class="dash-input"
                                 rows="2"
-                                placeholder="SEO description..."
+                                placeholder="Auto-generated from description if empty"
                             ></textarea>
                         </label>
                     </div>
@@ -260,7 +259,7 @@
                 ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
-                        <span>🖼️</span> Main Image
+                        <span>🖼️</span> Main Image (Optional)
                     </h3>
 
                     <div class="dash-upload-zone" id="upload-main">
@@ -272,7 +271,7 @@
                         </div>
                     </div>
 
-                    <input type="text" name="image" id="field-image" class="dash-input" placeholder="Or paste image URL">
+                    <input type="text" name="image" id="field-image" class="dash-input" placeholder="Or paste image URL (optional)">
 
                     <div id="preview-main" class="dash-preview"></div>
 
@@ -287,7 +286,7 @@
                 ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
-                        <span>📸</span> Screenshots
+                        <span>📸</span> Screenshots (Optional)
                     </h3>
 
                     <div class="dash-upload-zone" id="upload-gallery">
@@ -319,7 +318,7 @@
                         </div>
                     </div>
 
-                    <input type="text" name="video" id="field-video" class="dash-input" placeholder="Or paste video URL (YouTube, MP4, etc.)">
+                    <input type="text" name="video" id="field-video" class="dash-input" placeholder="Or paste video URL (optional)">
 
                     <div id="preview-video" class="dash-preview"></div>
                 </div>
@@ -329,7 +328,7 @@
                 ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
-                        <span>⚙️</span> Technologies Used
+                        <span>⚙️</span> Technologies Used (Optional)
                     </h3>
 
                     <div class="dash-tags-input" id="tech-input-wrap">

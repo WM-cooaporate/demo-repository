@@ -157,7 +157,7 @@
                     </div>
                     <div class="dash-card-body">
                         <h3 class="dash-card-title">${escapeHtml(p.title)}</h3>
-                        <p class="dash-card-desc">${escapeHtml(p.description)}</p>
+                        <p class="dash-card-desc">${escapeHtml(p.description || "")}</p>
                         <div class="dash-card-techs">
                             ${techs}
                             ${techMore}
@@ -306,47 +306,73 @@
     }
 
     // =========================
-    // Save
+    // Save (with optional fields)
     // =========================
 
     formEl.addEventListener("submit", async function(e) {
         e.preventDefault();
 
+        // ═══════════════════════════════════
+        // Required Fields
+        // ═══════════════════════════════════
+
         const id = $("#field-id").value.trim().toLowerCase();
+        const title = $("#field-title").value.trim();
 
         if (!id) {
-            showToast("Project ID is required", "error");
+            showToast("❌ Project ID is required", "error");
+            $("#field-id").focus();
             return;
         }
 
-        // تحقق من ID
+        if (!title) {
+            showToast("❌ Project Title is required", "error");
+            $("#field-title").focus();
+            return;
+        }
+
+        // Validate ID format
         if (!/^[a-z0-9\-]+$/.test(id)) {
-            showToast("ID must be lowercase letters, numbers, and dashes only", "error");
+            showToast("❌ ID must be lowercase letters, numbers, and dashes only", "error");
             return;
         }
 
-        // تحقق من عدم التكرار (لو جديد)
+        // Check duplicate (for new projects)
         if (!editingId) {
             const exists = await WM_DB.getProject(id);
             if (exists) {
-                showToast("This ID is already used", "error");
+                showToast("❌ This ID is already used", "error");
                 return;
             }
         }
 
+        // ═══════════════════════════════════
+        // Optional Fields (with defaults)
+        // ═══════════════════════════════════
+
+        const type = $("#field-type").value.trim() || "Other";
+        const description = $("#field-description").value.trim() || "A project by WM Solutions.";
+        const seoTitle = $("#field-seo-title").value.trim() || (title + " | WM Solutions");
+        const seoDescription = $("#field-seo-description").value.trim() || description;
+        const image = $("#field-image").value.trim() || "images/logo.png";
+        const video = $("#field-video").value.trim() || "#";
+        const demo = $("#field-demo").value.trim() || "#";
+        const github = $("#field-github").value.trim() || "#";
+        const isLogo = $("#field-is-logo").checked;
+
         const project = {
             id: id,
-            title: $("#field-title").value.trim(),
-            type: $("#field-type").value,
-            description: $("#field-description").value.trim(),
-            seoTitle: $("#field-seo-title").value.trim() || ($("#field-title").value.trim() + " | WM Solutions"),
-            seoDescription: $("#field-seo-description").value.trim() || $("#field-description").value.trim(),
-            image: $("#field-image").value.trim(),
-            imageAlt: $("#field-title").value.trim() + " by WM Solutions",
-            video: $("#field-video").value.trim() || "#",
-            demo: $("#field-demo").value.trim() || "#",
-            github: $("#field-github").value.trim() || "#",
-            isLogo: $("#field-is-logo").checked,
+            title: title,
+            type: type,
+            description: description,
+            seoTitle: seoTitle,
+            seoDescription: seoDescription,
+            image: image,
+            imageAlt: title + " by WM Solutions",
+            video: video,
+            demo: demo,
+            github: github,
+            isLogo: isLogo,
             technologies: currentTech.slice(),
             screenshots: currentGallery.slice(),
             createdAt: editingId ? (await WM_DB.getProject(editingId)).createdAt : Date.now(),
@@ -366,7 +392,7 @@
             await loadProjects();
         } catch (err) {
             console.error(err);
-            showToast("Error saving project", "error");
+            showToast("❌ Error saving project", "error");
         }
     });
 
@@ -608,6 +634,7 @@
 
         e.target.value = "";
     });
+
     // =========================
     // Get Current User
     // =========================
@@ -717,7 +744,6 @@ const projects = [\n`;
     // =========================
 
     function showPublishModal(count) {
-        // Remove old modal
         const old = document.getElementById("publish-modal");
         if (old) old.remove();
 
@@ -771,7 +797,6 @@ const projects = [\n`;
 
         document.body.appendChild(modal);
 
-        // Close handlers
         const closeBtn1 = modal.querySelector("#close-publish-modal");
         const closeBtn2 = modal.querySelector("#close-publish-modal-2");
         const backdrop = modal.querySelector(".dash-modal-backdrop");
@@ -784,7 +809,6 @@ const projects = [\n`;
         closeBtn2.addEventListener("click", closeModal);
         backdrop.addEventListener("click", closeModal);
 
-        // Download again
         modal.querySelector("#download-again-publish").addEventListener("click", async function() {
             const allProjects = await WM_DB.getAllProjects();
             const jsContent = generateProjectsDataFile(allProjects);
