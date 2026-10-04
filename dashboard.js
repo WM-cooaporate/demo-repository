@@ -203,7 +203,7 @@
     });
 
     // =========================
-    // Grid Actions (Edit/Delete)
+    // Grid Actions
     // =========================
 
     gridEl.addEventListener("click", async function(e) {
@@ -221,7 +221,7 @@
     });
 
     // =========================
-    // Open Editor (Add / Edit)
+    // Open Editor
     // =========================
 
     async function openEditor(id) {
@@ -266,7 +266,6 @@
         $("#field-seo-description").value = p.seoDescription || "";
         $("#field-image").value = p.image || "";
         $("#field-video").value = p.video || "";
-        $("#field-github").value = p.github || "";
         $("#field-is-logo").checked = !!p.isLogo;
 
         // Preview main image
@@ -309,10 +308,7 @@
     formEl.addEventListener("submit", async function(e) {
         e.preventDefault();
 
-        // ═══════════════════════════════════
         // Required Fields
-        // ═══════════════════════════════════
-
         const id = $("#field-id").value.trim();
         const title = $("#field-title").value.trim();
 
@@ -328,7 +324,7 @@
             return;
         }
 
-        // Check duplicate (for new projects)
+        // Check duplicate
         if (!editingId) {
             const exists = await WM_DB.getProject(id);
             if (exists) {
@@ -337,17 +333,13 @@
             }
         }
 
-        // ═══════════════════════════════════
-        // Optional Fields (with defaults)
-        // ═══════════════════════════════════
-
+        // Optional Fields
         const type = $("#field-type").value.trim() || "Other";
         const description = $("#field-description").value.trim() || "A project by WM Solutions.";
         const seoTitle = $("#field-seo-title").value.trim() || (title + " | WM Solutions");
         const seoDescription = $("#field-seo-description").value.trim() || description;
         const image = $("#field-image").value.trim() || "images/logo.png";
         const video = $("#field-video").value.trim() || "#";
-        const github = $("#field-github").value.trim() || "#";
         const isLogo = $("#field-is-logo").checked;
 
         const project = {
@@ -360,7 +352,6 @@
             image: image,
             imageAlt: title + " by WM Solutions",
             video: video,
-            github: github,
             isLogo: isLogo,
             technologies: currentTech.slice(),
             screenshots: currentGallery.slice(),
@@ -515,7 +506,6 @@
         });
     }
 
-    // Main image
     setupUpload("upload-main", "file-main", async function(file) {
         if (!file) return;
         if (file.size > 3 * 1024 * 1024) {
@@ -528,7 +518,6 @@
         showToast("✅ Image uploaded");
     }, false);
 
-    // Gallery
     setupUpload("upload-gallery", "file-gallery", async function(files) {
         for (const file of files) {
             if (file.size > 3 * 1024 * 1024) {
@@ -542,7 +531,6 @@
         showToast("✅ " + files.length + " image(s) added");
     }, true);
 
-    // Video
     setupUpload("upload-video", "file-video", async function(file) {
         if (!file) return;
         if (file.size > 20 * 1024 * 1024) {
@@ -655,7 +643,7 @@
     }
 
     // =========================
-    // 🚀 Publish to Site
+    // Publish to Site
     // =========================
 
     const publishBtn = document.getElementById("btn-publish");

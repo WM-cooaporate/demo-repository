@@ -262,20 +262,8 @@ function renderProject(project) {
         `;
     }
 
-    // Actions — GitHub only (Live Demo removed)
+    // Actions — REMOVED (no more Live Demo / GitHub buttons)
     let actionsHtml = "";
-    const hasGithub = project.github && project.github !== "#";
-
-    if (hasGithub) {
-        actionsHtml = `
-            <div class="project-actions">
-                <a href="${escapeHtml(project.github)}" target="_blank"
-                   rel="noopener noreferrer" class="btn primary-btn">
-                    GitHub
-                </a>
-            </div>
-        `;
-    }
 
     container.innerHTML = `
         <div class="project-details-header">
