@@ -316,7 +316,7 @@
         // Required Fields
         // ═══════════════════════════════════
 
-        const id = $("#field-id").value.trim().toLowerCase();
+        const id = $("#field-id").value.trim();
         const title = $("#field-title").value.trim();
 
         if (!id) {
@@ -331,12 +331,6 @@
             return;
         }
 
-        // Validate ID format
-        if (!/^[a-z0-9\-]+$/.test(id)) {
-            showToast("❌ ID must be lowercase letters, numbers, and dashes only", "error");
-            return;
-        }
-
         // Check duplicate (for new projects)
         if (!editingId) {
             const exists = await WM_DB.getProject(id);
@@ -345,7 +339,6 @@
                 return;
             }
         }
-
         // ═══════════════════════════════════
         // Optional Fields (with defaults)
         // ═══════════════════════════════════
