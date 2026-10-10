@@ -534,7 +534,7 @@
     setupUpload("upload-video", "file-video", async function(file) {
         if (!file) return;
         if (file.size > 1024 * 1024 * 1024) {
-            showToast("Video too large (max 20MB)", "error");
+            showToast("Video too large (max 1GB)", "error");
             return;
         }
         const base64 = await WM_DB.fileToBase64(file);
