@@ -533,7 +533,7 @@
 
     setupUpload("upload-video", "file-video", async function(file) {
         if (!file) return;
-        if (file.size > 20 * 1024 * 1024) {
+        if (file.size > 1024 * 1024 * 1024) {
             showToast("Video too large (max 20MB)", "error");
             return;
         }
