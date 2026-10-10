@@ -645,17 +645,6 @@
     }
 
     // =========================
-    // Publish (لما Supabase)
-    // =========================
-
-    const publishBtn = document.getElementById("btn-publish");
-    if (publishBtn) {
-        publishBtn.addEventListener("click", function() {
-            showToast("ℹ️ With Supabase, projects appear instantly — no publish needed!", "success");
-        });
-    }
-
-    // =========================
     // Init
     // =========================
 

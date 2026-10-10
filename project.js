@@ -1,6 +1,5 @@
 /* ============================================
-   WM Solutions - Project Details Page
-   Reads from Supabase
+   WM Solutions - Project Details Page (Supabase)
 ============================================ */
 
 // =========================
