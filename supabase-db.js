@@ -5,7 +5,7 @@
 const SupaDB = {
 
     async getAllProjects() {
-        const { data, error } = await wmSupabase
+        const { data, error } = await window.wmSupabase
             .from("projects")
             .select("*")
             .order("created_at", { ascending: false });
@@ -18,7 +18,7 @@ const SupaDB = {
     },
 
     async getProject(id) {
-        const { data, error } = await wmSupabase
+        const { data, error } = await window.wmSupabase
             .from("projects")
             .select("*")
             .eq("id", id)
@@ -32,7 +32,7 @@ const SupaDB = {
     },
 
     async addProject(project) {
-        const { data, error } = await wmSupabase
+        const { data, error } = await window.wmSupabase
             .from("projects")
             .insert([project])
             .select();
@@ -42,7 +42,7 @@ const SupaDB = {
     },
 
     async updateProject(id, updates) {
-        const { data, error } = await wmSupabase
+        const { data, error } = await window.wmSupabase
             .from("projects")
             .update({...updates, updated_at: new Date().toISOString() })
             .eq("id", id)
@@ -53,7 +53,7 @@ const SupaDB = {
     },
 
     async deleteProject(id) {
-        const { error } = await wmSupabase
+        const { error } = await window.wmSupabase
             .from("projects")
             .delete()
             .eq("id", id);
@@ -66,13 +66,13 @@ const SupaDB = {
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
         const filePath = folder ? `${folder}/${fileName}` : fileName;
 
-        const { data, error } = await wmSupabase.storage
+        const { data, error } = await window.wmSupabase.storage
             .from("projects")
             .upload(filePath, file, { cacheControl: "3600", upsert: false });
 
         if (error) throw error;
 
-        const { data: urlData } = wmSupabase.storage
+        const { data: urlData } = window.wmSupabase.storage
             .from("projects")
             .getPublicUrl(filePath);
 
