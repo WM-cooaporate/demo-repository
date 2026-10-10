@@ -1,6 +1,6 @@
 /* ============================================
    WM Solutions - Project Details Page
-   Reads from IndexedDB (with fallback to projects-data.js)
+   Reads from Supabase
 ============================================ */
 
 // =========================
@@ -11,7 +11,6 @@ const params = new URLSearchParams(window.location.search);
 const projectId = params.get("id");
 
 let project = null;
-let projectsList = [];
 
 const container = document.getElementById("project-details-container");
 
@@ -38,7 +37,7 @@ function escapeHtml(text) {
 function updateProjectSEO(project) {
     if (!project) return;
 
-    document.title = project.seoTitle || project.title;
+    document.title = project.seo_title || project.title;
 
     const canonicalUrl =
         `https://wm-cooaporate.github.io/demo-repository/project.html?id=${encodeURIComponent(project.id)}`;
@@ -49,7 +48,7 @@ function updateProjectSEO(project) {
         description.setAttribute("name", "description");
         document.head.appendChild(description);
     }
-    description.setAttribute("content", project.seoDescription || project.description);
+    description.setAttribute("content", project.seo_description || project.description);
 
     setMetaName(
         "keywords",
@@ -69,18 +68,18 @@ function updateProjectSEO(project) {
         imageUrl = new URL(imageUrl, window.location.href).href;
     }
 
-    setMetaProperty("og:title", project.seoTitle || project.title);
-    setMetaProperty("og:description", project.seoDescription || project.description);
+    setMetaProperty("og:title", project.seo_title || project.title);
+    setMetaProperty("og:description", project.seo_description || project.description);
     setMetaProperty("og:url", canonicalUrl);
     setMetaProperty("og:image", imageUrl);
-    setMetaProperty("og:image:alt", project.imageAlt || project.title);
+    setMetaProperty("og:image:alt", project.title + " by WM Solutions");
     setMetaProperty("og:type", "article");
     setMetaProperty("og:site_name", "WM Solutions");
 
-    setMetaName("twitter:title", project.seoTitle || project.title);
-    setMetaName("twitter:description", project.seoDescription || project.description);
+    setMetaName("twitter:title", project.seo_title || project.title);
+    setMetaName("twitter:description", project.seo_description || project.description);
     setMetaName("twitter:image", imageUrl);
-    setMetaName("twitter:image:alt", project.imageAlt || project.title);
+    setMetaName("twitter:image:alt", project.title + " by WM Solutions");
     setMetaName("twitter:card", "summary_large_image");
 
     createBreadcrumbSchema(project, canonicalUrl);
@@ -164,7 +163,7 @@ function createProjectSchema(project, canonicalUrl, imageUrl) {
         "@id": canonicalUrl,
         "name": project.title,
         "headline": project.title,
-        "description": project.seoDescription || project.description,
+        "description": project.seo_description || project.description,
         "url": canonicalUrl,
         "image": {
             "@type": "ImageObject",
@@ -224,7 +223,7 @@ function renderNotFound() {
 function renderProject(project) {
     updateProjectSEO(project);
 
-    const isLogoProject = project.isLogo === true;
+    const isLogoProject = project.is_logo === true;
     const mainImageClass = isLogoProject ?
         "project-main-image logo-image" :
         "project-main-image";
@@ -246,7 +245,6 @@ function renderProject(project) {
         `)
         .join("");
 
-    // Video Section
     let videoHtml = "";
     if (project.video && project.video !== "#") {
         videoHtml = `
@@ -262,9 +260,6 @@ function renderProject(project) {
         `;
     }
 
-    // Actions — REMOVED (no more Live Demo / GitHub buttons)
-    let actionsHtml = "";
-
     container.innerHTML = `
         <div class="project-details-header">
             <p class="project-type">${escapeHtml(project.type)}</p>
@@ -277,7 +272,7 @@ function renderProject(project) {
         <div class="${mainImageClass}">
             <img
                 src="${escapeHtml(project.image)}"
-                alt="${escapeHtml(project.imageAlt || project.title)}"
+                alt="${escapeHtml(project.title)} by WM Solutions"
                 fetchpriority="high"
             >
         </div>
@@ -293,7 +288,6 @@ function renderProject(project) {
         </section>
 
         ${videoHtml}
-        ${actionsHtml}
     `;
 
     initLightbox(project);
@@ -569,7 +563,7 @@ function initScrollProgress() {
 
 
 // =========================
-// Load Project
+// Load Project from Supabase
 // =========================
 
 (async function initProjectPage() {
@@ -579,49 +573,15 @@ function initScrollProgress() {
     }
 
     try {
-        if (typeof WM_DB !== "undefined") {
-            await WM_DB.open();
-
-            const seeded = await WM_DB.isSeeded();
-            if (!seeded && typeof projects !== "undefined" && Array.isArray(projects)) {
-                for (const p of projects) {
-                    await WM_DB.addProject(p);
-                }
-                await WM_DB.markSeeded();
-            }
-
-            projectsList = await WM_DB.getAllProjects();
-        }
-
-        if ((!projectsList || projectsList.length === 0) && typeof projects !== "undefined") {
-            projectsList = projects;
-        }
-
-        project = projectsList.find(function(item) {
-            return item.id === projectId;
-        });
+        project = await SupaDB.getProject(projectId);
 
         if (!project) {
             renderNotFound();
         } else {
             renderProject(project);
         }
-
     } catch (err) {
         console.error("Error loading project:", err);
-
-        if (typeof projects !== "undefined") {
-            const fallback = projects.find(function(item) {
-                return item.id === projectId;
-            });
-
-            if (fallback) {
-                renderProject(fallback);
-            } else {
-                renderNotFound();
-            }
-        } else {
-            renderNotFound();
-        }
+        renderNotFound();
     }
 })();

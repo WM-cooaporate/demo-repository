@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | WM Solutions</title>
+
+    <!-- ✅ Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
         // ============================================
         // Protect Dashboard - Check Login
@@ -39,9 +43,6 @@
 
 <body class="dashboard-body">
 
-    <!-- =========================
-         Header
-    ========================== -->
     <header class="dashboard-header">
         <div class="dashboard-container">
             <a href="index.html" class="logo" target="_blank">
@@ -78,13 +79,9 @@
         </div>
     </header>
 
-    <!-- =========================
-         Main
-    ========================== -->
     <main class="dashboard-main">
         <div class="dashboard-container">
 
-            <!-- Stats Bar -->
             <div class="dash-stats">
                 <div class="dash-stat">
                     <span class="dash-stat-value" id="stat-total">0</span>
@@ -104,7 +101,6 @@
                 </div>
             </div>
 
-            <!-- Toolbar -->
             <div class="dash-toolbar">
                 <h2 class="dash-title">📁 Projects</h2>
 
@@ -117,10 +113,8 @@
                 </div>
             </div>
 
-            <!-- Projects Grid -->
             <div id="projects-grid" class="dash-grid"></div>
 
-            <!-- Empty State -->
             <div id="empty-state" class="dash-empty" style="display: none;">
                 <div class="dash-empty-icon">&lt;/&gt;</div>
                 <h3>No projects yet</h3>
@@ -133,9 +127,6 @@
         </div>
     </main>
 
-    <!-- =========================
-         Editor Modal
-    ========================== -->
     <div id="editor-modal" class="dash-modal" role="dialog" aria-modal="true" style="display: none;">
         <div class="dash-modal-backdrop"></div>
 
@@ -151,9 +142,6 @@
 
             <form id="project-form" class="dash-form">
 
-                <!-- =========================
-                     Basic Info
-                ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
                         <span>📝</span> Basic Information
@@ -218,9 +206,6 @@
                     </div>
                 </div>
 
-                <!-- =========================
-                     SEO
-                ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
                         <span>🔍</span> SEO (Optional)
@@ -229,33 +214,18 @@
                     <div class="dash-form-row">
                         <label class="dash-label">
                             SEO Title
-                            <input
-                                type="text"
-                                name="seoTitle"
-                                id="field-seo-title"
-                                class="dash-input"
-                                placeholder="Auto-generated from title if empty"
-                            >
+                            <input type="text" name="seoTitle" id="field-seo-title" class="dash-input" placeholder="Auto-generated from title if empty">
                         </label>
                     </div>
 
                     <div class="dash-form-row">
                         <label class="dash-label">
                             SEO Description
-                            <textarea
-                                name="seoDescription"
-                                id="field-seo-description"
-                                class="dash-input"
-                                rows="2"
-                                placeholder="Auto-generated from description if empty"
-                            ></textarea>
+                            <textarea name="seoDescription" id="field-seo-description" class="dash-input" rows="2" placeholder="Auto-generated from description if empty"></textarea>
                         </label>
                     </div>
                 </div>
 
-                <!-- =========================
-                     Images
-                ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
                         <span>🖼️</span> Main Image (Optional)
@@ -280,9 +250,6 @@
                     </label>
                 </div>
 
-                <!-- =========================
-                     Screenshots
-                ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
                         <span>📸</span> Screenshots (Optional)
@@ -300,9 +267,6 @@
                     <div id="preview-gallery" class="dash-gallery-preview"></div>
                 </div>
 
-                <!-- =========================
-                     Video
-                ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
                         <span>🎬</span> Demo Video (Optional)
@@ -313,7 +277,7 @@
                         <div class="dash-upload-inner">
                             <div class="dash-upload-icon">🎥</div>
                             <p class="dash-upload-text">Click or drag video here</p>
-                            <p class="dash-upload-hint">MP4, WEBM — max 1GB</p>
+                            <p class="dash-upload-hint">MP4, WEBM — max 100MB</p>
                         </div>
                     </div>
 
@@ -322,9 +286,6 @@
                     <div id="preview-video" class="dash-preview"></div>
                 </div>
 
-                <!-- =========================
-                     Technologies
-                ========================== -->
                 <div class="dash-form-section">
                     <h3 class="dash-form-section-title">
                         <span>⚙️</span> Technologies Used (Optional)
@@ -337,9 +298,6 @@
                     <div id="tech-tags" class="dash-tags"></div>
                 </div>
 
-                <!-- =========================
-                     Form Actions
-                ========================== -->
                 <div class="dash-form-actions">
                     <button type="button" id="btn-cancel" class="dash-btn dash-btn-secondary">
                         Cancel
@@ -355,9 +313,6 @@
         </div>
     </div>
 
-    <!-- =========================
-         Confirm Delete Modal
-    ========================== -->
     <div id="confirm-modal" class="dash-modal" style="display: none;">
         <div class="dash-modal-backdrop"></div>
 
@@ -383,16 +338,11 @@
         </div>
     </div>
 
-    <!-- =========================
-         Toast
-    ========================== -->
     <div id="toast" class="dash-toast"></div>
 
-    <!-- =========================
-         Scripts
-    ========================== -->
-    <script src="db.js"></script>
-    <script src="projects-data.js"></script>
+    <!-- ✅ السكريبتات الجديدة -->
+    <script src="supabase-client.js"></script>
+    <script src="supabase-db.js"></script>
     <script src="dashboard.js"></script>
 
 </body>

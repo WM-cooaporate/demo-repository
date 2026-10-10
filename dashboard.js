@@ -1,13 +1,9 @@
 /* ============================================
-   WM Solutions - Dashboard Logic
+   WM Solutions - Dashboard Logic (Supabase)
 ============================================ */
 
 (function() {
     "use strict";
-
-    // =========================
-    // State
-    // =========================
 
     let allProjects = [];
     let editingId = null;
@@ -15,12 +11,7 @@
     let currentTech = [];
     let currentGallery = [];
 
-    // =========================
-    // DOM Refs
-    // =========================
-
     const $ = function(sel) { return document.querySelector(sel); };
-    const $$ = function(sel) { return document.querySelectorAll(sel); };
 
     const gridEl = $("#projects-grid");
     const emptyEl = $("#empty-state");
@@ -50,7 +41,7 @@
     }
 
     // =========================
-    // ESC
+    // Escape HTML
     // =========================
 
     function escapeHtml(text) {
@@ -64,36 +55,18 @@
     }
 
     // =========================
-    // Seed from projects-data.js
-    // =========================
-
-    async function seedFromDataFile() {
-        const seeded = await WM_DB.isSeeded();
-        if (seeded) return;
-
-        if (typeof projects !== "undefined" && Array.isArray(projects) && projects.length > 0) {
-            await WM_DB.open();
-
-            for (const p of projects) {
-                await WM_DB.addProject(p);
-            }
-
-            await WM_DB.markSeeded();
-            showToast("✅ Imported " + projects.length + " projects from data file");
-        }
-    }
-
-    // =========================
     // Load Projects
     // =========================
 
     async function loadProjects() {
-        allProjects = await WM_DB.getAllProjects();
-        allProjects.sort(function(a, b) {
-            return (b.createdAt || 0) - (a.createdAt || 0);
-        });
-        renderProjects(allProjects);
-        updateStats();
+        try {
+            allProjects = await SupaDB.getAllProjects();
+            renderProjects(allProjects);
+            updateStats();
+        } catch (err) {
+            console.error(err);
+            showToast("❌ Error loading projects", "error");
+        }
     }
 
     // =========================
@@ -228,13 +201,19 @@
         editingId = id || null;
 
         if (id) {
-            const project = await WM_DB.getProject(id);
-            if (!project) {
-                showToast("Project not found", "error");
+            try {
+                const project = await SupaDB.getProject(id);
+                if (!project) {
+                    showToast("Project not found", "error");
+                    return;
+                }
+                fillForm(project);
+                modalTitleEl.textContent = "Edit Project";
+            } catch (err) {
+                console.error(err);
+                showToast("Error loading project", "error");
                 return;
             }
-            fillForm(project);
-            modalTitleEl.textContent = "Edit Project";
         } else {
             formEl.reset();
             clearFormExtras();
@@ -262,31 +241,27 @@
         $("#field-title").value = p.title || "";
         $("#field-type").value = p.type || "";
         $("#field-description").value = p.description || "";
-        $("#field-seo-title").value = p.seoTitle || "";
-        $("#field-seo-description").value = p.seoDescription || "";
+        $("#field-seo-title").value = p.seo_title || "";
+        $("#field-seo-description").value = p.seo_description || "";
         $("#field-image").value = p.image || "";
         $("#field-video").value = p.video || "";
-        $("#field-is-logo").checked = !!p.isLogo;
+        $("#field-is-logo").checked = !!p.is_logo;
 
-        // Preview main image
         if (p.image) {
             $("#preview-main").innerHTML = `<img src="${escapeHtml(p.image)}" alt="preview">`;
         } else {
             $("#preview-main").innerHTML = "";
         }
 
-        // Preview video
         if (p.video && p.video !== "#") {
             $("#preview-video").innerHTML = `<video src="${escapeHtml(p.video)}" controls></video>`;
         } else {
             $("#preview-video").innerHTML = "";
         }
 
-        // Tech
         currentTech = (p.technologies || []).slice();
         renderTechTags();
 
-        // Gallery
         currentGallery = (p.screenshots || []).slice();
         renderGalleryPreview();
     }
@@ -308,7 +283,6 @@
     formEl.addEventListener("submit", async function(e) {
         e.preventDefault();
 
-        // Required Fields
         const id = $("#field-id").value.trim();
         const title = $("#field-title").value.trim();
 
@@ -324,47 +298,36 @@
             return;
         }
 
-        // Check duplicate
         if (!editingId) {
-            const exists = await WM_DB.getProject(id);
-            if (exists) {
-                showToast("❌ This ID is already used", "error");
-                return;
-            }
+            try {
+                const exists = await SupaDB.getProject(id);
+                if (exists) {
+                    showToast("❌ This ID is already used", "error");
+                    return;
+                }
+            } catch (err) {}
         }
-
-        // Optional Fields
-        const type = $("#field-type").value.trim() || "Other";
-        const description = $("#field-description").value.trim() || "A project by WM Solutions.";
-        const seoTitle = $("#field-seo-title").value.trim() || (title + " | WM Solutions");
-        const seoDescription = $("#field-seo-description").value.trim() || description;
-        const image = $("#field-image").value.trim() || "images/logo.png";
-        const video = $("#field-video").value.trim() || "#";
-        const isLogo = $("#field-is-logo").checked;
 
         const project = {
             id: id,
             title: title,
-            type: type,
-            description: description,
-            seoTitle: seoTitle,
-            seoDescription: seoDescription,
-            image: image,
-            imageAlt: title + " by WM Solutions",
-            video: video,
-            isLogo: isLogo,
+            type: $("#field-type").value.trim() || "Other",
+            description: $("#field-description").value.trim() || "A project by WM Solutions.",
+            seo_title: $("#field-seo-title").value.trim() || (title + " | WM Solutions"),
+            seo_description: $("#field-seo-description").value.trim() || $("#field-description").value.trim(),
+            image: $("#field-image").value.trim() || "images/logo.png",
+            video: $("#field-video").value.trim() || "#",
+            is_logo: $("#field-is-logo").checked,
             technologies: currentTech.slice(),
-            screenshots: currentGallery.slice(),
-            createdAt: editingId ? (await WM_DB.getProject(editingId)).createdAt : Date.now(),
-            updatedAt: Date.now()
+            screenshots: currentGallery.slice()
         };
 
         try {
             if (editingId) {
-                await WM_DB.updateProject(project);
+                await SupaDB.updateProject(editingId, project);
                 showToast("✅ Project updated");
             } else {
-                await WM_DB.addProject(project);
+                await SupaDB.addProject(project);
                 showToast("✅ Project added");
             }
 
@@ -381,12 +344,16 @@
     // =========================
 
     async function openDeleteConfirm(id) {
-        const p = await WM_DB.getProject(id);
-        if (!p) return;
+        try {
+            const p = await SupaDB.getProject(id);
+            if (!p) return;
 
-        deletingId = id;
-        confirmTitleEl.textContent = p.title;
-        confirmModalEl.style.display = "flex";
+            deletingId = id;
+            confirmTitleEl.textContent = p.title;
+            confirmModalEl.style.display = "flex";
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     $("#btn-cancel-delete").addEventListener("click", function() {
@@ -398,7 +365,7 @@
         if (!deletingId) return;
 
         try {
-            await WM_DB.deleteProject(deletingId);
+            await SupaDB.deleteProject(deletingId);
             confirmModalEl.style.display = "none";
             deletingId = null;
             showToast("🗑 Project deleted");
@@ -512,35 +479,59 @@
             showToast("Image too large (max 3MB)", "error");
             return;
         }
-        const base64 = await WM_DB.fileToBase64(file);
-        $("#field-image").value = base64;
-        $("#preview-main").innerHTML = `<img src="${base64}" alt="preview">`;
-        showToast("✅ Image uploaded");
+
+        showToast("⏳ Uploading...");
+
+        try {
+            const url = await SupaDB.uploadFile(file, "main");
+            $("#field-image").value = url;
+            $("#preview-main").innerHTML = `<img src="${url}" alt="preview">`;
+            showToast("✅ Image uploaded");
+        } catch (err) {
+            console.error(err);
+            showToast("❌ Upload failed", "error");
+        }
     }, false);
 
     setupUpload("upload-gallery", "file-gallery", async function(files) {
+        showToast("⏳ Uploading " + files.length + " images...");
+
         for (const file of files) {
             if (file.size > 3 * 1024 * 1024) {
                 showToast("Skipping " + file.name + " (too large)", "error");
                 continue;
             }
-            const base64 = await WM_DB.fileToBase64(file);
-            currentGallery.push(base64);
+
+            try {
+                const url = await SupaDB.uploadFile(file, "screenshots");
+                currentGallery.push(url);
+            } catch (err) {
+                console.error(err);
+            }
         }
+
         renderGalleryPreview();
-        showToast("✅ " + files.length + " image(s) added");
+        showToast("✅ Images uploaded");
     }, true);
 
     setupUpload("upload-video", "file-video", async function(file) {
         if (!file) return;
-        if (file.size > 1024 * 1024 * 1024) {
-            showToast("Video too large (max 1GB)", "error");
+        if (file.size > 100 * 1024 * 1024) {
+            showToast("Video too large (max 100MB)", "error");
             return;
         }
-        const base64 = await WM_DB.fileToBase64(file);
-        $("#field-video").value = base64;
-        $("#preview-video").innerHTML = `<video src="${base64}" controls></video>`;
-        showToast("✅ Video uploaded");
+
+        showToast("⏳ Uploading video...");
+
+        try {
+            const url = await SupaDB.uploadFile(file, "videos");
+            $("#field-video").value = url;
+            $("#preview-video").innerHTML = `<video src="${url}" controls></video>`;
+            showToast("✅ Video uploaded");
+        } catch (err) {
+            console.error(err);
+            showToast("❌ Upload failed", "error");
+        }
     }, false);
 
     // =========================
@@ -570,8 +561,12 @@
     // Export / Import
     // =========================
 
-    $("#btn-export").addEventListener("click", async function() {
-        const data = await WM_DB.exportAll();
+    $("#btn-export").addEventListener("click", function() {
+        const data = {
+            exportedAt: new Date().toISOString(),
+            projects: allProjects
+        };
+
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
 
@@ -581,7 +576,7 @@
         a.click();
         URL.revokeObjectURL(url);
 
-        showToast("✅ Exported " + data.projects.length + " projects");
+        showToast("✅ Exported " + allProjects.length + " projects");
     });
 
     $("#btn-import").addEventListener("click", function() {
@@ -601,8 +596,15 @@
                 return;
             }
 
-            const count = await WM_DB.importAll(data, { mode: "merge" });
-            showToast("✅ Imported " + count + " projects");
+            for (const p of data.projects) {
+                try {
+                    await SupaDB.addProject(p);
+                } catch (err) {
+                    console.error("Skipping:", p.id, err);
+                }
+            }
+
+            showToast("✅ Imported projects");
             await loadProjects();
         } catch (err) {
             console.error(err);
@@ -625,7 +627,7 @@
             if (session && session.username) {
                 badge.textContent = "👤 " + session.username;
             }
-        } catch (e) { /* ignore */ }
+        } catch (e) {}
     })();
 
     // =========================
@@ -643,158 +645,13 @@
     }
 
     // =========================
-    // Publish to Site
+    // Publish (لما Supabase)
     // =========================
 
     const publishBtn = document.getElementById("btn-publish");
     if (publishBtn) {
-        publishBtn.addEventListener("click", async function() {
-            try {
-                publishBtn.disabled = true;
-                publishBtn.textContent = "⏳ Generating...";
-
-                const allProjects = await WM_DB.getAllProjects();
-
-                if (!allProjects.length) {
-                    showToast("⚠️ No projects to publish", "error");
-                    return;
-                }
-
-                allProjects.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
-
-                const jsContent = generateProjectsDataFile(allProjects);
-
-                const blob = new Blob([jsContent], { type: "text/javascript" });
-                const url = URL.createObjectURL(blob);
-
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "projects-data.js";
-                a.click();
-                URL.revokeObjectURL(url);
-
-                showPublishModal(allProjects.length);
-
-            } catch (err) {
-                console.error(err);
-                showToast("❌ Error generating file", "error");
-            } finally {
-                publishBtn.disabled = false;
-                publishBtn.textContent = "🚀 Publish";
-            }
-        });
-    }
-
-    // =========================
-    // Generate projects-data.js
-    // =========================
-
-    function generateProjectsDataFile(projects) {
-        let output = `/* ============================================
-   WM Solutions - Projects Data (Published)
-   Generated: ${new Date().toISOString()}
-   Total: ${projects.length} projects
-============================================ */
-
-const projects = [\n`;
-
-        projects.forEach(function(p, index) {
-            output += "\n    " + JSON.stringify(p, null, 4).replace(/\n/g, "\n    ");
-
-            if (index < projects.length - 1) {
-                output += ",";
-            }
-            output += "\n";
-        });
-
-        output += "\n];\n";
-
-        return output;
-    }
-
-    // =========================
-    // Publish Success Modal
-    // =========================
-
-    function showPublishModal(count) {
-        const old = document.getElementById("publish-modal");
-        if (old) old.remove();
-
-        const modal = document.createElement("div");
-        modal.id = "publish-modal";
-        modal.className = "dash-modal";
-        modal.style.display = "flex";
-
-        modal.innerHTML = `
-        <div class="dash-modal-backdrop"></div>
-        <div class="dash-modal-content" style="max-width: 560px;">
-            <div class="dash-modal-header">
-                <h2>✅ File Downloaded!</h2>
-                <button class="dash-modal-close" id="close-publish-modal">×</button>
-            </div>
-
-            <div class="dash-modal-body">
-                <div style="text-align: center; margin-bottom: 24px;">
-                    <div style="font-size: 60px; margin-bottom: 12px;">📦</div>
-                    <p style="font-size: 16px; color: #f1f5f9; margin: 0 0 8px;">
-                        <strong>projects-data.js</strong> جاهز ب${count} مشروع
-                    </p>
-                    <p style="color: #94a3b8; font-size: 14px; margin: 0;">
-                        الملف اتحمّل في مجلد <strong>Downloads</strong>
-                    </p>
-                </div>
-
-                <div style="background: #141d2e; border: 1px solid #2d3b4f; border-radius: 10px; padding: 16px; margin-bottom: 20px;">
-                    <p style="font-size: 13px; color: #5cc8ff; font-weight: 700; margin: 0 0 12px;">
-                        📋 الخطوات الجاية:
-                    </p>
-                    <ol style="color: #94a3b8; font-size: 13px; padding-left: 20px; margin: 0; line-height: 1.9;">
-                        <li>روح لمجلد <strong style="color:#5cc8ff;">WM_Solutions</strong></li>
-                        <li>استبدل <strong style="color:#5cc8ff;">projects-data.js</strong> القديم بالملف الجديد</li>
-                        <li>اعمل <strong style="color:#5cc8ff;">Refresh</strong> للموقع (Ctrl + Shift + R)</li>
-                        <li>المشاريع هتظهر في الصفحة الرئيسية ✅</li>
-                    </ol>
-                </div>
-
-                <div class="dash-form-actions" style="border: none; padding: 0; margin: 0;">
-                    <button type="button" class="dash-btn dash-btn-secondary" id="download-again-publish">
-                        ⬇ حمّل الملف تاني
-                    </button>
-                    <button type="button" class="dash-btn dash-btn-primary" id="close-publish-modal-2">
-                        👍 تمام
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-
-        document.body.appendChild(modal);
-
-        const closeBtn1 = modal.querySelector("#close-publish-modal");
-        const closeBtn2 = modal.querySelector("#close-publish-modal-2");
-        const backdrop = modal.querySelector(".dash-modal-backdrop");
-
-        function closeModal() {
-            modal.remove();
-        }
-
-        closeBtn1.addEventListener("click", closeModal);
-        closeBtn2.addEventListener("click", closeModal);
-        backdrop.addEventListener("click", closeModal);
-
-        modal.querySelector("#download-again-publish").addEventListener("click", async function() {
-            const allProjects = await WM_DB.getAllProjects();
-            const jsContent = generateProjectsDataFile(allProjects);
-            const blob = new Blob([jsContent], { type: "text/javascript" });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "projects-data.js";
-            a.click();
-            URL.revokeObjectURL(url);
-
-            showToast("✅ Downloaded again");
+        publishBtn.addEventListener("click", function() {
+            showToast("ℹ️ With Supabase, projects appear instantly — no publish needed!", "success");
         });
     }
 
@@ -804,12 +661,11 @@ const projects = [\n`;
 
     (async function init() {
         try {
-            await WM_DB.open();
-            await seedFromDataFile();
             await loadProjects();
+            showToast("✅ Dashboard ready");
         } catch (err) {
             console.error("Init error:", err);
-            showToast("Error loading data", "error");
+            showToast("❌ Error loading data", "error");
         }
     })();
 
