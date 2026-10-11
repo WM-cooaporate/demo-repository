@@ -160,7 +160,7 @@ function applyPortfolioFilter() {
 
 function applyScrollReveal() {
     const revealElements = document.querySelectorAll(
-        ".service-card, .project-card, .team-card, .contact-info"
+        ".service-card, .project-card, .team-card, .contact-info, .why-card, .stat-card"
     );
 
     if (revealElements.length === 0) return;
@@ -181,84 +181,114 @@ function applyScrollReveal() {
 
     revealElements.forEach(el => observer.observe(el));
 
+    // Fallback
     setTimeout(function() {
         revealElements.forEach(el => el.classList.add("show"));
-    }, 2000);
+    }, 2500);
 }
 
 
 // =========================
-// Stats Counter
+// Animate a single number (0 → target)
+// =========================
+
+function animateStatNumber(el, duration) {
+    if (!el) return;
+
+    duration = duration || 600;  // ✅ 600ms سريع
+
+    const target = parseInt(el.dataset.target, 10) || 0;
+    const suffix = el.dataset.suffix || "";
+    const startTime = performance.now();
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = Math.floor(eased * target);
+        el.textContent = current + suffix;
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            el.textContent = target + suffix;
+        }
+    }
+
+    requestAnimationFrame(update);
+}
+
+
+// =========================
+// Stats Counter - Runs when section enters viewport
 // =========================
 
 (function initStatsCounter() {
-    const statNumbers = document.querySelectorAll(".stat-number");
+    const statsSection = document.getElementById("stats");
+    if (!statsSection) return;
+
+    const statNumbers = statsSection.querySelectorAll(".stat-number");
     if (!statNumbers.length) return;
 
     let hasAnimated = false;
 
-    function animateCount(el) {
-        const target = parseInt(el.dataset.target, 10) || 0;
-        const suffix = el.dataset.suffix || "";
-        const duration = 2000;
-        const startTime = performance.now();
+    function runAllAnimations() {
+        if (hasAnimated) return;
+        hasAnimated = true;
 
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-            const current = Math.floor(eased * target);
-            el.textContent = current + suffix;
+        statNumbers.forEach(function(el, i) {
+            const target = parseInt(el.dataset.target, 10) || 0;
 
-            if (progress < 1) requestAnimationFrame(update);
-            else el.textContent = target + suffix;
-        }
-
-        requestAnimationFrame(update);
-    }
-
-    if (!("IntersectionObserver" in window)) {
-        statNumbers.forEach(animateCount);
-        return;
-    }
-
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting && !hasAnimated) {
-                hasAnimated = true;
-                statNumbers.forEach((el, i) => setTimeout(() => animateCount(el), i * 150));
-                observer.disconnect();
+            // لو الـ data-target = 0 (لسه محصلش من Supabase) → استخدم القيمة الحالية
+            if (target === 0) {
+                const currentValue = parseInt(el.textContent.replace(/[^0-9]/g, ""), 10) || 0;
+                if (currentValue > 0) {
+                    el.dataset.target = currentValue;
+                }
             }
+
+            setTimeout(function() {
+                animateStatNumber(el, 600);
+            }, i * 100);
         });
-    }, { threshold: 0.4 });
+    }
 
-    const statsSection = document.getElementById("stats");
-    if (statsSection) observer.observe(statsSection);
-})();
+    // ✅ استخدم IntersectionObserver — يشتغل لما القسم يدخل الشاشة
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    runAllAnimations();
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
 
+        observer.observe(statsSection);
+    } else {
+        // Fallback — شغّل مباشرة
+        runAllAnimations();
+    }
 
-// =========================
-// FAQ Toggle
-// =========================
-
-(function initFaqToggle() {
-    const faqItems = document.querySelectorAll(".faq-item");
-    faqItems.forEach(function(item) {
-        item.addEventListener("toggle", function() {});
+    // ✅ ربط بالـ Supabase — لما البيانات توصل، شغّل الأنيميشن فوراً
+    window.addEventListener("stats-ready", function() {
+        runAllAnimations();
     });
 })();
 
 
 // =========================
-// Update Stats
+// Update Stats From Projects
 // =========================
 
 function updateStatsFromProjects(projectsList) {
+    // ✅ Projects Count
     const projectsEl = document.querySelector('[data-auto="projects"]');
     if (projectsEl && Array.isArray(projectsList)) {
         projectsEl.dataset.target = projectsList.length;
     }
 
+    // ✅ Technologies Count
     const techEl = document.querySelector('[data-auto="tech"]');
     if (techEl && Array.isArray(projectsList)) {
         const techSet = new Set();
@@ -270,17 +300,8 @@ function updateStatsFromProjects(projectsList) {
         techEl.dataset.target = techSet.size;
     }
 
-    const statsSection = document.getElementById("stats");
-    if (statsSection) {
-        const rect = statsSection.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            document.querySelectorAll(".stat-number").forEach(function(el) {
-                const target = parseInt(el.dataset.target, 10) || 0;
-                const suffix = el.dataset.suffix || "";
-                el.textContent = target + suffix;
-            });
-        }
-    }
+    // ✅ أبلغ الـ Stats Counter إن البيانات جاهزة
+    window.dispatchEvent(new Event("stats-ready"));
 }
 
 

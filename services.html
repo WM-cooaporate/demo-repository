@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Services | WM Solutions - Web, Mobile & Software Development</title>
+
+    <meta name="description" content="Explore WM Solutions' software development services: web development, Flutter mobile apps, backend APIs, database solutions, and custom software.">
+
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://wm-cooaporate.github.io/demo-repository/services.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Services | WM Solutions">
+    <meta property="og:description" content="Explore our software development services.">
+    <meta property="og:url" content="https://wm-cooaporate.github.io/demo-repository/services.html">
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="theme-toggle.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <header>
+        <nav aria-label="Main navigation">
+            <a href="index.html" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a>
+
+            <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle Dark/Light Mode">
+                <span class="theme-toggle-inner">
+                    <span class="theme-icon theme-icon-dark" aria-hidden="true">&lt;/&gt;</span>
+                    <span class="theme-icon theme-icon-light" aria-hidden="true">☀</span>
+                </span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="page-main">
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <div class="page-hero-content">
+                <p class="page-hero-tag">&lt;!-- WHAT WE DO --&gt;</p>
+                <h1>Our <span>Services</span></h1>
+                <p class="page-hero-description">
+                    We provide end-to-end software development services, from concept to deployment and beyond.
+                </p>
+            </div>
+        </section>
+
+        <!-- Services Grid -->
+        <section id="services" aria-labelledby="services-title">
+            <div class="section-title">
+                <p>WHAT WE OFFER</p>
+                <h2 id="services-title">Software Development Services</h2>
+            </div>
+
+            <div class="services-container">
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">&lt;/&gt;</div>
+                    <h3>Web Development</h3>
+                    <p>We design and develop modern, responsive, and user-friendly websites for businesses, startups, and individuals using HTML, CSS, JavaScript, and modern web technologies.</p>
+                    <span>HTML • CSS • JavaScript</span>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">📱</div>
+                    <h3>Mobile App Development</h3>
+                    <p>We build cross-platform mobile applications using Flutter and Dart, focusing on performance, usability, scalability, and modern user interfaces.</p>
+                    <span>Flutter • Dart</span>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">⚙</div>
+                    <h3>Backend Development</h3>
+                    <p>We develop backend systems, REST APIs, and server-side applications using Java, Spring Boot, PHP, and modern backend technologies.</p>
+                    <span>Java • Spring Boot • PHP</span>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">🗄</div>
+                    <h3>Database Solutions</h3>
+                    <p>We design reliable and scalable database solutions using MySQL and PostgreSQL for web applications, mobile apps, and custom software.</p>
+                    <span>MySQL • PostgreSQL</span>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">🎨</div>
+                    <h3>UI/UX Design</h3>
+                    <p>We craft intuitive user interfaces and seamless user experiences using Figma and modern design principles.</p>
+                    <span>Figma • Design Systems</span>
+                </article>
+
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">🚀</div>
+                    <h3>Custom Software</h3>
+                    <p>We build custom software solutions tailored to your business needs — from desktop apps to full-stack platforms.</p>
+                    <span>Full-Stack • Custom</span>
+                </article>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="cta" aria-labelledby="cta-title">
+            <div class="cta-content">
+                <h2 id="cta-title">Need a Custom Solution?</h2>
+                <p>Let's discuss your project and build something amazing together.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn primary-btn">Contact Us</a>
+                    <a href="projects.html" class="btn secondary-btn">View Projects</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 WM Solutions. All Rights Reserved.</p>
+    </footer>
+
+    <script src="supabase-client.js"></script>
+    <script src="supabase-db.js"></script>
+    <script src="animations.js"></script>
+    <script src="theme-toggle.js"></script>
+
+</body>
+
+</html>

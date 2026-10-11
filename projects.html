@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projects | WM Solutions - Software Development Portfolio</title>
+
+    <meta name="description" content="Explore our portfolio of software development projects: web applications, Flutter mobile apps, desktop applications, and custom software solutions.">
+
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://wm-cooaporate.github.io/demo-repository/projects.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Projects | WM Solutions">
+    <meta property="og:description" content="Explore our software development portfolio.">
+    <meta property="og:url" content="https://wm-cooaporate.github.io/demo-repository/projects.html">
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="theme-toggle.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <header>
+        <nav aria-label="Main navigation">
+            <a href="index.html" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a>
+
+            <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle Dark/Light Mode">
+                <span class="theme-toggle-inner">
+                    <span class="theme-icon theme-icon-dark" aria-hidden="true">&lt;/&gt;</span>
+                    <span class="theme-icon theme-icon-light" aria-hidden="true">☀</span>
+                </span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="page-main">
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <div class="page-hero-content">
+                <p class="page-hero-tag">&lt;!-- OUR WORK --&gt;</p>
+                <h1>Our <span>Projects</span></h1>
+                <p class="page-hero-description">
+                    A showcase of the software products we've built for our clients.
+                </p>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects" aria-labelledby="projects-title">
+            <div class="section-title">
+                <p>PORTFOLIO</p>
+                <h2 id="projects-title">Software &amp; App Development Projects</h2>
+            </div>
+
+            <div class="portfolio-filter" id="portfolio-filter" role="tablist">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Projects</button>
+                <button class="filter-btn" data-filter="Web Development" role="tab" aria-selected="false">Web</button>
+                <button class="filter-btn" data-filter="Mobile App Development" role="tab" aria-selected="false">Mobile</button>
+                <button class="filter-btn" data-filter="Flutter Desktop Development" role="tab" aria-selected="false">Desktop</button>
+                <button class="filter-btn" data-filter="React" role="tab" aria-selected="false">React</button>
+            </div>
+
+            <div class="projects-container" id="projects-container" aria-live="polite"></div>
+        </section>
+
+        <!-- CTA -->
+        <section id="cta" aria-labelledby="cta-title">
+            <div class="cta-content">
+                <h2 id="cta-title">Want to See Your Project Here?</h2>
+                <p>Let's build something amazing together.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn primary-btn">Start a Project</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 WM Solutions. All Rights Reserved.</p>
+    </footer>
+
+    <script src="supabase-client.js"></script>
+    <script src="supabase-db.js"></script>
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
+    <script src="theme-toggle.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | WM Solutions - Let's Work Together</title>
+
+    <meta name="description" content="Get in touch with WM Solutions for your software development project. Reach us via WhatsApp, Instagram, Facebook, or LinkedIn.">
+
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://wm-cooaporate.github.io/demo-repository/contact.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact | WM Solutions">
+    <meta property="og:description" content="Get in touch with WM Solutions.">
+    <meta property="og:url" content="https://wm-cooaporate.github.io/demo-repository/contact.html">
+
+    <link rel="icon" type="image/png" href="images/logo.png">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="theme-toggle.css">
+    <link rel="stylesheet" href="pages.css">
+</head>
+
+<body>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+    <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+    <header>
+        <nav aria-label="Main navigation">
+            <a href="index.html" class="logo" aria-label="WM Solutions Home">&lt;WM /&gt; Solutions</a>
+
+            <button class="menu-btn" id="menu-btn" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">☰</button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle Dark/Light Mode">
+                <span class="theme-toggle-inner">
+                    <span class="theme-icon theme-icon-dark" aria-hidden="true">&lt;/&gt;</span>
+                    <span class="theme-icon theme-icon-light" aria-hidden="true">☀</span>
+                </span>
+            </button>
+        </nav>
+    </header>
+
+    <main class="page-main">
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <div class="page-hero-content">
+                <p class="page-hero-tag">&lt;!-- GET IN TOUCH --&gt;</p>
+                <h1>Let's <span>Talk</span></h1>
+                <p class="page-hero-description">
+                    Have a project in mind? Tell us about your idea and let's turn it into a real digital solution.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" aria-labelledby="contact-title">
+            <div class="section-title">
+                <p>REACH OUT</p>
+                <h2 id="contact-title">Contact Us</h2>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Have a software project in mind?</h3>
+                    <p>We reply within 24 hours. Choose your preferred way to reach us.</p>
+
+                    <div class="contact-links">
+                        <a href="https://wa.me/201278971067" class="contact-item" target="_blank" rel="noopener noreferrer">
+                            <span>💬 WhatsApp</span>
+                            <span>→</span>
+                        </a>
+                        <a href="https://www.instagram.com/wm_solutions_2026/" class="contact-item" target="_blank" rel="noopener noreferrer">
+                            <span>📷 Instagram</span>
+                            <span>→</span>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61592424088595" class="contact-item" target="_blank" rel="noopener noreferrer">
+                            <span>📘 Facebook</span>
+                            <span>→</span>
+                        </a>
+                        <a href="https://www.linkedin.com/company/wm-solutions-eg/" class="contact-item" target="_blank" rel="noopener noreferrer">
+                            <span>💼 LinkedIn</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+
+                    <div class="contact-extra">
+                        <div class="contact-extra-item">
+                            <span class="contact-extra-icon">📍</span>
+                            <div>
+                                <strong>Location</strong>
+                                <p>Egypt — Working Remotely Worldwide</p>
+                            </div>
+                        </div>
+                        <div class="contact-extra-item">
+                            <span class="contact-extra-icon">⏱</span>
+                            <div>
+                                <strong>Response Time</strong>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 WM Solutions. All Rights Reserved.</p>
+    </footer>
+
+    <script src="supabase-client.js"></script>
+    <script src="supabase-db.js"></script>
+    <script src="animations.js"></script>
+    <script src="theme-toggle.js"></script>
+
+</body>
+
+</html>
